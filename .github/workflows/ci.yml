@@ -17,6 +17,9 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
 
       - name: Set node
         uses: actions/setup-node@v3
@@ -40,6 +43,9 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
 
       - name: Set node
         uses: actions/setup-node@v3
@@ -70,6 +76,9 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
 
       - name: Set node version to ${{ matrix.node }}
         uses: actions/setup-node@v3
