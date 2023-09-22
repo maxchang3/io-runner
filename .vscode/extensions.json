@@ -1,5 +1,6 @@
 {
   "recommendations": [
-    "amodio.tsl-problem-matcher"
+    "amodio.tsl-problem-matcher",
+    "Tobermory.es6-string-html"
   ]
 }
