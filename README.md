@@ -4,6 +4,6 @@
 
 ## License
 
-[MIT](./LICENSE) License © 2023 [maxchang3](https://github.com/maxchang3)
+[MIT](https://github.com/maxchang3/judge-runner/blob/main/LICENSE) License © 2023 [maxchang3](https://github.com/maxchang3)
 
 This project is initialized by using the template [starter-vscode](https://github.com/antfu/starter-vscode).
