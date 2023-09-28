@@ -1,0 +1,9 @@
+#app {
+    display: flex;
+    height: 100vh;
+    justify-content: space-between;
+}
+.editor {
+    width: 49%;
+    height: 100%;
+}

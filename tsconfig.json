@@ -4,6 +4,7 @@
     "module": "esnext",
     "lib": [ "esnext" ],
     "moduleResolution": "node",
+    "types": [],
     "esModuleInterop": true,
     "strict": true,
     "strictNullChecks": true,
@@ -13,6 +14,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": [ "src/*" ],
+      "webview": [ "webview/*" ],
     }
   }
 }
