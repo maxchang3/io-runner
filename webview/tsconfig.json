@@ -1,4 +1,7 @@
 {
+    "compilerOptions": {
+        "composite": true,
+    },
     "typeAcquisition": {
         "include": [
             "@types/vscode-webview"
