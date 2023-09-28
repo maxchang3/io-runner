@@ -30,7 +30,7 @@ export const getPanelHTML = (
                 <vscode-text-area resize="none" readonly value="test">OUTPUT</vscode-text-area>
             </div>
         </div>
-        ${scriptUris.map(script => `<script type="module" nonce="${nonce}" src="${script}"></script>`).join('\n')}]
+        ${scriptUris.map(script => `<script type="module" nonce="${nonce}" src="${script}"></script>`).join('\n')}
     </body>
     </html>`
 }
