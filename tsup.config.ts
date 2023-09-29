@@ -10,7 +10,6 @@ export default defineConfig({
     dts: false,
     external: [
         'vscode',
-        '$'
     ],
     noExternal: [
         "@vscode/webview-ui-toolkit"
