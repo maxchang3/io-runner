@@ -1,4 +1,4 @@
-import { getUri, getNonce } from "@/utils"
+import { getUri, getNonce } from "@/utils/webview"
 import type { Uri, Webview } from 'vscode'
 
 export const getPanelHTML = (
