@@ -3,6 +3,7 @@
     "target": "es2017",
     "module": "esnext",
     "lib": [ "esnext" ],
+    "types": [],
     "moduleResolution": "node",
     "esModuleInterop": true,
     "strict": true,
@@ -20,6 +21,7 @@
     { "path": "./webview" }
   ],
   "exclude": [
-    "./webview"
+    "webview",
+    "node_modules"
   ]
 }
