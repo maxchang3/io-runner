@@ -96,6 +96,10 @@ export const textAreaStyles = (
 	:host([resize='vertical']) .control {
 		resize: vertical;
 	}
+	.label-area {
+		display: flex;
+		justify-content: space-between;
+	}
 	.label {
 		display: block;
 		color: ${foreground};

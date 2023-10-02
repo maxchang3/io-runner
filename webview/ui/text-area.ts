@@ -1,15 +1,17 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
-
 import {
     FoundationElementDefinition,
     TextArea as FoundationTextArea,
-    textAreaTemplate as template,
     TextAreaResize,
 } from '@microsoft/fast-foundation'
+import { attr } from "@microsoft/fast-element"
 import { textAreaStyles as styles } from './text-area.style'
+import { textAreaTemplate as template } from './text-area.template'
 
 export { TextAreaResize }
+
+const countLines = (text: string) => text.length === 0 ? 0 : text.split('\n').length
 
 /**
  * The Visual Studio Code text area class.
@@ -20,6 +22,8 @@ export { TextAreaResize }
  * @public
  */
 export class TextArea extends FoundationTextArea {
+    @attr
+    public lines: number
     /**
      * Component lifecycle method that runs when the component is inserted
      * into the DOM.
@@ -34,6 +38,11 @@ export class TextArea extends FoundationTextArea {
             // Describe the generic component if no label is provided
             this.setAttribute('aria-label', 'Text area')
         }
+        this.lines = countLines(this.value)
+    }
+    valueChanged(previous: string, next: string) {
+        if (!this.control) return
+        this.lines = countLines(next)
     }
 }
 
