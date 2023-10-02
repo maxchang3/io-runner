@@ -6,7 +6,9 @@
   "private": true,
   "description": "",
   "author": "maxchang3 <maxcfoo@gmail.com>",
-  "repository": { "url": "https://github.com/maxchang3/judge-runner" },
+  "repository": {
+    "url": "https://github.com/maxchang3/judge-runner"
+  },
   "license": "MIT",
   "main": "./dist/extension.js",
   "icon": "res/icon.png",
