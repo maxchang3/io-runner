@@ -2,7 +2,7 @@ import { window } from "vscode"
 import type * as vscode from "vscode"
 import { getPanelHTML } from "./view"
 
-export class PanelProvider implements vscode.WebviewViewProvider {
+export class RunnerPanelProvider implements vscode.WebviewViewProvider {
     public static readonly viewType = 'judge-runner.panel';
     private _view?: vscode.WebviewView
 

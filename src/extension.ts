@@ -1,13 +1,13 @@
-import { window, debug } from 'vscode'
+import { window } from 'vscode'
 import type { ExtensionContext } from 'vscode'
-import { PanelProvider } from '@/panels/JudgeRunnerPanel'
+import { RunnerPanelProvider } from '@/panels/RunnerPanel'
 
 
 export function activate(context: ExtensionContext) {
-    const provider = new PanelProvider(context.extensionUri)
+    const provider = new RunnerPanelProvider(context.extensionUri)
     context.subscriptions.push(
         window.registerWebviewViewProvider(
-            PanelProvider.viewType,
+            RunnerPanelProvider.viewType,
             provider,
         )
     )
