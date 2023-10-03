@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "types": [ "@types/vscode-webview" ],
-        "lib": [ "esnext", "DOM" ],
+        "lib": [ "ES2022", "DOM" ],
         "composite": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
