@@ -40,7 +40,7 @@ export class TextArea extends FoundationTextArea {
         }
         this.lines = countLines(this.value)
     }
-    valueChanged(previous: string, next: string) {
+    valueChanged(_previous: string, next: string) {
         if (!this.control) return
         this.lines = countLines(next)
     }
