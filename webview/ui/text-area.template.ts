@@ -6,7 +6,7 @@ import type { TextArea } from "./text-area"
 
 /**
  * The template for the {@link @microsoft/fast-foundation#(TextArea:class)} component.
- * Customed for Judge Runner 
+ * Customed for IO Runner 
  * @public
  */
 export const textAreaTemplate: FoundationElementTemplate<ViewTemplate<TextArea>> =

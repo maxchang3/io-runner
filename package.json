@@ -1,13 +1,13 @@
 {
   "publisher": "maxchang3",
-  "name": "judge-runner",
-  "displayName": "judge-runner",
+  "name": "io-runner",
+  "displayName": "IO Runner",
   "version": "0.0.0",
   "private": true,
   "description": "",
   "author": "maxchang3 <maxcfoo@gmail.com>",
   "repository": {
-    "url": "https://github.com/maxchang3/judge-runner"
+    "url": "https://github.com/maxchang3/io-runner"
   },
   "license": "MIT",
   "main": "./dist/extension.js",
@@ -24,12 +24,12 @@
   "contributes": {
     "commands": [
       {
-        "command": "judge-runner.run",
+        "command": "io-runner.run",
         "title": "Compile And Run",
         "icon": "$(play)"
       },
       {
-        "command": "judge-runner.stop",
+        "command": "io-runner.stop",
         "title": "Stop",
         "icon": "$(primitive-square)"
       }
@@ -37,17 +37,17 @@
     "viewsContainers": {
       "panel": [
         {
-          "id": "judge-runner",
-          "title": "Judge Runner",
+          "id": "io-runner",
+          "title": "IO Runner",
           "icon": "$(symbol-event)"
         }
       ]
     },
     "views": {
-      "judge-runner": [
+      "io-runner": [
         {
-          "id": "judge-runner.panel",
-          "name": "Judge Runner",
+          "id": "io-runner.panel",
+          "name": "IO Runner",
           "type": "webview"
         }
       ]
@@ -55,13 +55,13 @@
     "menus": {
       "view/title": [
         {
-          "command": "judge-runner.run",
-          "when": "view == judge-runner.panel",
+          "command": "io-runner.run",
+          "when": "view == io-runner.panel",
           "group": "navigation"
         },
         {
-          "command": "judge-runner.stop",
-          "when": "view == judge-runner.panel",
+          "command": "io-runner.stop",
+          "when": "view == io-runner.panel",
           "group": "navigation"
         }
       ]
