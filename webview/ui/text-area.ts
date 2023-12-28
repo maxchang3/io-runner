@@ -88,18 +88,16 @@ export class TextArea extends FoundationTextArea {
         const lineHeight = parseFloat(window.getComputedStyle(this.control).lineHeight)
         const visibleLines = Math.ceil(this.control.clientHeight / lineHeight)
         const requiredLines = Math.max(this.lines, visibleLines)
-        const fragment = document.createDocumentFragment()
         while (this.lineNumber.children.length < requiredLines) {
-            fragment.appendChild(document.createElement('div'))
+            this.lineNumber.appendChild(document.createElement('div'))
         }
-        this.lineNumber.appendChild(fragment)
     }
     handleCursorMove(diff: number = 0) {
         const cursorLine = this.control.value.substring(0, this.control.selectionStart).split(/\r?\n/).length + diff
         if (cursorLine > this.lines || cursorLine < 0) return
         const currentLineEl = this.lineNumber.children[cursorLine - 1]
         const lastLineEl = this.lineNumber.children[this.preCursorLine - 1]
-        if(!lastLineEl || !currentLineEl) return
+        if (!lastLineEl || !currentLineEl) return
         lastLineEl.classList.remove("active")
         currentLineEl.classList.add('active')
         this.preCursorLine = cursorLine
