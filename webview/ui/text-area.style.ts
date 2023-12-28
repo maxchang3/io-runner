@@ -24,7 +24,6 @@ import {
 	typeRampPlus1FontSize,
 	typeRampPlus1LineHeight,
 } from '@vscode/webview-ui-toolkit/dist/design-tokens'
-import { create as createDeisgnToken } from "@vscode/webview-ui-toolkit/dist/utilities/design-tokens/create"
 import type { ElementDefinitionContext, FoundationElementDefinition } from '@microsoft/fast-foundation'
 
 
