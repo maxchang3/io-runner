@@ -1,7 +1,9 @@
 import { provideVSCodeDesignSystem } from "@vscode/webview-ui-toolkit"
-import { vsCodeTextArea } from "./ui/text-area"
+import { vsCodeTextArea } from "./ui/text-area/text-area"
 
-provideVSCodeDesignSystem().register(vsCodeTextArea())
+provideVSCodeDesignSystem().register(
+    vsCodeTextArea(),
+)
 
 const vscode = acquireVsCodeApi()
 
