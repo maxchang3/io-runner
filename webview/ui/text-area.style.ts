@@ -10,7 +10,6 @@ import {
 	disabledOpacity,
 	dropdownBorder,
 	focusBorder,
-	fontFamily,
 	foreground,
 	inputBackground,
 	inputForeground,
@@ -20,6 +19,8 @@ import {
 	scrollbarSliderBackground,
 	scrollbarSliderHoverBackground,
 	scrollbarWidth,
+	typeRampBaseFontSize,
+	typeRampMinus1FontSize,
 	typeRampPlus1FontSize,
 	typeRampPlus1LineHeight,
 } from '@vscode/webview-ui-toolkit/dist/design-tokens'
@@ -57,7 +58,9 @@ export const textAreaStyles = (
         height: calc(100% - ${typeRampPlus1LineHeight} - 10px);;
 		min-width: ${inputMinWidth};
 		resize: none;
-		word-wrap: normal;
+		white-space: pre;
+		overflow-wrap: normal;
+		overflow-x: scroll;
 	}
 	.control:hover:enabled {
 		background: ${inputBackground};
@@ -109,7 +112,7 @@ export const textAreaStyles = (
 		display: block;
 		color: ${foreground};
 		cursor: pointer;
-		font-size: ${typeRampPlus1FontSize};
+		font-size: ${typeRampMinus1FontSize};
 		line-height: ${typeRampPlus1LineHeight};
 		margin-bottom: 2px;
 	}
@@ -120,7 +123,7 @@ export const textAreaStyles = (
 	.line-number-area {
 		counter-reset: lineNumber;
 		font: inherit;
-		font-size: ${typeRampPlus1FontSize};
+		font-size: ${typeRampBaseFontSize};
 		line-height: ${typeRampPlus1LineHeight};
         height: calc(100% - ${typeRampPlus1LineHeight} - 10px);
 		border: calc(${borderWidth} * 1px) solid transparent;

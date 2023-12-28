@@ -22,7 +22,7 @@ export const textAreaTemplate: FoundationElementTemplate<ViewTemplate<TextArea>>
                 for="control"
                 class="${x => x.defaultSlottedNodes && x.defaultSlottedNodes.length ? "label" : "label label__hidden"}"
             >
-                <slot ${slotted("defaultSlottedNodes")}></slot>
+                <slot name="label" ${slotted("defaultSlottedNodes")}></slot>
             </label>
         </div>
         <div id="container">
