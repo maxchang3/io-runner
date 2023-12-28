@@ -5,18 +5,12 @@ import {
     TextArea as FoundationTextArea,
     TextAreaResize,
 } from '@microsoft/fast-foundation'
+import { throttle } from '@martinstark/throttle-ts'
 import { textAreaStyles as styles } from './text-area.style'
 import { textAreaTemplate as template } from './text-area.template'
+
 export { TextAreaResize }
 
-const debounce = <T extends (...args: any[]) => any>(cb: T, wait: number) => {
-    let h: any
-    const callable = (...args: any) => {
-        clearTimeout(h)
-        h = setTimeout(() => cb(...args), wait)
-    }
-    return <T>(<any>callable)
-}
 
 /**
  * The Visual Studio Code text area class with line number.
@@ -116,7 +110,7 @@ export class TextArea extends FoundationTextArea {
         }
         return true
     }
-    valueChanged = debounce((_previous: string, next: string) => {
+    valueChanged = throttle((_previous: string, next: string) => {
         if (!this.control) return
         const preLines = this.lines
         this.lines = this.countLines(next)
@@ -124,10 +118,10 @@ export class TextArea extends FoundationTextArea {
             this.updateLineNumber()
             this.handleCursorMove()
         }
-    }, 50)
-    resized = debounce(() => {
+    }, 30)[0]
+    resized = throttle(() => {
         this.updateViewLineNumber()
-    }, 50)
+    }, 100)[0]
 }
 
 /**

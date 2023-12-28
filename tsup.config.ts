@@ -12,6 +12,7 @@ export default defineConfig({
         'vscode',
     ],
     noExternal: [
-        "@vscode/webview-ui-toolkit"
+        "@vscode/webview-ui-toolkit",
+        "@martinstark/throttle-ts"
     ],
 })
