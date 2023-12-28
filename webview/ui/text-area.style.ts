@@ -58,7 +58,6 @@ export const textAreaStyles = (
         min-width: ${inputMinWidth};
         resize: none;
         white-space: pre;
-        overflow-wrap: normal;
     }
     .control:hover:enabled {
         background: ${inputBackground};
@@ -76,7 +75,7 @@ export const textAreaStyles = (
     }
     .control::-webkit-scrollbar {
         width: ${scrollbarWidth};
-        height: ${scrollbarHeight};
+        height: 0px;
     }
     .control::-webkit-scrollbar-corner {
         background: ${inputBackground};
@@ -123,7 +122,7 @@ export const textAreaStyles = (
         font: inherit;
         font-size: ${typeRampBaseFontSize};
         line-height: ${typeRampPlus1LineHeight};
-        height: calc(100% - ${typeRampPlus1LineHeight} - 10px);
+		height: calc(100% - ${typeRampPlus1LineHeight} - 10px);
         border: calc(${borderWidth} * 1px) solid transparent;
         overflow: hidden;
         color: var(--vscode-editorLineNumber-foreground);
