@@ -60,7 +60,6 @@ export const textAreaStyles = (
 		resize: none;
 		white-space: pre;
 		overflow-wrap: normal;
-		overflow-x: scroll;
 	}
 	.control:hover:enabled {
 		background: ${inputBackground};
