@@ -21,16 +21,20 @@ import {
 	scrollbarSliderHoverBackground,
 	scrollbarWidth,
 	typeRampPlus1FontSize,
-	typeRampPlus1LineHeight
+	typeRampPlus1LineHeight,
 } from '@vscode/webview-ui-toolkit/dist/design-tokens'
+import { create as createDeisgnToken} from "@vscode/webview-ui-toolkit/dist/utilities/design-tokens/create"
 import type { ElementDefinitionContext, FoundationElementDefinition } from '@microsoft/fast-foundation'
+
+
+const monospaceFontFamily = `Menlo, Monaco, "Courier New", monospace`
 
 export const textAreaStyles = (
 	context: ElementDefinitionContext,
 	definition: FoundationElementDefinition
 ) => css`
 	${display('inline-block')} :host {
-		font-family: ${fontFamily};
+		font-family: ${monospaceFontFamily};
 		outline: none;
 		user-select: none;
 	}
@@ -48,11 +52,12 @@ export const textAreaStyles = (
 		font: inherit;
 		font-size: ${typeRampPlus1FontSize};
 		line-height: ${typeRampPlus1LineHeight};
-		padding: calc(${designUnit} * 2px + 1px);
+		padding: 0 calc(${designUnit} * 2px + 1px) 0 calc(${designUnit} * 2px + 1px);
 		width: 100%;
         height: calc(100% - ${typeRampPlus1LineHeight} - 10px);;
 		min-width: ${inputMinWidth};
 		resize: none;
+		word-wrap: normal;
 	}
 	.control:hover:enabled {
 		background: ${inputBackground};
@@ -111,6 +116,33 @@ export const textAreaStyles = (
 	.label__hidden {
 		display: none;
 		visibility: hidden;
+	}
+	.line-number-area {
+		counter-reset: lineNumber;
+		font: inherit;
+		font-size: ${typeRampPlus1FontSize};
+		line-height: ${typeRampPlus1LineHeight};
+        height: calc(100% - ${typeRampPlus1LineHeight} - 10px);
+		border: calc(${borderWidth} * 1px) solid transparent;
+		overflow: hidden;
+		color: var(--vscode-editorLineNumber-foreground);
+		padding: 0 calc(${designUnit} * 2px + 1px) 0 calc(${designUnit} * 2px + 1px);
+		text-align: right;
+	}
+	.line-number-area div::before {
+		counter-increment: lineNumber;
+		content: counter(lineNumber);
+	}
+	.line-number-area .active {
+		color: var(--vscode-editorLineNumber-activeForeground);
+	}
+	.line-number-area::-webkit-scrollbar {
+		display: none;
+	}
+	#container {
+		display: flex;
+		width: 100%;
+		height: 100%;
 	}
 	:host([disabled]) {
 		opacity: ${disabledOpacity};

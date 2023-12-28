@@ -5,7 +5,6 @@ import {
     TextArea as FoundationTextArea,
     TextAreaResize,
 } from '@microsoft/fast-foundation'
-import { attr } from "@microsoft/fast-element"
 import { textAreaStyles as styles } from './text-area.style'
 import { textAreaTemplate as template } from './text-area.template'
 
@@ -22,8 +21,9 @@ const countLines = (text: string) => text.length === 0 ? 0 : text.split('\n').le
  * @public
  */
 export class TextArea extends FoundationTextArea {
-    @attr
-    public lines: number
+    lines: number
+    lineNumber: HTMLDivElement
+    preCursorLine: number = 1
     /**
      * Component lifecycle method that runs when the component is inserted
      * into the DOM.
@@ -39,10 +39,43 @@ export class TextArea extends FoundationTextArea {
             this.setAttribute('aria-label', 'Text area')
         }
         this.lines = countLines(this.value)
+        requestAnimationFrame(() => this.updateLineNumber())
+    }
+    private updateLineNumber() {
+        const lineHeight = parseFloat(window.getComputedStyle(this.control).lineHeight)
+        const visibleLines = Math.floor(this.control.clientHeight / lineHeight)
+        const requiredLines = Math.max(this.lines, visibleLines)
+        while (this.lineNumber.children.length > requiredLines) {
+            this.lineNumber.removeChild(this.lineNumber.lastChild)
+        }
+        while (this.lineNumber.children.length < requiredLines) {
+            this.lineNumber.appendChild(document.createElement('div'))
+        }
+    }
+    private handleCursorMove() {
+        const cursorLine = this.control.value.substring(0, this.control.selectionStart).split(/\r?\n/).length
+        const lastLineEl = this.lineNumber.children[this.preCursorLine - 1]
+        lastLineEl && lastLineEl.classList.remove("active")
+        this.lineNumber.children[cursorLine - 1].classList.add('active')
+        this.preCursorLine = cursorLine
     }
     valueChanged(_previous: string, next: string) {
         if (!this.control) return
+        const preLines = this.lines
         this.lines = countLines(next)
+        if (preLines !== this.lines) {
+            this.updateLineNumber()
+            this.handleCursorMove()
+        }
+    }
+    handleTextAreaScroll() {
+        this.lineNumber.scrollTop = this.control.scrollTop
+    }
+    handleKeydown(e: KeyboardEvent) {
+        if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+            this.handleCursorMove()
+        }
+        return true
     }
 }
 
