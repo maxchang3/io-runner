@@ -23,6 +23,7 @@ export const getPanelHTML = (
     </head>
     <body>
         <div id="app">
+            <vscode-task-selector id="selector"></vscode-task-selector>
             <div class="editor input" >
                 <vscode-text-area resize="none" autofocus>
                     <div slot="label">INPUT</div>
@@ -30,7 +31,7 @@ export const getPanelHTML = (
             </div>
             <div class="editor output" >
                 <vscode-text-area resize="none" readonly>
-                <div slot="label">OUTPUT</div>
+                    <div slot="label">OUTPUT</div>
                 </vscode-text-area>
             </div>
         </div>

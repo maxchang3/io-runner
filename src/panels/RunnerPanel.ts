@@ -1,6 +1,20 @@
 import { window } from "vscode"
-import type * as vscode from "vscode"
+import { resolveConfig, postMessageToWebview } from "@/utils"
 import { getPanelHTML } from "./view"
+import type { IORunneronfig } from "@/types"
+import type * as vscode from "vscode"
+
+let config: IORunneronfig
+
+const init = (view: vscode.Webview) => {
+    if (config) return
+    config = resolveConfig()
+    postMessageToWebview(
+        view,
+        "init",
+        config
+    )
+}
 
 export class RunnerPanelProvider implements vscode.WebviewViewProvider {
     public static readonly viewType = 'io-runner.panel';
@@ -30,6 +44,7 @@ export class RunnerPanelProvider implements vscode.WebviewViewProvider {
                     }
             }
         })
+        init(this._view.webview)
     }
 }
 

@@ -22,6 +22,38 @@
     "onStartupFinished"
   ],
   "contributes": {
+    "configuration": [
+      {
+        "title": "IO Runner",
+        "properties": {
+          "io-runner.taskmap": {
+            "description": "Mapping glob rules to task name",
+            "type": "object",
+            "additionalProperties": {
+              "type": [
+                "string",
+                "array"
+              ],
+              "description": "task name or array of task names"
+            },
+            "default": {
+              "taskMap": {
+                "*.py": [ "Python: Current File" ],
+                "*.c": [
+                  "(lldb) Launch",
+                  "(gdb) Launch"
+                ],
+                "*.cpp": [
+                  "(lldb) Launch",
+                  "(gdb) Launch"
+                ],
+                "*.js": [ "Node" ]
+              }
+            }
+          }
+        }
+      }
+    ],
     "commands": [
       {
         "command": "io-runner.run",
@@ -32,6 +64,11 @@
         "command": "io-runner.stop",
         "title": "Stop",
         "icon": "$(primitive-square)"
+      },
+      {
+        "command": "io-runner.toggle",
+        "title": "Toggle task",
+        "icon": "$(list-flat)"
       }
     ],
     "viewsContainers": {
@@ -61,6 +98,11 @@
         },
         {
           "command": "io-runner.stop",
+          "when": "view == io-runner.panel",
+          "group": "navigation"
+        },
+        {
+          "command": "io-runner.toggle",
           "when": "view == io-runner.panel",
           "group": "navigation"
         }
