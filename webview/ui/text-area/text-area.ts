@@ -36,7 +36,6 @@ export class TextArea extends FoundationTextArea {
      * @internal
      */
     private resizeDetector: ResizeObserver | null = null;
-    private debouncedUpdateLineNumber = debounce(() => this.updateLineNumber(), 50)
     /**
      * Component lifecycle method that runs when the component is inserted
      * into the DOM.
@@ -53,7 +52,7 @@ export class TextArea extends FoundationTextArea {
             this.setAttribute('aria-label', 'Text area')
         }
         this.lines = this.countLines(this.value)
-        requestAnimationFrame(() => this.updateLineNumber())
+        requestAnimationFrame(() => this.updateViewLineNumber())
     }
     /**
      * destroys the instance's resize observer
@@ -85,6 +84,11 @@ export class TextArea extends FoundationTextArea {
         return text.length === 0 ? 0 : text.split('\n').length
     }
     private updateLineNumber() {
+        while (this.lineNumber.children.length < this.lines) {
+            this.lineNumber.appendChild(document.createElement('div'))
+        }
+    }
+    private updateViewLineNumber() {
         const lineHeight = parseFloat(window.getComputedStyle(this.control).lineHeight)
         const visibleLines = Math.ceil(this.control.clientHeight / lineHeight)
         const requiredLines = Math.max(this.lines, visibleLines)
@@ -95,21 +99,13 @@ export class TextArea extends FoundationTextArea {
     handleCursorMove(diff: number = 0) {
         const cursorLine = this.control.value.substring(0, this.control.selectionStart).split(/\r?\n/).length + diff
         if (cursorLine > this.lines || cursorLine < 0) return
-        const currentLineEl = this.lineNumber.children[cursorLine - 1]
-        const lastLineEl = this.lineNumber.children[this.preCursorLine - 1]
+        const lineNumberChildren = this.lineNumber.children
+        const currentLineEl = lineNumberChildren[cursorLine - 1]
+        const lastLineEl = lineNumberChildren[this.preCursorLine - 1]
         if (!lastLineEl || !currentLineEl) return
         lastLineEl.classList.remove("active")
         currentLineEl.classList.add('active')
         this.preCursorLine = cursorLine
-    }
-    valueChanged(_previous: string, next: string) {
-        if (!this.control) return
-        const preLines = this.lines
-        this.lines = this.countLines(next)
-        if (preLines !== this.lines) {
-            this.updateLineNumber()
-            this.handleCursorMove()
-        }
     }
     handleTextAreaScroll() {
         this.lineNumber.scrollTop = this.control.scrollTop
@@ -120,9 +116,18 @@ export class TextArea extends FoundationTextArea {
         }
         return true
     }
-    resized() {
-        this.debouncedUpdateLineNumber()
-    }
+    valueChanged = debounce((_previous: string, next: string) => {
+        if (!this.control) return
+        const preLines = this.lines
+        this.lines = this.countLines(next)
+        if (preLines !== this.lines) {
+            this.updateLineNumber()
+            this.handleCursorMove()
+        }
+    }, 50)
+    resized = debounce(() => {
+        this.updateViewLineNumber()
+    }, 50)
 }
 
 /**
