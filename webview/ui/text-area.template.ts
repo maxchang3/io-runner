@@ -68,6 +68,7 @@ export const textAreaTemplate: FoundationElementTemplate<ViewTemplate<TextArea>>
                 @change="${x => x.handleChange()}"
                 @scroll="${(x, c) => x.handleTextAreaScroll()}"
                 @keydown="${(x, c) => x.handleKeydown(c.event as KeyboardEvent)}"
+                @click="${(x) => x.handleCursorMove()}"
                 ${ref("control")}
             ></textarea>
         </div>

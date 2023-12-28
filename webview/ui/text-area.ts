@@ -95,7 +95,7 @@ export class TextArea extends FoundationTextArea {
             this.lineNumber.appendChild(document.createElement('div'))
         }
     }
-    private handleCursorMove() {
+    handleCursorMove() {
         const cursorLine = this.control.value.substring(0, this.control.selectionStart).split(/\r?\n/).length
         const lastLineEl = this.lineNumber.children[this.preCursorLine - 1]
         lastLineEl && lastLineEl.classList.remove("active")
