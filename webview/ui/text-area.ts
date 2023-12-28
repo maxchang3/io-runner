@@ -88,9 +88,6 @@ export class TextArea extends FoundationTextArea {
         const lineHeight = parseFloat(window.getComputedStyle(this.control).lineHeight)
         const visibleLines = Math.ceil(this.control.clientHeight / lineHeight)
         const requiredLines = Math.max(this.lines, visibleLines)
-        while (this.lineNumber.children.length > requiredLines) {
-            this.lineNumber.removeChild(this.lineNumber.lastChild)
-        }
         while (this.lineNumber.children.length < requiredLines) {
             this.lineNumber.appendChild(document.createElement('div'))
         }
