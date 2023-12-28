@@ -88,15 +88,20 @@ export class TextArea extends FoundationTextArea {
         const lineHeight = parseFloat(window.getComputedStyle(this.control).lineHeight)
         const visibleLines = Math.ceil(this.control.clientHeight / lineHeight)
         const requiredLines = Math.max(this.lines, visibleLines)
+        const fragment = document.createDocumentFragment()
         while (this.lineNumber.children.length < requiredLines) {
-            this.lineNumber.appendChild(document.createElement('div'))
+            fragment.appendChild(document.createElement('div'))
         }
+        this.lineNumber.appendChild(fragment)
     }
-    handleCursorMove() {
-        const cursorLine = this.control.value.substring(0, this.control.selectionStart).split(/\r?\n/).length
+    handleCursorMove(diff: number = 0) {
+        const cursorLine = this.control.value.substring(0, this.control.selectionStart).split(/\r?\n/).length + diff
+        if (cursorLine > this.lines || cursorLine < 0) return
+        const currentLineEl = this.lineNumber.children[cursorLine - 1]
         const lastLineEl = this.lineNumber.children[this.preCursorLine - 1]
-        lastLineEl && lastLineEl.classList.remove("active")
-        this.lineNumber.children[cursorLine - 1].classList.add('active')
+        if(!lastLineEl || !currentLineEl) return
+        lastLineEl.classList.remove("active")
+        currentLineEl.classList.add('active')
         this.preCursorLine = cursorLine
     }
     valueChanged(_previous: string, next: string) {
@@ -113,7 +118,7 @@ export class TextArea extends FoundationTextArea {
     }
     handleKeydown(e: KeyboardEvent) {
         if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
-            this.handleCursorMove()
+            this.handleCursorMove(e.key === 'ArrowUp' ? -1 : 1)
         }
         return true
     }
