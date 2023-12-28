@@ -7,13 +7,19 @@ import {
 } from '@microsoft/fast-foundation'
 import { textAreaStyles as styles } from './text-area.style'
 import { textAreaTemplate as template } from './text-area.template'
-
 export { TextAreaResize }
 
-const countLines = (text: string) => text.length === 0 ? 0 : text.split('\n').length
+const debounce = <T extends (...args: any[]) => any>(cb: T, wait: number) => {
+    let h: any
+    const callable = (...args: any) => {
+        clearTimeout(h)
+        h = setTimeout(() => cb(...args), wait)
+    }
+    return <T>(<any>callable)
+}
 
 /**
- * The Visual Studio Code text area class.
+ * The Visual Studio Code text area class with line number.
  *
  * @remarks
  * HTML Element: `<vscode-text-area>`
@@ -23,23 +29,60 @@ const countLines = (text: string) => text.length === 0 ? 0 : text.split('\n').le
 export class TextArea extends FoundationTextArea {
     lines: number
     lineNumber: HTMLDivElement
-    preCursorLine: number = 1
+    private preCursorLine: number = 1
+    /**
+     * Detects if the component has been resized
+     * @from @fast-foundation/src/horizontal-scroll/horizontal-scroll.ts
+     * @internal
+     */
+    private resizeDetector: ResizeObserver | null = null;
+    private debouncedUpdateLineNumber = debounce(() => this.updateLineNumber(), 50)
     /**
      * Component lifecycle method that runs when the component is inserted
      * into the DOM.
      *
-     * @internal
+    * @internal
      */
     public connectedCallback() {
         super.connectedCallback()
+        this.initializeResizeDetector()
         if (this.textContent) {
             this.setAttribute('aria-label', this.textContent)
         } else {
             // Describe the generic component if no label is provided
             this.setAttribute('aria-label', 'Text area')
         }
-        this.lines = countLines(this.value)
+        this.lines = this.countLines(this.value)
         requestAnimationFrame(() => this.updateLineNumber())
+    }
+    /**
+     * destroys the instance's resize observer
+     * @from @fast-foundation/src/horizontal-scroll/horizontal-scroll.ts
+     * @internal
+     */
+    private disconnectResizeDetector(): void {
+        if (this.resizeDetector) {
+            this.resizeDetector.disconnect()
+            this.resizeDetector = null
+        }
+    }
+    /**
+     * @from @fast-foundation/src/horizontal-scroll/horizontal-scroll.ts
+     */
+    public disconnectedCallback(): void {
+        this.disconnectResizeDetector()
+        super.disconnectedCallback()
+    }
+    /**
+     * @from @fast-foundation/src/horizontal-scroll/horizontal-scroll.ts
+     */
+    private initializeResizeDetector(): void {
+        this.disconnectResizeDetector()
+        this.resizeDetector = new window.ResizeObserver(this.resized.bind(this))
+        this.resizeDetector.observe(this)
+    }
+    private countLines(text: string) {
+        return text.length === 0 ? 0 : text.split('\n').length
     }
     private updateLineNumber() {
         const lineHeight = parseFloat(window.getComputedStyle(this.control).lineHeight)
@@ -62,7 +105,7 @@ export class TextArea extends FoundationTextArea {
     valueChanged(_previous: string, next: string) {
         if (!this.control) return
         const preLines = this.lines
-        this.lines = countLines(next)
+        this.lines = this.countLines(next)
         if (preLines !== this.lines) {
             this.updateLineNumber()
             this.handleCursorMove()
@@ -76,6 +119,9 @@ export class TextArea extends FoundationTextArea {
             this.handleCursorMove()
         }
         return true
+    }
+    resized() {
+        this.debouncedUpdateLineNumber()
     }
 }
 
