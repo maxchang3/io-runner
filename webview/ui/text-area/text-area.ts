@@ -46,7 +46,6 @@ export class TextArea extends FoundationTextArea {
             this.setAttribute('aria-label', 'Text area')
         }
         this.lines = this.countLines(this.value)
-        requestAnimationFrame(() => this.updateViewLineNumber())
     }
     /**
      * destroys the instance's resize observer
@@ -77,18 +76,22 @@ export class TextArea extends FoundationTextArea {
     private countLines(text: string) {
         return text.length === 0 ? 0 : text.split('\n').length
     }
-    private updateLineNumber() {
-        while (this.lineNumber.children.length < this.lines) {
-            this.lineNumber.appendChild(document.createElement('div'))
-        }
-    }
-    private updateViewLineNumber() {
+    private countVisibleLines() {
         const lineHeight = parseFloat(window.getComputedStyle(this.control).lineHeight)
-        const visibleLines = Math.ceil(this.control.clientHeight / lineHeight)
-        const requiredLines = Math.max(this.lines, visibleLines)
-        while (this.lineNumber.children.length < requiredLines) {
-            this.lineNumber.appendChild(document.createElement('div'))
+        return Math.ceil(this.control.clientHeight / lineHeight)
+    }
+    private updateLineNumber(compareToVisibleLines: boolean = false) {
+        const targetLineCount = compareToVisibleLines
+            ? Math.max(this.lines, this.countVisibleLines())
+            : this.lines
+        const currentLineEl = this.lineNumber.children.length
+        if (currentLineEl >= targetLineCount) return
+        const fragment = document.createDocumentFragment()
+        for (let i = currentLineEl; i < targetLineCount; i++) {
+            fragment.appendChild(document.createElement('div'))
+
         }
+        this.lineNumber.appendChild(fragment)
     }
     handleCursorMove(diff: number = 0) {
         const cursorLine = this.control.value.substring(0, this.control.selectionStart).split(/\r?\n/).length + diff
@@ -120,7 +123,7 @@ export class TextArea extends FoundationTextArea {
         }
     }, 30)[0]
     resized = throttle(() => {
-        this.updateViewLineNumber()
+        this.updateLineNumber(true)
     }, 100)[0]
 }
 
