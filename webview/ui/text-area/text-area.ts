@@ -88,8 +88,9 @@ export class TextArea extends FoundationTextArea {
         if (currentLineEl >= targetLineCount) return
         const fragment = document.createDocumentFragment()
         for (let i = currentLineEl; i < targetLineCount; i++) {
-            fragment.appendChild(document.createElement('div'))
-
+            const div = document.createElement('div')
+            div.textContent = `${i + 1}`
+            fragment.appendChild(div)
         }
         this.lineNumber.appendChild(fragment)
     }

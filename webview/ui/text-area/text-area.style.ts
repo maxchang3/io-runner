@@ -54,7 +54,7 @@ export const textAreaStyles = (
         line-height: ${typeRampPlus1LineHeight};
         padding: 0 calc(${designUnit} * 2px + 1px) 0 calc(${designUnit} * 2px + 1px);
         width: 100%;
-        height: calc(100% - ${typeRampPlus1LineHeight} - 10px);;
+        height: 100%;;
         min-width: ${inputMinWidth};
         resize: none;
         white-space: pre;
@@ -118,20 +118,18 @@ export const textAreaStyles = (
         visibility: hidden;
     }
     .line-number-area {
-        counter-reset: lineNumber;
+        top: 0;
+        position: relative;
+        box-sizing: border-box;
         font: inherit;
         font-size: ${typeRampBaseFontSize};
         line-height: ${typeRampPlus1LineHeight};
-		height: calc(100% - ${typeRampPlus1LineHeight} - 10px);
+		height: 100%;
         border: calc(${borderWidth} * 1px) solid transparent;
         overflow: hidden;
         color: var(--vscode-editorLineNumber-foreground);
         padding: 0 calc(${designUnit} * 2px + 1px) 0 calc(${designUnit} * 2px + 1px);
         text-align: right;
-    }
-    .line-number-area div::before {
-        counter-increment: lineNumber;
-        content: counter(lineNumber);
     }
     .line-number-area .active {
         color: var(--vscode-editorLineNumber-activeForeground);
@@ -142,7 +140,7 @@ export const textAreaStyles = (
     #container {
         display: flex;
         width: 100%;
-        height: 100%;
+        height: calc(100% - ${typeRampPlus1LineHeight} - 10px);
     }
     :host([disabled]) {
         opacity: ${disabledOpacity};
