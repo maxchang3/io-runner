@@ -22,19 +22,7 @@ export const getPanelHTML = (
         ${styleUris.map(style => `<link href="${style}" rel="stylesheet">`).join('\n')}
     </head>
     <body>
-        <div id="app">
-            <vscode-task-selector id="selector"></vscode-task-selector>
-            <div class="editor input" >
-                <vscode-text-area resize="none" autofocus>
-                    <div slot="label">INPUT</div>
-                </vscode-text-area>
-            </div>
-            <div class="editor output" >
-                <vscode-text-area resize="none" readonly>
-                    <div slot="label">OUTPUT</div>
-                </vscode-text-area>
-            </div>
-        </div>
+        <vscode-app></vscode-app>
         ${scriptUris.map(script => `<script type="module" nonce="${nonce}" src="${script}"></script>`).join('\n')}
     </body>
     </html>`

@@ -5,7 +5,7 @@ import { template } from "./task-selector.template"
 import type { Dropdown } from "@vscode/webview-ui-toolkit"
 
 
-export class taskSelector extends FoundationElement {
+export class TaskSelector extends FoundationElement {
     dropdown: Dropdown
     @observable options: string[] = []
     get current() {
@@ -17,7 +17,7 @@ export class taskSelector extends FoundationElement {
 }
 
 
-export const vscodeTaskSelector = taskSelector.compose<FoundationElementDefinition>({
+export const vscodeTaskSelector = TaskSelector.compose<FoundationElementDefinition>({
     baseName: 'task-selector',
     styles,
     template,
