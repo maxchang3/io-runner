@@ -10,8 +10,7 @@ export const getPanelHTML = (
     const scriptUris = [
         getUri(webview, extensionUri, ['dist', 'webview.js'])
     ]
-    const styleUris = [
-        getUri(webview, extensionUri, ['assets', 'main.css'])
+    const styleUris: string[] = [
     ]
     return /*html*/`<!DOCTYPE html>
     <html lang="en">
@@ -19,11 +18,11 @@ export const getPanelHTML = (
         <meta charset="UTF-8">
         <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline' ${webview.cspSource}; script-src 'nonce-${nonce}';">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        ${styleUris.map(style => `<link href="${style}" rel="stylesheet">`).join('\n')}
+        ${styleUris ? styleUris.map(style => `<link href="${style}" rel="stylesheet">`).join('\n') : ''}
     </head>
     <body>
         <vscode-app></vscode-app>
-        ${scriptUris.map(script => `<script type="module" nonce="${nonce}" src="${script}"></script>`).join('\n')}
+        ${scriptUris ? scriptUris.map(script => `<script type="module" nonce="${nonce}" src="${script}"></script>`).join('\n') : ''}
     </body>
     </html>`
 }
