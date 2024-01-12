@@ -96,7 +96,7 @@ export class TextArea extends FoundationTextArea {
     }
     handleCursorMove(diff: number = 0) {
         const cursorLine = this.control.value.substring(0, this.control.selectionStart).split(/\r?\n/).length + diff
-        if (cursorLine > this.lines || cursorLine < 0) return
+        if ((this.lines != 0 && cursorLine > this.lines) || cursorLine < 0) return
         const lineNumberChildren = this.lineNumber.children
         const currentLineEl = lineNumberChildren[cursorLine - 1]
         const lastLineEl = lineNumberChildren[this.preCursorLine - 1]
