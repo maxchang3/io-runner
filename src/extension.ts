@@ -9,10 +9,16 @@ const registerCommands = (commands: CommandParameters[]): Disposable[] =>
 
 export function activate(context: ExtensionContext) {
     const provider = new RunnerPanelProvider(context.extensionUri)
+    const options = {
+        webviewOptions: {
+            retainContextWhenHidden: true
+        }
+    }
     context.subscriptions.push(
         vscode.window.registerWebviewViewProvider(
             RunnerPanelProvider.viewType,
             provider,
+            options
         ),
         ...registerCommands([
             RunCommand,
