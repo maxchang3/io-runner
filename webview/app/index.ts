@@ -28,7 +28,7 @@ export class App extends FoundationElement {
             case 'changeDoc':
                 {
                     const ext = (message.data) as CommandData["changeDoc"]
-                    this.taskSelectorEl.updateOptions(this.taskMap[`*.${ext}`])
+                    this.taskSelectorEl.updateOptions(this.taskMap[ext])
                     break
                 }
         }

@@ -38,18 +38,18 @@
             },
             "default": {
               "taskMap": {
-                "*.py": [
+                "py": [
                   "Python: Current File"
                 ],
-                "*.c": [
+                "c": [
                   "(lldb) Launch",
                   "(gdb) Launch"
                 ],
-                "*.cpp": [
+                "cpp": [
                   "(lldb) Launch",
                   "(gdb) Launch"
                 ],
-                "*.js": [
+                "js": [
                   "Node"
                 ]
               }
