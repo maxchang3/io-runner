@@ -4,12 +4,12 @@ import { FoundationElement, FoundationElementDefinition } from "@microsoft/fast-
 import type { WebviewApi } from "vscode-webview"
 import type { TaskSelector } from "../components"
 /** @ts-ignore not so elegant :(  to be optimized */
-import type { CommandMessage, CommandDataType } from "../../src/types"
+import type { CommandMessage, CommandData } from "../../src/types"
 
 export class App extends FoundationElement {
     vscode: WebviewApi<unknown>
     taskSelectorEl: TaskSelector
-    taskMap: CommandDataType["init"]["taskMap"]
+    taskMap: CommandData["init"]["taskMap"]
     public connectedCallback() {
         super.connectedCallback()
         this.vscode = acquireVsCodeApi()
@@ -20,14 +20,14 @@ export class App extends FoundationElement {
         switch (message.command) {
             case 'init':
                 {
-                    const { taskMap } = (message.data) as CommandDataType["init"]
+                    const { taskMap } = (message.data) as CommandData["init"]
                     this.taskMap = taskMap
                     console.log(message.data)
                     break
                 }
             case 'changeDoc':
                 {
-                    const ext = (message.data) as CommandDataType["changeDoc"]
+                    const ext = (message.data) as CommandData["changeDoc"]
                     this.taskSelectorEl.updateOptions(this.taskMap[`*.${ext}`])
                     break
                 }

@@ -1,6 +1,6 @@
 import { IORunneronfig } from "./config"
 
-export type CommandDataType = {
+export type CommandData = {
     init: IORunneronfig,
     run: undefined,
     stop: undefined,
@@ -8,9 +8,9 @@ export type CommandDataType = {
     changeDoc: string
 }
 
-export type CommandType = keyof CommandDataType
+export type Command = keyof CommandData
 
 export type CommandMessage = {
-    command: CommandType
-    data: CommandDataType[CommandType]
+    command: Command
+    data: CommandData[Command]
 }
