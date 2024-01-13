@@ -9,9 +9,7 @@ export type CommandToDataType = EnsureKeys<{
     run: undefined,
     stop: undefined,
     test: string,
-    changeDoc: {
-        ext: string
-    }
+    changeDoc: string
 }, CommandType>
 
 export type CommandMessage = {

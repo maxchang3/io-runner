@@ -13,7 +13,6 @@ export class App extends FoundationElement {
     public connectedCallback() {
         super.connectedCallback()
         this.vscode = acquireVsCodeApi()
-        this.vscode.postMessage({ command: 'test' })
         window.addEventListener('message', (e) => this.onVSCodeMessage(e))
     }
     onVSCodeMessage(event: MessageEvent<CommandMessage>) {
@@ -28,7 +27,7 @@ export class App extends FoundationElement {
                 }
             case 'changeDoc':
                 {
-                    const { ext } = (message.data) as CommandToDataType["changeDoc"]
+                    const ext = (message.data) as CommandToDataType["changeDoc"]
                     this.taskSelectorEl.updateOptions(this.taskMap[`*.${ext}`])
                     break
                 }
