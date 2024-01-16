@@ -1,7 +1,6 @@
 import * as vscode from "vscode"
-import { getPanelHTML } from "./view"
+import { getPanelHTML } from "./template"
 import { init } from "./handler"
-import { recieveCommandFromView } from "@/utils"
 
 
 export class RunnerPanelProvider implements vscode.WebviewViewProvider {
