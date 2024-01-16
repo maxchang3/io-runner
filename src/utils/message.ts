@@ -1,6 +1,5 @@
 import type { Webview } from "vscode"
-import type { Owner } from "@/types"
-import type { Webview as WebviewContext } from "@/types"
+import type { Owner, Webview as WebviewContext } from "@/types"
 
 export type CommandMessageSender = {
     [T in Owner.Command]: (data: Owner.CommandData[T]) => ReturnType<Webview["postMessage"]>

@@ -1,9 +1,9 @@
 import { template } from "./app.template"
 import { styles } from "./app.style"
 import { postCommandToVSCode, recieveCommandFromOwner } from "../utils/message"
+import { FoundationElement, FoundationElementDefinition } from "@microsoft/fast-foundation"
 import type { WebviewApi } from "vscode-webview"
 import type { TaskSelector } from "../components"
-import { FoundationElement, FoundationElementDefinition } from "@microsoft/fast-foundation"
 /** @ts-ignore not so elegant :(  to be optimized */
 import type { IORunneronfig, Owner } from "../../src/types"
 
@@ -23,7 +23,6 @@ export class App extends FoundationElement {
                 const { taskMap } = (data)
                 this.taskMap = taskMap
                 console.log(data)
-
             },
             changeDoc: (ext: string) => {
                 this.taskSelectorEl.updateOptions(this.taskMap[ext])
