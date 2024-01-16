@@ -1,6 +1,7 @@
 import * as vscode from "vscode"
 import { getPanelHTML } from "./view"
 import { init } from "./handler"
+import { recieveCommandFromView } from "@/utils"
 
 
 export class RunnerPanelProvider implements vscode.WebviewViewProvider {
@@ -23,13 +24,15 @@ export class RunnerPanelProvider implements vscode.WebviewViewProvider {
         }
         this._view.webview.html = getPanelHTML(this._view.webview, this._extensionUri)
         init(this._view.webview)
-        this._view.webview.onDidReceiveMessage(data => {
-            switch (data.command) {
-                case 'test':
-                    {
-                        vscode.window.showInformationMessage('howdy')
-                        break
-                    }
+        recieveCommandFromView(this._view.webview, {
+            test: (data) => {
+                vscode.window.showInformationMessage(data)
+            },
+            run: () => {
+                vscode.window.showInformationMessage('run')
+            },
+            stop: () => {
+                vscode.window.showInformationMessage('stop')
             }
         })
     }

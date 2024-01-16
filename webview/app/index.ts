@@ -1,37 +1,35 @@
 import { template } from "./app.template"
 import { styles } from "./app.style"
-import { FoundationElement, FoundationElementDefinition } from "@microsoft/fast-foundation"
+import { postCommandToVSCode, recieveCommandFromOwner } from "../utils/message"
 import type { WebviewApi } from "vscode-webview"
 import type { TaskSelector } from "../components"
+import { FoundationElement, FoundationElementDefinition } from "@microsoft/fast-foundation"
 /** @ts-ignore not so elegant :(  to be optimized */
-import type { CommandMessage, CommandData } from "../../src/types"
+import type { IORunneronfig, Owner } from "../../src/types"
 
 export class App extends FoundationElement {
     vscode: WebviewApi<unknown>
     taskSelectorEl: TaskSelector
-    taskMap: CommandData["init"]["taskMap"]
+    taskMap: Owner.CommandData["init"]["taskMap"]
     public connectedCallback() {
         super.connectedCallback()
         this.vscode = acquireVsCodeApi()
         window.addEventListener('message', (e) => this.onVSCodeMessage(e))
+        postCommandToVSCode(this.vscode).test('test123')
     }
-    onVSCodeMessage(event: MessageEvent<CommandMessage>) {
-        const message = event.data
-        switch (message.command) {
-            case 'init':
-                {
-                    const { taskMap } = (message.data) as CommandData["init"]
-                    this.taskMap = taskMap
-                    console.log(message.data)
-                    break
-                }
-            case 'changeDoc':
-                {
-                    const ext = (message.data) as CommandData["changeDoc"]
-                    this.taskSelectorEl.updateOptions(this.taskMap[ext])
-                    break
-                }
-        }
+    onVSCodeMessage(event: MessageEvent<Owner.CommandMessage>) {
+        return recieveCommandFromOwner(event, {
+            init: (data: IORunneronfig) => {
+                const { taskMap } = (data)
+                this.taskMap = taskMap
+                console.log(data)
+
+            },
+            changeDoc: (ext: string) => {
+                this.taskSelectorEl.updateOptions(this.taskMap[ext])
+
+            }
+        })
     }
 }
 

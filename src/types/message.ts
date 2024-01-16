@@ -1,16 +1,32 @@
 import { IORunneronfig } from "./config"
 
-export type CommandData = {
-    init: IORunneronfig,
-    run: undefined,
-    stop: undefined,
-    test: string,
-    changeDoc: string
+
+export namespace Owner {
+    export type CommandData = {
+        init: IORunneronfig,
+        changeDoc: string
+    }
+
+    export type Command = keyof CommandData
+
+    export type CommandMessage<K extends Command = Command> = {
+        command: K
+        data: CommandData[K]
+    }
+
 }
 
-export type Command = keyof CommandData
+export namespace Webview {
+    export type CommandData = {
+        run: undefined,
+        stop: undefined,
+        test: string,
+    }
 
-export type CommandMessage = {
-    command: Command
-    data: CommandData[Command]
+    export type Command = keyof CommandData
+
+    export type CommandMessage<K extends Command = Command> = {
+        command: K
+        data: CommandData[K]
+    }
 }
