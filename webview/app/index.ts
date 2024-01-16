@@ -4,8 +4,7 @@ import { postCommandToOwner, recieveCommandFromOwner } from "../utils/message"
 import { FoundationElement, FoundationElementDefinition } from "@microsoft/fast-foundation"
 import type { WebviewApi } from "vscode-webview"
 import type { TaskSelector } from "../components"
-/** @ts-ignore not so elegant :(  to be optimized */
-import type { IORunneronfig, Owner } from "../../src/types"
+import type { Owner } from "../types"
 
 export class App extends FoundationElement {
     vscode: WebviewApi<unknown>
@@ -19,12 +18,12 @@ export class App extends FoundationElement {
     }
     onVSCodeMessage(event: MessageEvent<Owner.CommandMessage>) {
         return recieveCommandFromOwner(event, {
-            init: (data: IORunneronfig) => {
+            init: (data) => {
                 const { taskMap } = (data)
                 this.taskMap = taskMap
                 console.log(data)
             },
-            changeDoc: (ext: string) => {
+            changeDoc: (ext) => {
                 this.taskSelectorEl.updateOptions(this.taskMap[ext])
 
             }

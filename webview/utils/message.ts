@@ -1,6 +1,5 @@
 import type { WebviewApi } from "vscode-webview"
-/** @ts-ignore not so elegant :(  to be optimized */
-import type { Webview, Owner } from "../../src/types"
+import type { Webview, Owner } from "..//types"
 
 export type CommandMessageSender = {
     [T in Webview.Command]: (data: Webview.CommandData[T]) => ReturnType<WebviewApi<unknown>["postMessage"]>
