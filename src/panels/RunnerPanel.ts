@@ -24,17 +24,6 @@ export class RunnerPanelProvider implements vscode.WebviewViewProvider {
         }
         this._view.webview.html = getPanelHTML(this._view.webview, this._extensionUri)
         init(this._view.webview)
-        recieveCommandFromView(this._view.webview, {
-            test: (data) => {
-                vscode.window.showInformationMessage(data)
-            },
-            run: () => {
-                vscode.window.showInformationMessage('run')
-            },
-            stop: () => {
-                vscode.window.showInformationMessage('stop')
-            }
-        })
     }
 }
 
