@@ -1,6 +1,6 @@
 import { template } from "./app.template"
 import { styles } from "./app.style"
-import { postCommandToVSCode, recieveCommandFromOwner } from "../utils/message"
+import { postCommandToOwner, recieveCommandFromOwner } from "../utils/message"
 import { FoundationElement, FoundationElementDefinition } from "@microsoft/fast-foundation"
 import type { WebviewApi } from "vscode-webview"
 import type { TaskSelector } from "../components"
@@ -15,7 +15,7 @@ export class App extends FoundationElement {
         super.connectedCallback()
         this.vscode = acquireVsCodeApi()
         window.addEventListener('message', (e) => this.onVSCodeMessage(e))
-        postCommandToVSCode(this.vscode).test('test123')
+        postCommandToOwner(this.vscode).test('test123')
     }
     onVSCodeMessage(event: MessageEvent<Owner.CommandMessage>) {
         return recieveCommandFromOwner(event, {
