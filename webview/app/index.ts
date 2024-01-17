@@ -24,8 +24,7 @@ export class App extends FoundationElement {
                 console.log(data)
             },
             changeDoc: (ext) => {
-                this.taskSelectorEl.updateOptions(this.taskMap[ext])
-
+                this.taskSelectorEl.updateOptions(this.taskMap[ext] ?? [])
             }
         })
     }
