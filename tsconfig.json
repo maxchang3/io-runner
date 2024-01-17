@@ -23,6 +23,7 @@
   ],
   "exclude": [
     "webview",
-    "node_modules"
+    "node_modules",
+    "temp"
   ]
 }
