@@ -26,8 +26,22 @@
       {
         "title": "IO Runner",
         "properties": {
-          "io-runner.taskmap": {
-            "description": "Mapping glob rules to task name",
+          "io-runner.launchTypeMap": {
+            "description": "Mapping launch type to execution name",
+            "type": "object",
+            "additionalProperties": {
+              "type": [
+                "string"
+              ],
+              "description": "launch type to execution name"
+            },
+            "default": {
+              "lldb": "",
+              "cppdgb": ""
+            }
+          },
+          "io-runner.taskMap": {
+            "description": "Mapping file extension to task name",
             "type": "object",
             "additionalProperties": {
               "type": [
@@ -37,22 +51,20 @@
               "description": "task name or array of task names"
             },
             "default": {
-              "taskMap": {
-                "py": [
-                  "Python: Current File"
-                ],
-                "c": [
-                  "(lldb) Launch",
-                  "(gdb) Launch"
-                ],
-                "cpp": [
-                  "(lldb) Launch",
-                  "(gdb) Launch"
-                ],
-                "js": [
-                  "Node"
-                ]
-              }
+              "py": [
+                "Python: Current File"
+              ],
+              "c": [
+                "(lldb) Launch",
+                "(gdb) Launch"
+              ],
+              "cpp": [
+                "(lldb) Launch",
+                "(gdb) Launch"
+              ],
+              "js": [
+                "Node"
+              ]
             }
           }
         }

@@ -26,7 +26,7 @@ const getLaunchTasks = (folder?: vscode.WorkspaceFolder, type?: string) => {
 type NameToTasks = Record<string, LaunchConfiguration | undefined>
 
 export const resolveConfig = (folder?: vscode.WorkspaceFolder) => {
-    const settingTaskMap = vscode.workspace.getConfiguration().get<IORunneronfig>('io-runner.taskmap')!
+    const settingTaskMap = vscode.workspace.getConfiguration().get<IORunneronfig>('io-runner')!
     // const allTasks = getLaunchTasks(folder)
     return settingTaskMap
 }
