@@ -1,10 +1,15 @@
 import * as vscode from 'vscode'
+import { postCommandToView } from '@/utils'
 import type { CommandParameters } from '@/types/commands'
+import type { RunnerPanelProvider } from '@/panels/RunnerPanel'
 
-export const RunCommand: CommandParameters = [
+export const RunCommand = (provider: RunnerPanelProvider): CommandParameters => [
     'io-runner.run',
     () => {
-
+        const view = provider.getWebviewView()
+        if (!view) return
+        const postCommand = postCommandToView(view)
+        postCommand.prepareRun()
     }
 ]
 
@@ -12,19 +17,6 @@ export const StopCommand: CommandParameters = [
     'io-runner.stop',
     () => {
         vscode.window.showInformationMessage('test')
-    }
-]
-
-export const ToggleCommand: CommandParameters = [
-    'io-runner.toggle',
-    () => {
-        vscode.window.showQuickPick([
-            '1',
-            '2',
-            '3'
-        ], {
-            canPickMany: false
-        })
     }
 ]
 

@@ -4,7 +4,8 @@ import { IORunneronfig } from "./config"
 export namespace Owner {
     export type CommandData = {
         init: IORunneronfig,
-        changeDoc: string
+        changeDoc: string,
+        prepareRun: undefined,
     }
 
     export type Command = keyof CommandData
@@ -18,7 +19,8 @@ export namespace Owner {
 
 export namespace Webview {
     export type CommandData = {
-        run: undefined,
+        /** Task name to run */
+        run: string,
         stop: undefined,
         test: string,
     }

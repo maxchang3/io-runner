@@ -24,5 +24,9 @@ export class RunnerPanelProvider implements vscode.WebviewViewProvider {
         this._view.webview.html = getPanelHTML(this._view.webview, this._extensionUri)
         init(this._view.webview)
     }
+
+    public getWebviewView() {
+        return this._view?.webview
+    }
 }
 

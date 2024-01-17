@@ -1,5 +1,5 @@
 import * as vscode from 'vscode'
-import { RunCommand, StopCommand, ToggleCommand } from "@/commands"
+import { RunCommand, StopCommand } from "@/commands"
 import { RunnerPanelProvider } from '@/panels/RunnerPanel'
 import type { CommandParameters } from '@/types'
 import type { ExtensionContext, Disposable } from 'vscode'
@@ -21,9 +21,8 @@ export function activate(context: ExtensionContext) {
             options
         ),
         ...registerCommands([
-            RunCommand,
+            RunCommand(provider),
             StopCommand,
-            ToggleCommand,
         ])
     )
 }

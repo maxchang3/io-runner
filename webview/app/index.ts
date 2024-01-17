@@ -11,14 +11,16 @@ export class App extends FoundationElement {
     vscode: WebviewApi<unknown>
     taskSelectorEl!: TaskSelector
     taskMap?: IORunneronfig["taskMap"]
+    postCommand: ReturnType<typeof postCommandToOwner>
     constructor() {
         super()
         this.vscode = acquireVsCodeApi()
+        this.postCommand = postCommandToOwner(this.vscode)
     }
     public connectedCallback() {
         super.connectedCallback()
         window.addEventListener('message', (e) => this.onVSCodeMessage(e))
-        postCommandToOwner(this.vscode).test('test123')
+        this.postCommand.test('test123')
     }
     onVSCodeMessage(event: MessageEvent<Owner.CommandMessage>) {
         return recieveCommandFromOwner(event, {
@@ -30,6 +32,11 @@ export class App extends FoundationElement {
             changeDoc: (ext) => {
                 if (!this.taskMap) throw new Error('taskMap is not initialized')
                 this.taskSelectorEl.updateOptions(this.taskMap[ext] || [])
+            },
+            prepareRun: () => {
+                if (!this.taskMap) throw new Error('taskMap is not initialized')
+                const task = this.taskSelectorEl.current
+                this.postCommand.run(task)
             }
         })
     }

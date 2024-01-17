@@ -73,18 +73,13 @@
     "commands": [
       {
         "command": "io-runner.run",
-        "title": "Compile And Run",
+        "title": "IO Runner: (Compile) And Run",
         "icon": "$(play)"
       },
       {
         "command": "io-runner.stop",
-        "title": "Stop",
+        "title": "IO Runner: Stop",
         "icon": "$(primitive-square)"
-      },
-      {
-        "command": "io-runner.toggle",
-        "title": "Toggle task",
-        "icon": "$(list-flat)"
       }
     ],
     "viewsContainers": {
@@ -114,11 +109,6 @@
         },
         {
           "command": "io-runner.stop",
-          "when": "view == io-runner.panel",
-          "group": "navigation"
-        },
-        {
-          "command": "io-runner.toggle",
           "when": "view == io-runner.panel",
           "group": "navigation"
         }

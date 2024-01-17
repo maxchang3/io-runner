@@ -25,8 +25,8 @@ const handleWebviewCommand = (view: vscode.Webview) => {
         test: (data) => {
             vscode.window.showInformationMessage(data)
         },
-        run: () => {
-            vscode.window.showInformationMessage('run')
+        run: (task) => {
+            vscode.window.showInformationMessage(task)
         },
         stop: () => {
             vscode.window.showInformationMessage('stop')
