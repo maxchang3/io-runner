@@ -2,12 +2,15 @@ import type { Webview } from "vscode"
 import type { Owner, Webview as WebviewContext } from "@/types"
 
 export type CommandMessageSender = {
-    [T in Owner.Command]: (data: Owner.CommandData[T]) => ReturnType<Webview["postMessage"]>
+    [T in Owner.Command]:
+        Owner.CommandData[T] extends undefined
+            ? () => ReturnType<Webview["postMessage"]>
+            : (data: Owner.CommandData[T]) => ReturnType<Webview["postMessage"]>
 }
 
 export const postCommandToView = (view: Webview) => new Proxy({} as CommandMessageSender, {
-    get: function (_, command: Owner.Command) {
-        return (data: Owner.CommandData[typeof command]) => view.postMessage({ command, data })
+    get: function <T extends Owner.Command>(_: CommandMessageSender, command: T) {
+        return (data: Owner.CommandData[T]) => view.postMessage({ command, data })
     }
 })
 
