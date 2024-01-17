@@ -21,8 +21,8 @@ export { TextAreaResize }
  * @public
  */
 export class TextArea extends FoundationTextArea {
-    lines: number
-    lineNumber: HTMLDivElement
+    lines!: number
+    lineNumber!: HTMLDivElement
     private preCursorLine: number = 1
     /**
      * Detects if the component has been resized

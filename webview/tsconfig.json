@@ -2,6 +2,10 @@
     "compilerOptions": {
         "types": [ "@types/vscode-webview" ],
         "lib": [ "ES2022", "DOM" ],
+        "strict": true,
+        "strictNullChecks": true,
+        "skipLibCheck": true,
+        "skipDefaultLibCheck": true,
         "composite": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,

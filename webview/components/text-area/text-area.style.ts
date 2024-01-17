@@ -4,35 +4,30 @@
 import { css } from '@microsoft/fast-element'
 import { display, focusVisible } from '@microsoft/fast-foundation'
 import {
-	borderWidth,
-	cornerRadius,
-	designUnit,
-	disabledOpacity,
-	dropdownBorder,
-	focusBorder,
-	foreground,
-	inputBackground,
-	inputForeground,
-	inputMinWidth,
-	scrollbarHeight,
-	scrollbarSliderActiveBackground,
-	scrollbarSliderBackground,
-	scrollbarSliderHoverBackground,
-	scrollbarWidth,
-	typeRampBaseFontSize,
-	typeRampMinus1FontSize,
-	typeRampPlus1FontSize,
-	typeRampPlus1LineHeight,
+    borderWidth,
+    cornerRadius,
+    designUnit,
+    disabledOpacity,
+    dropdownBorder,
+    focusBorder,
+    foreground,
+    inputBackground,
+    inputForeground,
+    inputMinWidth,
+    scrollbarSliderActiveBackground,
+    scrollbarSliderBackground,
+    scrollbarSliderHoverBackground,
+    scrollbarWidth,
+    typeRampBaseFontSize,
+    typeRampMinus1FontSize,
+    typeRampPlus1FontSize,
+    typeRampPlus1LineHeight,
 } from '@vscode/webview-ui-toolkit/dist/design-tokens'
-import type { ElementDefinitionContext, FoundationElementDefinition } from '@microsoft/fast-foundation'
 
 
 const monospaceFontFamily = `Menlo, Monaco, "Courier New", monospace`
 
-export const textAreaStyles = (
-	context: ElementDefinitionContext,
-	definition: FoundationElementDefinition
-) => css`
+export const textAreaStyles = css`
     ${display('inline-block')} :host {
         font-family: ${monospaceFontFamily};
         outline: none;

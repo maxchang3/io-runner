@@ -6,7 +6,7 @@ import type { Dropdown } from "@vscode/webview-ui-toolkit"
 
 
 export class TaskSelector extends FoundationElement {
-    dropdown: Dropdown
+    dropdown!: Dropdown
     @observable options: string[] = []
     get current() {
         return this.options[this.dropdown.selectedIndex]
