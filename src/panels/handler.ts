@@ -16,7 +16,8 @@ export const init = (view: vscode.Webview) => {
 
 const registerEvents = (view: vscode.Webview, postCommand: CommandMessageSender) => {
     vscode.window.onDidChangeActiveTextEditor(editor => {
-        postCommand.changeDoc(getFilenameExt(editor))
+        const ext = getFilenameExt(editor)
+        if (ext) postCommand.changeDoc(ext)
     })
 }
 
