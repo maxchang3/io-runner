@@ -29,9 +29,7 @@ export const execProgram = (filename: string, stdin: string, args?: readonly str
             })
         })
 
-        if (stdin) {
-            child.stdin.write(stdin)
-            child.stdin.end()
-        }
+        if (stdin) child.stdin.write(stdin)
+        child.stdin.end()
     })
 }
