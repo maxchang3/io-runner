@@ -8,7 +8,7 @@ export const template = (context: ElementDefinitionContext) => {
     const optionTag = context.tagFor(Option)
     return html<TaskSelector>`
         <template>
-        <${dropDownTag} ${ref("dropdown")} id="dropdown">
+        <${dropDownTag} ${ref("dropdown")}  ?disabled="${x => x.options.length === 0}" id="dropdown">
             ${repeat(x => x.options, html<string>`
                 <${optionTag}>${x => x}</${optionTag}>
             `, { recycle: false })}
