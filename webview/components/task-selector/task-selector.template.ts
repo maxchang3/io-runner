@@ -1,5 +1,5 @@
 import { html, repeat, ref } from '@microsoft/fast-element'
-import { Dropdown, Option} from "@vscode/webview-ui-toolkit"
+import { Dropdown, Option } from "@vscode/webview-ui-toolkit"
 import type { TaskSelector } from '.'
 import type { ElementDefinitionContext } from "@microsoft/fast-foundation"
 
@@ -11,7 +11,7 @@ export const template = (context: ElementDefinitionContext) => {
         <${dropDownTag} ${ref("dropdown")} id="dropdown">
             ${repeat(x => x.options, html<string>`
                 <${optionTag}>${x => x}</${optionTag}>
-            `)}
+            `, { recycle: false })}
         </${dropDownTag}>
         </template>
     `

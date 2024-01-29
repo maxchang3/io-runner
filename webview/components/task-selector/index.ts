@@ -13,7 +13,6 @@ export class TaskSelector extends FoundationElement {
     }
     updateOptions(options: string[]) {
         this.options = options
-        this.dropdown.currentValue = this.current
         this.dropdown.disabled = this.options.length === 0
     }
 }
