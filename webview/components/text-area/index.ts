@@ -38,6 +38,7 @@ export class TextArea extends FoundationTextArea {
      */
     public connectedCallback() {
         super.connectedCallback()
+        if (this.autofocus) this.control.focus()
         this.initializeResizeDetector()
         if (this.textContent) {
             this.setAttribute('aria-label', this.textContent)

@@ -31,7 +31,6 @@ export const textAreaTemplate: FoundationElementTemplate<ViewTemplate<TextArea>>
                 part="control"
                 class="control"
                 id="control"
-                ?autofocus="${x => x.autofocus}"
                 cols="${x => x.cols}"
                 ?disabled="${x => x.disabled}"
                 form="${x => x.form}"
