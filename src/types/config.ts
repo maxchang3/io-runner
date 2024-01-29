@@ -1,8 +1,8 @@
-import type { DebugConfiguration } from 'vscode'
+import type { DebugConfiguration, Task } from 'vscode'
 
 export interface IORunneronfig {
     taskMap: Record<string, string[] | undefined>
-    launchTypeMap: Record<string, string | undefined>
+    launchInterpreter: Record<string, string | undefined>
 }
 
 export interface LaunchConfiguration extends DebugConfiguration {
@@ -20,4 +20,16 @@ export interface LaunchConfiguration extends DebugConfiguration {
 
     /** Program working directory. */
     cwd?: string
+}
+
+export interface ComputedLaunchConfiguration extends LaunchConfiguration {
+    computeVariables: ()=>{
+        program: string,
+        args: string[],
+        cwd?: string
+    }
+    computedTasks: Promise<{
+        preLaunchTask?: Task | undefined
+        postDebugTask?: Task | undefined
+    }>
 }

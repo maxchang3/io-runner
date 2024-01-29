@@ -26,18 +26,18 @@
       {
         "title": "IO Runner",
         "properties": {
-          "io-runner.launchTypeMap": {
-            "description": "Mapping launch type to execution name",
+          "io-runner.launchInterpreter": {
+            "description": "Mapping launch type to interpreter",
             "type": "object",
             "additionalProperties": {
               "type": [
                 "string"
               ],
-              "description": "launch type to execution name"
+              "description": "launch type to interpreter"
             },
             "default": {
-              "lldb": "",
-              "cppdgb": ""
+              "python": "python",
+              "node": "node"
             }
           },
           "io-runner.taskMap": {
@@ -140,7 +140,8 @@
     "vite": "^4.2.3"
   },
   "dependencies": {
+    "@c4312/vscode-variables": "^1.0.0",
     "@martinstark/throttle-ts": "^1.3.0",
-    "@vscode/webview-ui-toolkit": "^1.2.2"
+    "@vscode/webview-ui-toolkit": "^1.4.0"
   }
 }

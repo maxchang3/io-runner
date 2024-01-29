@@ -5,12 +5,15 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@c4312/vscode-variables':
+    specifier: ^1.0.0
+    version: 1.0.0
   '@martinstark/throttle-ts':
     specifier: ^1.3.0
     version: 1.3.0
   '@vscode/webview-ui-toolkit':
-    specifier: ^1.2.2
-    version: 1.2.2(react@18.2.0)
+    specifier: ^1.4.0
+    version: 1.4.0(react@18.2.0)
 
 devDependencies:
   '@types/node':
@@ -48,6 +51,10 @@ devDependencies:
     version: 4.2.3(@types/node@18.16.16)
 
 packages:
+
+  /@c4312/vscode-variables@1.0.0:
+    resolution: {integrity: sha512-Huk2Eg5D8f8ALlll8e4wViPCWta+4W61I7azdi0Bg6f327EHr9lI3UW80vlSreD+pfxTm/oOe/MB8crQhQOB8A==}
+    dev: false
 
   /@esbuild-kit/cjs-loader@2.0.1:
     resolution: {integrity: sha512-KmE8XouKm6m05jPIsf5CTIZZ4171GHd+PUts1mtti2tzoiD228qCRjpkCwg540c3fMUweKupO+PIpkJ9+Z7vPg==}
@@ -298,8 +305,8 @@ packages:
     resolution: {integrity: sha512-gQutuDHPKNxUEcQ4pypZT4Wmrbapus+P9s3bR/SEOLsMbNqNoXigGImITygI5zhb+aA5rzflM6O8YWkmRbGkPA==}
     dev: false
 
-  /@microsoft/fast-foundation@2.49.1:
-    resolution: {integrity: sha512-dSajlZeX+lkqjg4108XbIIhVLECgJTCG32bE8P6rNgo8XCPHVJBDiBejrF34lv5pO9Z2uGORZjeip/N0fPib+g==}
+  /@microsoft/fast-foundation@2.49.5:
+    resolution: {integrity: sha512-3PpG1BNmZ5kUM1goYU3SsxjsM2H7Rk0ZmpDJ7mnRhWDgKiM5SzJ02KvALRUqDrJQoeDnkW0Q2Q+r9SkEd68Gpg==}
     dependencies:
       '@microsoft/fast-element': 1.12.0
       '@microsoft/fast-web-utilities': 5.4.1
@@ -307,13 +314,13 @@ packages:
       tslib: 1.14.1
     dev: false
 
-  /@microsoft/fast-react-wrapper@0.1.48(react@18.2.0):
-    resolution: {integrity: sha512-9NvEjru9Kn5ZKjomAMX6v+eF0DR+eDkxKDwDfi+Wb73kTbrNzcnmlwd4diN15ygH97kldgj2+lpvI4CKLQQWLg==}
+  /@microsoft/fast-react-wrapper@0.3.23(react@18.2.0):
+    resolution: {integrity: sha512-iuL+J2AFKJ1mwUBxSp+bqzt4X93kQwj1jpVgHgw2VRzCOTl7wzta6X+lvRIVg4eoyLfmeVSMkB+q3PD87T/MyQ==}
     peerDependencies:
       react: '>=16.9.0'
     dependencies:
       '@microsoft/fast-element': 1.12.0
-      '@microsoft/fast-foundation': 2.49.1
+      '@microsoft/fast-foundation': 2.49.5
       react: 18.2.0
     dev: false
 
@@ -392,15 +399,16 @@ packages:
       keytar: 7.9.0
     dev: true
 
-  /@vscode/webview-ui-toolkit@1.2.2(react@18.2.0):
-    resolution: {integrity: sha512-xIQoF4FC3Xh6d7KNKIoIezSiFWYFuf6gQMdDyKueKBFGeKwaHWEn+dY2g3makvvEsNMEDji/woEwvg9QSbuUsw==}
+  /@vscode/webview-ui-toolkit@1.4.0(react@18.2.0):
+    resolution: {integrity: sha512-modXVHQkZLsxgmd5yoP3ptRC/G8NBDD+ob+ngPiWNQdlrH6H1xR/qgOBD85bfU3BhOB5sZzFWBwwhp9/SfoHww==}
     peerDependencies:
       react: '>=16.9.0'
     dependencies:
       '@microsoft/fast-element': 1.12.0
-      '@microsoft/fast-foundation': 2.49.1
-      '@microsoft/fast-react-wrapper': 0.1.48(react@18.2.0)
+      '@microsoft/fast-foundation': 2.49.5
+      '@microsoft/fast-react-wrapper': 0.3.23(react@18.2.0)
       react: 18.2.0
+      tslib: 2.6.2
     dev: false
 
   /acorn@8.8.2:
@@ -2364,6 +2372,10 @@ packages:
   /tslib@2.3.1:
     resolution: {integrity: sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==}
     dev: true
+
+  /tslib@2.6.2:
+    resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
+    dev: false
 
   /tsup@6.7.0(typescript@5.1.3):
     resolution: {integrity: sha512-L3o8hGkaHnu5TdJns+mCqFsDBo83bJ44rlK7e6VdanIvpea4ArPcU3swWGsLVbXak1PqQx/V+SSmFPujBK+zEQ==}

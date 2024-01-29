@@ -1,13 +1,20 @@
 import * as vscode from "vscode"
-import { resolveConfig, postCommandToView, recieveCommandFromView } from "@/utils"
+import {
+    resolveConfig,
+    postCommandToView,
+    recieveCommandFromView,
+    getLaunchConfig,
+    execProgram,
+    executeTask,
+} from "@/utils"
 import type { CommandMessageSender } from "@/utils"
 
 const getFilenameExt = (editor?: vscode.TextEditor) => editor?.document.fileName.split(".").pop() || ""
 
-export const init = (view: vscode.Webview) => {
+export const init = async (view: vscode.Webview) => {
     const postCommand = postCommandToView(view)
     registerEvents(view, postCommand)
-    handleWebviewCommand(view)
+    handleWebviewCommand(view, postCommand)
     const config = resolveConfig()
     postCommand.init(config)
     const ext = getFilenameExt(vscode.window.activeTextEditor)
@@ -21,13 +28,28 @@ const registerEvents = (view: vscode.Webview, postCommand: CommandMessageSender)
     })
 }
 
-const handleWebviewCommand = (view: vscode.Webview) => {
+const handleWebviewCommand = (view: vscode.Webview, postCommand: CommandMessageSender) => {
     recieveCommandFromView(view, {
         test: (data) => {
             vscode.window.showInformationMessage(data)
         },
-        run: (task) => {
-            vscode.window.showInformationMessage(task)
+        run: async ({ launchName, stdin }) => {
+            const timeStart = performance.now()
+            const targetLaunch = getLaunchConfig(launchName)
+            if (!targetLaunch) throw new Error(`Launch ${launchName} not found`)
+            const { preLaunchTask, postDebugTask } = await targetLaunch.computedTasks
+            if (preLaunchTask) await executeTask(preLaunchTask)
+            const { program, args, cwd } = targetLaunch.computeVariables()
+            if (!program) throw new Error(`Launch program is not defined`)
+            const { stdout, stderr, exitCode } = await execProgram(program, stdin, args, cwd)
+            if (stderr) throw new Error(`${stderr}`)
+            const timeEnd = performance.now()
+            postCommand.stdout({
+                stdout,
+                exitCode,
+                time: timeEnd - timeStart
+            })
+            if (postDebugTask) await executeTask(postDebugTask)
         },
         stop: () => {
             vscode.window.showInformationMessage('stop')

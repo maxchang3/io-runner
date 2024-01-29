@@ -3,13 +3,15 @@ import { styles } from "./app.style"
 import { postCommandToOwner, recieveCommandFromOwner } from "../utils/message"
 import { FoundationElement, FoundationElementDefinition } from "@microsoft/fast-foundation"
 import type { WebviewApi } from "vscode-webview"
-import type { TaskSelector } from "../components"
+import type { TextArea, TaskSelector } from "../components"
 import type { Owner, IORunneronfig } from "../types"
 
 
 export class App extends FoundationElement {
     vscode: WebviewApi<unknown>
     taskSelectorEl!: TaskSelector
+    inputEl!: TextArea
+    outputEl!: TextArea
     taskMap?: IORunneronfig["taskMap"]
     postCommand: ReturnType<typeof postCommandToOwner>
     constructor() {
@@ -35,8 +37,12 @@ export class App extends FoundationElement {
             },
             prepareRun: () => {
                 if (!this.taskMap) throw new Error('taskMap is not initialized')
-                const task = this.taskSelectorEl.current
-                this.postCommand.run(task)
+                const launchName = this.taskSelectorEl.current
+                const stdin = this.inputEl.value
+                this.postCommand.run({ launchName, stdin })
+            },
+            stdout: ({ stdout, exitCode, time }) => {
+                this.outputEl.value = `${stdout}\n--------\nexit with code ${exitCode} in ${((time) / 1000).toFixed(3)}s`
             }
         })
     }

@@ -12,12 +12,12 @@ export const template = (context: ElementDefinitionContext) => {
         <div id="app">
             <${taskSelector} ${ref('taskSelectorEl')} id="selector"></${taskSelector}>
             <div class="editor input" >
-                <${textArea} resize="none" autofocus>
+                <${textArea} ${ref('inputEl')} resize="none" autofocus>
                     <div slot="label">INPUT</div>
                 </${textArea}>
             </div>
             <div class="editor output" >
-                <${textArea} resize="none" readonly>
+                <${textArea} ${ref('outputEl')}  resize="none" readonly>
                     <div slot="label">OUTPUT</div>
                 </${textArea}>
             </div>

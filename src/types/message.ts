@@ -6,6 +6,11 @@ export namespace Owner {
         init: IORunneronfig,
         changeDoc: string,
         prepareRun: undefined,
+        stdout: {
+            stdout: string
+            exitCode: number,
+            time: number
+        },
     }
 
     export type Command = keyof CommandData
@@ -19,8 +24,10 @@ export namespace Owner {
 
 export namespace Webview {
     export type CommandData = {
-        /** Task name to run */
-        run: string,
+        run: {
+            launchName: string,
+            stdin: string
+        },
         stop: undefined,
         test: string,
     }
