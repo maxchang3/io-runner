@@ -22,7 +22,6 @@ export class App extends FoundationElement {
     public connectedCallback() {
         super.connectedCallback()
         window.addEventListener('message', (e) => this.onVSCodeMessage(e))
-        this.postCommand.test('test123')
     }
     onVSCodeMessage(event: MessageEvent<Owner.CommandMessage>) {
         return recieveCommandFromOwner(event, {
