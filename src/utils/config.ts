@@ -26,7 +26,7 @@ export const executeTask = async (task: vscode.Task) => {
 const fetchTaks = async () => {
     const tasks = await vscode.tasks.fetchTasks()
     const launchTask = new Map<string, vscode.Task>()
-    tasks.forEach(task => { launchTask.set(task.definition.label, task) })
+    tasks.forEach(task => { launchTask.set(task.name, task) })
     return launchTask
 }
 
