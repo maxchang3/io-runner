@@ -40,7 +40,7 @@ export class ConfigManager {
         const launchConfigs: Map<string, ComputedLaunchConfiguration> = new Map()
         const computedConfigs: ComputedLaunchConfiguration[] = configs as ComputedLaunchConfiguration[]
         for (const config of computedConfigs) {
-            if (config.name && config.request === "launch" && type ? (config.type === type) : true) continue
+            if (!(config.name && config.request === "launch" && type ? (config.type === type) : true)) continue
             if (!config.program) {
                 console.error(`Launch config: "${config.name}" has no program name to execute!`)
                 continue
