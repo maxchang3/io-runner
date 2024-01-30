@@ -10,28 +10,36 @@ import type { CommandMessageSender } from "@/utils"
 
 const getFilenameExt = (editor?: vscode.TextEditor) => editor?.document.fileName.split(".").pop() || ""
 
+const changeDoc = (postCommand: CommandMessageSender, configManager: ConfigManager, editor?: vscode.TextEditor,) => {
+    const ext = getFilenameExt(editor)
+    if (ext) postCommand.changeDoc(ext)
+    vscode.commands.executeCommand(
+        'setContext',
+        'io-runner.runable',
+        !!configManager.extensionConfigs.taskMap[ext]
+    )
+}
+
 export const init = async (view: vscode.Webview) => {
     const postCommand = postCommandToView(view)
     const configManager = await ConfigManager.init()
     registerEvents(view, postCommand, configManager)
     handleWebviewCommand(view, postCommand, configManager)
     postCommand.init(configManager.extensionConfigs)
-    postCommand.changeDoc(getFilenameExt(vscode.window.activeTextEditor))
+    changeDoc(postCommand, configManager, vscode.window.activeTextEditor)
 }
 
 const registerEvents = (view: vscode.Webview, postCommand: CommandMessageSender, configManager: ConfigManager) => {
     vscode.window.onDidChangeActiveTextEditor(editor => {
-        const ext = getFilenameExt(editor)
-        if (ext) postCommand.changeDoc(ext)
+        changeDoc(postCommand, configManager, editor)
     })
     vscode.workspace.onDidChangeConfiguration((e) => {
         if (e.affectsConfiguration("io-runner")) {
             configManager.updateConfigs("extension")
             postCommand.init(configManager.extensionConfigs)
-            postCommand.changeDoc(getFilenameExt(vscode.window.activeTextEditor))
+            changeDoc(postCommand, configManager, vscode.window.activeTextEditor)
         }
         if (e.affectsConfiguration("launch")) configManager.updateConfigs("launch")
-        if (e.affectsConfiguration("tasks")) configManager.updateConfigs("tasks")
     })
 }
 
@@ -44,7 +52,7 @@ const handleWebviewCommand = (view: vscode.Webview, postCommand: CommandMessageS
             const timeStart = performance.now()
             const targetLaunch = configManager.launchConfigs.get(launchName)
             if (!targetLaunch) throw new Error(`Launch "${launchName}" not found`)
-            const { preLaunchTask, postDebugTask } = targetLaunch.computedTasks
+            const { preLaunchTask, postDebugTask } = targetLaunch
             if (preLaunchTask) await executeTask(preLaunchTask)
             const { program, args, cwd } = targetLaunch.computeVariables()
             if (!program) throw new Error(`Launch program is not defined`)

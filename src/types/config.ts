@@ -28,8 +28,4 @@ export interface ComputedLaunchConfiguration extends LaunchConfiguration {
         args: string[],
         cwd?: string
     }
-    computedTasks: {
-        preLaunchTask?: Task | undefined
-        postDebugTask?: Task | undefined
-    }
 }

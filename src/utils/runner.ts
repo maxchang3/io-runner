@@ -4,15 +4,14 @@ import * as vscode from 'vscode'
 /**
  * @from https://stackoverflow.com/a/61703141
  */
-export const executeTask = async (task: vscode.Task) => {
-    const execution = await vscode.tasks.executeTask(task)
+export const executeTask = async (taskName: string) => {
+    await vscode.commands.executeCommand('workbench.action.tasks.runTask', taskName)
     return new Promise<void>(resolve => {
         let disposable = vscode.tasks.onDidEndTask(e => {
-            if (e.execution !== execution) return
+            if (e.execution.task.name !== taskName) return
             disposable.dispose()
             resolve()
         })
-
     })
 }
 

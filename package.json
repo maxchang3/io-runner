@@ -75,7 +75,7 @@
         "command": "io-runner.run",
         "title": "IO Runner: (Compile) And Run",
         "icon": "$(run-all)",
-        "enablement": "!io-runner.running"
+        "enablement": "io-runner.runable && !io-runner.running"
       },
       {
         "command": "io-runner.stop",

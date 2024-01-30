@@ -6,27 +6,21 @@ export class ConfigManager {
     private folder?: vscode.WorkspaceFolder
     public extensionConfigs: IORunneronfig
     public launchConfigs: Map<string, ComputedLaunchConfiguration>
-    public taskConfigs: Map<string, vscode.Task>
-    private constructor(tasks: Map<string, vscode.Task>, folder?: vscode.WorkspaceFolder,) {
+    private constructor(folder?: vscode.WorkspaceFolder) {
         this.folder = folder
-        this.taskConfigs = tasks
         this.extensionConfigs = this.resolveExtensionConfigs()
         this.launchConfigs = this.resolveLaunchConfigs()
     }
     static async init(folder?: vscode.WorkspaceFolder) {
-        const tasks = await this.resolveTasksConfigs()
-        return new ConfigManager(tasks, folder)
+        return new ConfigManager(folder)
     }
-    public async updateConfigs(type: "extension" | "launch" | "tasks") {
+    public async updateConfigs(type: "extension" | "launch") {
         switch (type) {
             case "extension":
                 this.extensionConfigs = this.resolveExtensionConfigs()
                 break
             case "launch":
                 this.launchConfigs = this.resolveLaunchConfigs()
-                break
-            case "tasks":
-                this.taskConfigs = await ConfigManager.resolveTasksConfigs()
                 break
         }
     }
@@ -35,8 +29,7 @@ export class ConfigManager {
     }
 
     private resolveLaunchConfigs(type?: string) {
-        const WorkspaceConfigs: vscode.WorkspaceConfiguration = vscode.workspace.getConfiguration('launch', this.folder)
-        const configs = WorkspaceConfigs.get<LaunchConfiguration[]>('configurations')
+        const configs = vscode.workspace.getConfiguration('launch', this.folder).get<LaunchConfiguration[]>('configurations')
         const launchConfigs: Map<string, ComputedLaunchConfiguration> = new Map()
         const computedConfigs: ComputedLaunchConfiguration[] = configs as ComputedLaunchConfiguration[]
         for (const config of computedConfigs) {
@@ -44,10 +37,6 @@ export class ConfigManager {
             if (!config.program) {
                 console.error(`Launch config: "${config.name}" has no program name to execute!`)
                 continue
-            }
-            config.computedTasks = {
-                preLaunchTask: config.preLaunchTask ? this.taskConfigs.get(config.preLaunchTask) : undefined,
-                postDebugTask: config.postDebugTask ? this.taskConfigs.get(config.postDebugTask) : undefined
             }
             const interpreter = this.extensionConfigs.launchInterpreter[config.type]
             if (interpreter) {
@@ -67,12 +56,5 @@ export class ConfigManager {
 
     private resolveExtensionConfigs() {
         return vscode.workspace.getConfiguration().get<IORunneronfig>('io-runner')!
-    }
-
-    private static async resolveTasksConfigs() {
-        const fetchedTasks = await vscode.tasks.fetchTasks()
-        const tasks = new Map<string, vscode.Task>()
-        fetchedTasks.forEach(task => { tasks.set(task.name, task) })
-        return tasks
     }
 }
