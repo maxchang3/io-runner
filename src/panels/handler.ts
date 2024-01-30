@@ -1,10 +1,9 @@
 import * as vscode from "vscode"
 import {
-    resolveConfig,
+    ConfigManager,
     postCommandToView,
     recieveCommandFromView,
-    getLaunchConfig,
-    execProgram,
+    executeProgram,
     executeTask,
 } from "@/utils"
 import type { CommandMessageSender } from "@/utils"
@@ -13,35 +12,38 @@ const getFilenameExt = (editor?: vscode.TextEditor) => editor?.document.fileName
 
 export const init = async (view: vscode.Webview) => {
     const postCommand = postCommandToView(view)
-    registerEvents(view, postCommand)
-    handleWebviewCommand(view, postCommand)
-    const config = resolveConfig()
-    postCommand.init(config)
+    const configManager = await ConfigManager.init()
+    registerEvents(view, postCommand, configManager)
+    handleWebviewCommand(view, postCommand, configManager)
+    postCommand.init(configManager.extensionConfigs)
     const ext = getFilenameExt(vscode.window.activeTextEditor)
     postCommand.changeDoc(ext)
 }
 
-const registerEvents = (view: vscode.Webview, postCommand: CommandMessageSender) => {
+const registerEvents = (view: vscode.Webview, postCommand: CommandMessageSender, configManager: ConfigManager) => {
     vscode.window.onDidChangeActiveTextEditor(editor => {
         const ext = getFilenameExt(editor)
         if (ext) postCommand.changeDoc(ext)
     })
+    vscode.workspace.onDidChangeConfiguration((e) => {
+        // TODO
+    })
 }
 
-const handleWebviewCommand = (view: vscode.Webview, postCommand: CommandMessageSender) => {
+const handleWebviewCommand = (view: vscode.Webview, postCommand: CommandMessageSender, configManager: ConfigManager) => {
     recieveCommandFromView(view, {
         test: (data) => {
             vscode.window.showInformationMessage(data)
         },
         run: async ({ launchName, stdin }) => {
             const timeStart = performance.now()
-            const targetLaunch = getLaunchConfig(launchName)
+            const targetLaunch = configManager.launchConfigs.get(launchName)
             if (!targetLaunch) throw new Error(`Launch "${launchName}" not found`)
-            const { preLaunchTask, postDebugTask } = await targetLaunch.computedTasks
+            const { preLaunchTask, postDebugTask } = targetLaunch.computedTasks
             if (preLaunchTask) await executeTask(preLaunchTask)
             const { program, args, cwd } = targetLaunch.computeVariables()
             if (!program) throw new Error(`Launch program is not defined`)
-            const { stdout, stderr, exitCode } = await execProgram(program, stdin, args, cwd)
+            const { stdout, stderr, exitCode } = await executeProgram(program, stdin, args, cwd)
             if (stderr) throw new Error(`${stderr}`)
             const timeEnd = performance.now()
             postCommand.stdout({

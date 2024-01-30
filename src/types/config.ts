@@ -28,8 +28,8 @@ export interface ComputedLaunchConfiguration extends LaunchConfiguration {
         args: string[],
         cwd?: string
     }
-    computedTasks: Promise<{
+    computedTasks: {
         preLaunchTask?: Task | undefined
         postDebugTask?: Task | undefined
-    }>
+    }
 }

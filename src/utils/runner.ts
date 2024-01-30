@@ -1,6 +1,22 @@
 import { spawn } from 'node:child_process'
+import * as vscode from 'vscode'
 
-export const execProgram = (filename: string, stdin: string, args?: readonly string[], cwd?: string): Promise<{
+/**
+ * @from https://stackoverflow.com/a/61703141
+ */
+export const executeTask = async (task: vscode.Task) => {
+    const execution = await vscode.tasks.executeTask(task)
+    return new Promise<void>(resolve => {
+        let disposable = vscode.tasks.onDidEndTask(e => {
+            if (e.execution !== execution) return
+            disposable.dispose()
+            resolve()
+        })
+
+    })
+}
+
+export const executeProgram = (filename: string, stdin: string, args?: readonly string[], cwd?: string): Promise<{
     stdout: string
     stderr: string
     exitCode: number
