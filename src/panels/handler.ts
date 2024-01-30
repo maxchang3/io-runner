@@ -16,8 +16,7 @@ export const init = async (view: vscode.Webview) => {
     registerEvents(view, postCommand, configManager)
     handleWebviewCommand(view, postCommand, configManager)
     postCommand.init(configManager.extensionConfigs)
-    const ext = getFilenameExt(vscode.window.activeTextEditor)
-    postCommand.changeDoc(ext)
+    postCommand.changeDoc(getFilenameExt(vscode.window.activeTextEditor))
 }
 
 const registerEvents = (view: vscode.Webview, postCommand: CommandMessageSender, configManager: ConfigManager) => {
@@ -26,7 +25,13 @@ const registerEvents = (view: vscode.Webview, postCommand: CommandMessageSender,
         if (ext) postCommand.changeDoc(ext)
     })
     vscode.workspace.onDidChangeConfiguration((e) => {
-        // TODO
+        if (e.affectsConfiguration("io-runner")) {
+            configManager.updateConfigs("extension")
+            postCommand.init(configManager.extensionConfigs)
+            postCommand.changeDoc(getFilenameExt(vscode.window.activeTextEditor))
+        }
+        if (e.affectsConfiguration("launch")) configManager.updateConfigs("launch")
+        if (e.affectsConfiguration("tasks")) configManager.updateConfigs("tasks")
     })
 }
 

@@ -17,7 +17,7 @@ export class ConfigManager {
         const tasks = await this.resolveTasksConfigs()
         return new ConfigManager(tasks, folder)
     }
-    public async updateConfigs(type: "extension" | "launch" | "task") {
+    public async updateConfigs(type: "extension" | "launch" | "tasks") {
         switch (type) {
             case "extension":
                 this.extensionConfigs = this.resolveExtensionConfigs()
@@ -25,7 +25,7 @@ export class ConfigManager {
             case "launch":
                 this.launchConfigs = this.resolveLaunchConfigs()
                 break
-            case "task":
+            case "tasks":
                 this.taskConfigs = await ConfigManager.resolveTasksConfigs()
                 break
         }

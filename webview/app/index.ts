@@ -28,7 +28,6 @@ export class App extends FoundationElement {
             init: (data) => {
                 const { taskMap } = data
                 this.taskMap = taskMap
-                console.log(data)
             },
             changeDoc: (ext) => {
                 if (!this.taskMap) throw new Error('taskMap is not initialized')
