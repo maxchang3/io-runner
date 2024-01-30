@@ -37,15 +37,13 @@ export class ConfigManager {
     private resolveLaunchConfigs(type?: string) {
         const WorkspaceConfigs: vscode.WorkspaceConfiguration = vscode.workspace.getConfiguration('launch', this.folder)
         const configs = WorkspaceConfigs.get<LaunchConfiguration[]>('configurations')
-        let computedConfigs: ComputedLaunchConfiguration[] = configs as ComputedLaunchConfiguration[]
-        computedConfigs = computedConfigs.filter(
-            (config: any) => config.name && config.request === "launch" && type ? (config.type === type) : true
-        )
         const launchConfigs: Map<string, ComputedLaunchConfiguration> = new Map()
-        computedConfigs.forEach(config => {
+        const computedConfigs: ComputedLaunchConfiguration[] = configs as ComputedLaunchConfiguration[]
+        for (const config of computedConfigs) {
+            if (config.name && config.request === "launch" && type ? (config.type === type) : true) continue
             if (!config.program) {
                 console.error(`Launch config: "${config.name}" has no program name to execute!`)
-                return
+                continue
             }
             config.computedTasks = {
                 preLaunchTask: config.preLaunchTask ? this.taskConfigs.get(config.preLaunchTask) : undefined,
@@ -63,7 +61,7 @@ export class ConfigManager {
                 cwd: config.cwd ? this.resolveConfigVariable(config.cwd) : undefined
             })
             launchConfigs.set(config.name, config)
-        })
+        }
         return launchConfigs
     }
 
