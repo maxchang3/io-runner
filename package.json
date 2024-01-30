@@ -121,7 +121,7 @@
     "build": "pnpm build:prod",
     "build:dev": "tsup",
     "build:prod": "tsup --minify",
-    "dev": "pnpm build:dev --watch",
+    "dev": "pnpm build:dev --watch --sourcemap",
     "vscode:prepublish": "pnpm build:prod",
     "publish": "vsce publish --no-dependencies",
     "pack": "vsce package --no-dependencies",
