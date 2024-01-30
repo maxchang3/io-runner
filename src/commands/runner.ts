@@ -8,9 +8,10 @@ export const RunCommand = (provider: RunnerPanelProvider): CommandParameters => 
     () => {
         const view = provider.getWebviewView()
         if (!view) return
+        vscode.commands.executeCommand('setContext', 'io-runner.running', true)
         const postCommand = postCommandToView(view)
         postCommand.prepareRun()
-    }
+    }   
 ]
 
 export const StopCommand: CommandParameters = [

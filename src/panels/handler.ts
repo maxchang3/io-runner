@@ -36,7 +36,7 @@ const handleWebviewCommand = (view: vscode.Webview, postCommand: CommandMessageS
         run: async ({ launchName, stdin }) => {
             const timeStart = performance.now()
             const targetLaunch = getLaunchConfig(launchName)
-            if (!targetLaunch) throw new Error(`Launch ${launchName} not found`)
+            if (!targetLaunch) throw new Error(`Launch "${launchName}" not found`)
             const { preLaunchTask, postDebugTask } = await targetLaunch.computedTasks
             if (preLaunchTask) await executeTask(preLaunchTask)
             const { program, args, cwd } = targetLaunch.computeVariables()
@@ -49,6 +49,7 @@ const handleWebviewCommand = (view: vscode.Webview, postCommand: CommandMessageS
                 exitCode,
                 time: timeEnd - timeStart
             })
+            vscode.commands.executeCommand('setContext', 'io-runner.running', false)
             if (postDebugTask) await executeTask(postDebugTask)
         },
         stop: () => {

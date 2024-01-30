@@ -74,12 +74,14 @@
       {
         "command": "io-runner.run",
         "title": "IO Runner: (Compile) And Run",
-        "icon": "$(play)"
+        "icon": "$(run-all)",
+        "enablement": "!io-runner.running"
       },
       {
         "command": "io-runner.stop",
         "title": "IO Runner: Stop",
-        "icon": "$(primitive-square)"
+        "icon": "$(primitive-square)",
+        "enablement": "io-runner.running"
       }
     ],
     "viewsContainers": {
