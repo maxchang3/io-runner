@@ -9,7 +9,7 @@ export class TaskSelector extends FoundationElement {
     dropdown!: Dropdown
     @observable options: string[] = []
     get current() {
-        return this.options[this.dropdown.selectedIndex]
+        return this.dropdown.currentValue
     }
     updateOptions(options: string[]) {
         this.options = options
