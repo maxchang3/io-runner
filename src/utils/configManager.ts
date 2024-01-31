@@ -27,7 +27,6 @@ export class ConfigManager {
     private resolveConfigVariable(string: string) {
         return replaceVariables(string)
     }
-
     private resolveLaunchConfigs(type?: string) {
         const configs = vscode.workspace.getConfiguration('launch', this.folder).get<LaunchConfiguration[]>('configurations')
         const launchConfigs: Map<string, ComputedLaunchConfiguration> = new Map()

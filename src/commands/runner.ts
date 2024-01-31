@@ -20,4 +20,3 @@ export const StopCommand: CommandParameters = [
         vscode.window.showInformationMessage('test')
     }
 ]
-
