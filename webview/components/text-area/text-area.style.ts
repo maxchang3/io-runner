@@ -9,7 +9,7 @@ import {
     designUnit,
     disabledOpacity,
     dropdownBorder,
-    focusBorder,
+    background,
     foreground,
     inputBackground,
     inputForeground,
@@ -41,9 +41,9 @@ export const textAreaStyles = css`
         box-sizing: border-box;
         position: relative;
         color: ${inputForeground};
-        background: ${inputBackground};
+        background: ${background};
+        border: 0;
         border-radius: calc(${cornerRadius} * 1px);
-        border: calc(${borderWidth} * 1px) solid ${dropdownBorder};
         font: inherit;
         font-size: ${typeRampPlus1FontSize};
         line-height: ${typeRampPlus1LineHeight};
@@ -53,14 +53,6 @@ export const textAreaStyles = css`
         min-width: ${inputMinWidth};
         resize: none;
         white-space: pre;
-    }
-    .control:hover:enabled {
-        background: ${inputBackground};
-        border-color: ${dropdownBorder};
-    }
-    .control:active:enabled {
-        background: ${inputBackground};
-        border-color: ${focusBorder};
     }
     .control:hover,
     .control:${focusVisible},
@@ -83,9 +75,6 @@ export const textAreaStyles = css`
     }
     .control::-webkit-scrollbar-thumb:active {
         background: ${scrollbarSliderActiveBackground};
-    }
-    :host(:focus-within:not([disabled])) .control {
-        border-color: ${focusBorder};
     }
     :host([resize='both']) .control {
         resize: both;
@@ -119,8 +108,8 @@ export const textAreaStyles = css`
         font: inherit;
         font-size: ${typeRampBaseFontSize};
         line-height: ${typeRampPlus1LineHeight};
+        background: ${background};
 		height: 100%;
-        border: calc(${borderWidth} * 1px) solid transparent;
         overflow: hidden;
         color: var(--vscode-editorLineNumber-foreground);
         padding: 0 calc(${designUnit} * 2px + 1px) 0 calc(${designUnit} * 2px + 1px);
@@ -136,11 +125,9 @@ export const textAreaStyles = css`
         display: flex;
         width: 100%;
         height: calc(100% - ${typeRampPlus1LineHeight} - 10px);
+        border: calc(${borderWidth} * .5px) solid ${dropdownBorder};
     }
     :host([disabled]) {
         opacity: ${disabledOpacity};
-    }
-    :host([disabled]) .control {
-        border-color: ${dropdownBorder};
     }
 `
