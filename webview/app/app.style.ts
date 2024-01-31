@@ -7,7 +7,6 @@ export const styles = css`
         display: flex;
         height: 100vh;
         justify-content: space-between;
-        overflow: hidden;
     }
     .editor {
         width: 49%;
