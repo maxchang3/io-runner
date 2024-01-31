@@ -11,7 +11,7 @@ export class ConfigManager {
         this.extensionConfigs = this.resolveExtensionConfigs()
         this.launchConfigs = this.resolveLaunchConfigs()
     }
-    static async init(folder?: vscode.WorkspaceFolder) {
+    static init(folder?: vscode.WorkspaceFolder) {
         return new ConfigManager(folder)
     }
     public async updateConfigs(type: "extension" | "launch") {

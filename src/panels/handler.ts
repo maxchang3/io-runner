@@ -22,7 +22,7 @@ const changeDoc = (postCommand: CommandMessageSender, configManager: ConfigManag
 
 export const init = async (view: vscode.Webview) => {
     const postCommand = postCommandToView(view)
-    const configManager = await ConfigManager.init()
+    const configManager = ConfigManager.init()
     registerEvents(view, postCommand, configManager)
     handleWebviewCommand(view, postCommand, configManager)
     postCommand.init(configManager.extensionConfigs)
