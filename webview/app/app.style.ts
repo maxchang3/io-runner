@@ -29,18 +29,6 @@ export const styles = css`
         height: calc(${inputHeight} * 0.7px);
         margin-right: calc(${designUnit} * 1.5px);
     }
-    /* #selector {
-        position: absolute;
-        right: 19.5px;
-    }
-
-    #progress {
-        position: absolute;
-        right: calc(${inputMinWidth} + 19.5px);
-        top: 1px;
-        height: calc(${designUnit} * 5px);
-        width: calc(${designUnit} * 5px);
-    } */
 
     @media screen and (max-width: 500px) {
         #app {
