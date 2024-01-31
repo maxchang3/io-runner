@@ -6,7 +6,7 @@ export namespace Owner {
         init: IORunneronfig,
         changeDoc: string,
         prepareRun: undefined,
-        stdout: {
+        endRun: {
             stdout: string
             exitCode: number,
             time: number

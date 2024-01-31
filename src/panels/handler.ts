@@ -59,7 +59,7 @@ const handleWebviewCommand = (view: vscode.Webview, postCommand: CommandMessageS
             const { stdout, stderr, exitCode } = await executeProgram(program, stdin, args, cwd)
             if (stderr) throw new Error(`${stderr}`)
             const timeEnd = performance.now()
-            postCommand.stdout({
+            postCommand.endRun({
                 stdout,
                 exitCode,
                 time: timeEnd - timeStart

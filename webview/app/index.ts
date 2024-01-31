@@ -39,7 +39,7 @@ export class App extends FoundationElement {
                 const stdin = this.inputEl.value
                 this.postCommand.run({ launchName, stdin })
             },
-            stdout: ({ stdout, exitCode, time }) => {
+            endRun: ({ stdout, exitCode, time }) => {
                 this.outputEl.value = `${stdout}\n--------\nexit with code ${exitCode} in ${((time) / 1000).toFixed(3)}s`
             }
         })
