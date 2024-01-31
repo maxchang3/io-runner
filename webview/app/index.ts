@@ -6,6 +6,7 @@ import type { WebviewApi } from "vscode-webview"
 import type { TextArea, TaskSelector } from "../components"
 import type { Owner, IORunneronfig } from "../types"
 
+const DEFAULT_STATE = { selectedTaskIndex: 0, input: "", output: "" }
 
 export class App extends FoundationElement {
     vscode: WebviewApi<unknown>
@@ -13,6 +14,12 @@ export class App extends FoundationElement {
     inputEl!: TextArea
     outputEl!: TextArea
     taskMap?: IORunneronfig["taskMap"]
+    docState: Map<string, {
+        selectedTaskIndex: number,
+        input: string,
+        output: string
+    }> = new Map()
+    lastFilename: string | undefined
     postCommand: ReturnType<typeof postCommandToOwner>
     constructor() {
         super()
@@ -29,9 +36,26 @@ export class App extends FoundationElement {
                 const { taskMap } = data
                 this.taskMap = taskMap
             },
-            changeDoc: (ext) => {
+            changeDoc: ({ filename, ext }) => {
                 if (!this.taskMap) throw new Error('taskMap is not initialized')
                 this.taskSelectorEl.updateOptions(this.taskMap[ext] || [])
+                if (!this.lastFilename) {
+                    this.lastFilename = filename
+                    return
+                }
+                const currentSelectedIndex = this.taskSelectorEl.selectedIndex
+                const currentInput = this.inputEl.value
+                const currentOutput = this.outputEl.value
+                if (currentSelectedIndex || currentInput || currentOutput) this.docState.set(this.lastFilename, {
+                    selectedTaskIndex: currentSelectedIndex,
+                    input: currentInput,
+                    output: currentOutput
+                })
+                const { selectedTaskIndex, input, output } = this.docState.get(filename) ?? DEFAULT_STATE
+                this.taskSelectorEl.selectedIndex = selectedTaskIndex
+                this.inputEl.value = input
+                this.outputEl.value = output
+                this.lastFilename = filename
             },
             prepareRun: () => {
                 if (!this.taskMap) throw new Error('taskMap is not initialized')

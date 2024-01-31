@@ -11,6 +11,12 @@ export class TaskSelector extends FoundationElement {
     get current() {
         return this.dropdown.currentValue
     }
+    get selectedIndex() {
+        return this.dropdown.selectedIndex
+    }
+    set selectedIndex(index: number) {
+        this.dropdown.selectedIndex = index
+    }
     updateOptions(options: string[]) {
         this.options = options
         if (this.options.length === 0) this.dropdown.currentValue = ""

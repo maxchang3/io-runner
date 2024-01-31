@@ -4,7 +4,10 @@ import { IORunneronfig } from "./config"
 export namespace Owner {
     export type CommandData = {
         init: IORunneronfig,
-        changeDoc: string,
+        changeDoc: {
+            filename: string
+            ext: string
+        },
         prepareRun: undefined,
         endRun: {
             stdout: string
