@@ -1,5 +1,6 @@
 import { template } from "./app.template"
 import { styles } from "./app.style"
+import { attr } from "@microsoft/fast-element"
 import { postCommandToOwner, recieveCommandFromOwner } from "../utils/message"
 import { FoundationElement, FoundationElementDefinition } from "@microsoft/fast-foundation"
 import type { WebviewApi } from "vscode-webview"
@@ -7,6 +8,11 @@ import type { TextArea, TaskSelector } from "../components"
 import type { Owner, IORunneronfig } from "../types"
 
 const DEFAULT_STATE = { selectedTaskIndex: 0, input: "", output: "" }
+
+export enum RUNNER_STATUS {
+    ready,
+    running
+}
 
 export class App extends FoundationElement {
     vscode: WebviewApi<unknown>
@@ -21,6 +27,7 @@ export class App extends FoundationElement {
     }> = new Map()
     lastFilename: string | undefined
     postCommand: ReturnType<typeof postCommandToOwner>
+    @attr status: RUNNER_STATUS = RUNNER_STATUS.ready
     constructor() {
         super()
         this.vscode = acquireVsCodeApi()
@@ -61,9 +68,11 @@ export class App extends FoundationElement {
                 if (!this.taskMap) throw new Error('taskMap is not initialized')
                 const launchName = this.taskSelectorEl.current
                 const stdin = this.inputEl.value
+                this.status = RUNNER_STATUS.running
                 this.postCommand.run({ launchName, stdin })
             },
             endRun: ({ stdout, exitCode, time }) => {
+                this.status = RUNNER_STATUS.ready
                 this.outputEl.value = `${stdout}\n--------\nexit with code ${exitCode} in ${((time) / 1000).toFixed(3)}s`
             }
         })

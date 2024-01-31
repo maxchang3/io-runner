@@ -1,4 +1,5 @@
 import { css } from '@microsoft/fast-element'
+import { designUnit, inputHeight, inputMinWidth } from '@vscode/webview-ui-toolkit/dist/design-tokens'
 
 
 export const styles = css`
@@ -8,16 +9,38 @@ export const styles = css`
         justify-content: space-between;
         overflow: hidden;
     }
-
     .editor {
         width: 49%;
         height: 100%;
     }
-
-    #selector {
+    #tool {
         position: absolute;
         right: 19.5px;
     }
+    .tool-container {
+        display: flex;
+        align-items: center;
+    }
+    .hidden {
+        display: none;
+    }
+    #progress {
+        width: calc(${inputHeight} * 0.7px);
+        height: calc(${inputHeight} * 0.7px);
+        margin-right: calc(${designUnit} * 1.5px);
+    }
+    /* #selector {
+        position: absolute;
+        right: 19.5px;
+    }
+
+    #progress {
+        position: absolute;
+        right: calc(${inputMinWidth} + 19.5px);
+        top: 1px;
+        height: calc(${designUnit} * 5px);
+        width: calc(${designUnit} * 5px);
+    } */
 
     @media screen and (max-width: 500px) {
         #app {

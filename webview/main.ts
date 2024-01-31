@@ -1,4 +1,4 @@
-import { provideVSCodeDesignSystem, vsCodeDropdown, vsCodeOption } from "@vscode/webview-ui-toolkit"
+import { provideVSCodeDesignSystem, vsCodeDropdown, vsCodeOption, vsCodeProgressRing } from "@vscode/webview-ui-toolkit"
 import { vsCodeTextArea, vscodeTaskSelector } from "./components"
 import { app } from "./app"
 
@@ -7,5 +7,6 @@ provideVSCodeDesignSystem().register(
     vsCodeDropdown(),
     vsCodeOption(),
     vscodeTaskSelector(),
+    vsCodeProgressRing(),
     app()
 )
