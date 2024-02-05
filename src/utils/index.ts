@@ -1,5 +1,5 @@
-export * from "./configManager"
-export * from "./runner"
+export * from "./ConfigManager"
+export * from "./Runner"
 export * from "./message"
 export * from "./webview"
 export * from "./execution"
