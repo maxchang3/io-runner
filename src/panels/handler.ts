@@ -4,9 +4,10 @@ import type { CommandMessageSender } from "@/utils"
 
 const getFilenameAndExt = (editor?: vscode.TextEditor) => [editor?.document.fileName || "", editor?.document.fileName.split(".").pop() || ""] as const
 
+
 const changeDoc = (postCommand: CommandMessageSender, config: ConfigManager, editor?: vscode.TextEditor,) => {
     const [filename, ext] = getFilenameAndExt(editor)
-    if (editor) postCommand.changeDoc({ filename, ext })
+    postCommand.changeDoc({ filename, ext })
     vscode.commands.executeCommand(
         'setContext',
         'io-runner.runable',

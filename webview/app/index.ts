@@ -7,7 +7,7 @@ import type { WebviewApi } from "vscode-webview"
 import type { TextArea, TaskSelector } from "../components"
 import type { Owner, IORunneronfig } from "../types"
 
-const DEFAULT_STATE = { selectedTaskIndex: 0, input: "", output: "" }
+const DEFAULT_STATE = { selectedTaskIndex: -1, input: "", output: "" }
 
 export enum RUNNER_STATUS {
     ready,
@@ -45,20 +45,23 @@ export class App extends FoundationElement {
             },
             changeDoc: ({ filename, ext }) => {
                 if (!this.taskMap) throw new Error('taskMap is not initialized')
-                this.taskSelectorEl.updateOptions(this.taskMap[ext] || [])
                 if (!this.lastFilename) {
+                    this.taskSelectorEl.updateOptions(this.taskMap[ext] || [])
                     this.lastFilename = filename
                     return
                 }
                 const currentSelectedIndex = this.taskSelectorEl.selectedIndex
                 const currentInput = this.inputEl.value
                 const currentOutput = this.outputEl.value
-                if (currentSelectedIndex || currentInput || currentOutput) this.docState.set(this.lastFilename, {
-                    selectedTaskIndex: currentSelectedIndex,
-                    input: currentInput,
-                    output: currentOutput
-                })
+                if (currentSelectedIndex || currentInput || currentOutput) {
+                    this.docState.set(this.lastFilename, {
+                        selectedTaskIndex: currentSelectedIndex,
+                        input: currentInput,
+                        output: currentOutput
+                    })
+                }
                 const { selectedTaskIndex, input, output } = this.docState.get(filename) ?? DEFAULT_STATE
+                this.taskSelectorEl.updateOptions(this.taskMap[ext] || [])
                 this.taskSelectorEl.selectedIndex = selectedTaskIndex
                 this.inputEl.value = input
                 this.outputEl.value = output
