@@ -66,20 +66,6 @@ const handleWebviewCommand = (view: vscode.Webview, postCommand: CommandMessageS
                 })
                 vscode.commands.executeCommand('setContext', 'io-runner.running', false)
             })
-            // const { preLaunchTask, postDebugTask } = targetLaunch
-            // if (preLaunchTask) await executeTask(preLaunchTask)
-            // const { program, args, cwd } = targetLaunch.computeVariables()
-            // if (!program) throw new Error(`Launch program is not defined`)
-            // const { stdout, stderr, exitCode } = await executeProgram(program, stdin, args, cwd)
-            // if (stderr) throw new Error(`${stderr}`)
-            // const timeEnd = performance.now()
-            // postCommand.endRun({
-            //     stdout,
-            //     exitCode,
-            //     time: timeEnd - timeStart
-            // })
-            // vscode.commands.executeCommand('setContext', 'io-runner.running', false)
-            // if (postDebugTask) await executeTask(postDebugTask)
         },
         stop: async () => {
             await runner.stop()
