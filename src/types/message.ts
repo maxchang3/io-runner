@@ -9,6 +9,7 @@ export namespace Owner {
             ext: string
         },
         prepareRun: undefined,
+        prepareStop: undefined,
         endRun: {
             stdout: string
             exitCode: number,

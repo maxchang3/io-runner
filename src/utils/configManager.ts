@@ -6,10 +6,12 @@ export class ConfigManager {
     private folder?: vscode.WorkspaceFolder
     public extensionConfigs: IORunneronfig
     public launchConfigs: Map<string, ComputedLaunchConfiguration>
+    public taskConfigs: Map<string, vscode.TaskDefinition>
     private constructor(folder?: vscode.WorkspaceFolder) {
         this.folder = folder
         this.extensionConfigs = this.resolveExtensionConfigs()
         this.launchConfigs = this.resolveLaunchConfigs()
+        this.taskConfigs = this.resolveTaskConfigs()
     }
     static init(folder?: vscode.WorkspaceFolder) {
         return new ConfigManager(folder)
@@ -55,5 +57,14 @@ export class ConfigManager {
 
     private resolveExtensionConfigs() {
         return vscode.workspace.getConfiguration().get<IORunneronfig>('io-runner')!
+    }
+
+    private resolveTaskConfigs() {
+        const config = vscode.workspace.getConfiguration('tasks', this.folder).get<vscode.TaskDefinition[]>('tasks')
+        const taskConfigs = new Map<string, vscode.TaskDefinition>()
+        for (const task of config!) {
+            taskConfigs.set(task.label, task)
+        }
+        return taskConfigs
     }
 }

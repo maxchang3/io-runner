@@ -22,7 +22,7 @@ export function activate(context: ExtensionContext) {
         ),
         ...registerCommands([
             RunCommand(provider),
-            StopCommand,
+            StopCommand(provider),
         ])
     )
 }

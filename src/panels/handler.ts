@@ -7,6 +7,7 @@ import {
     executeTask,
 } from "@/utils"
 import type { CommandMessageSender } from "@/utils"
+import { Runner } from "@/utils/runner"
 
 const getFilenameAndExt = (editor?: vscode.TextEditor) => [editor?.document.fileName || "", editor?.document.fileName.split(".").pop() || ""] as const
 
@@ -44,6 +45,7 @@ const registerEvents = (view: vscode.Webview, postCommand: CommandMessageSender,
 }
 
 const handleWebviewCommand = (view: vscode.Webview, postCommand: CommandMessageSender, configManager: ConfigManager) => {
+    let runner: Runner
     recieveCommandFromView(view, {
         test: (data) => {
             vscode.window.showInformationMessage(data)
@@ -52,23 +54,36 @@ const handleWebviewCommand = (view: vscode.Webview, postCommand: CommandMessageS
             const timeStart = performance.now()
             const targetLaunch = configManager.launchConfigs.get(launchName)
             if (!targetLaunch) throw new Error(`Launch "${launchName}" not found`)
-            const { preLaunchTask, postDebugTask } = targetLaunch
-            if (preLaunchTask) await executeTask(preLaunchTask)
-            const { program, args, cwd } = targetLaunch.computeVariables()
-            if (!program) throw new Error(`Launch program is not defined`)
-            const { stdout, stderr, exitCode } = await executeProgram(program, stdin, args, cwd)
-            if (stderr) throw new Error(`${stderr}`)
-            const timeEnd = performance.now()
-            postCommand.endRun({
-                stdout,
-                exitCode,
-                time: timeEnd - timeStart
+            runner = new Runner(targetLaunch, stdin, configManager)
+            runner.run()
+            runner.on("output", ({ stdout, stderr, exitCode }) => {
+                if (stderr) throw new Error(`${stderr}`)
+                const timeEnd = performance.now()
+                postCommand.endRun({
+                    stdout,
+                    exitCode,
+                    time: timeEnd - timeStart
+                })
+                vscode.commands.executeCommand('setContext', 'io-runner.running', false)
             })
-            vscode.commands.executeCommand('setContext', 'io-runner.running', false)
-            if (postDebugTask) await executeTask(postDebugTask)
+            // const { preLaunchTask, postDebugTask } = targetLaunch
+            // if (preLaunchTask) await executeTask(preLaunchTask)
+            // const { program, args, cwd } = targetLaunch.computeVariables()
+            // if (!program) throw new Error(`Launch program is not defined`)
+            // const { stdout, stderr, exitCode } = await executeProgram(program, stdin, args, cwd)
+            // if (stderr) throw new Error(`${stderr}`)
+            // const timeEnd = performance.now()
+            // postCommand.endRun({
+            //     stdout,
+            //     exitCode,
+            //     time: timeEnd - timeStart
+            // })
+            // vscode.commands.executeCommand('setContext', 'io-runner.running', false)
+            // if (postDebugTask) await executeTask(postDebugTask)
         },
-        stop: () => {
-            vscode.window.showInformationMessage('stop')
+        stop: async () => {
+            await runner.stop()
+            vscode.commands.executeCommand('setContext', 'io-runner.running', false)
         }
     })
 }

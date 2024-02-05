@@ -68,8 +68,13 @@ export class App extends FoundationElement {
                 if (!this.taskMap) throw new Error('taskMap is not initialized')
                 const launchName = this.taskSelectorEl.current
                 const stdin = this.inputEl.value
+                this.outputEl.value = ""
                 this.status = RUNNER_STATUS.running
                 this.postCommand.run({ launchName, stdin })
+            },
+            prepareStop: () => {
+                this.status = RUNNER_STATUS.ready
+                this.postCommand.stop()
             },
             endRun: ({ stdout, exitCode, time }) => {
                 this.status = RUNNER_STATUS.ready
