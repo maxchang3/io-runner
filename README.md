@@ -8,7 +8,7 @@ Single-file code execution made easy, redirect input/output to separate views, b
 
 ## Related Project
 
-The project is heavily inspired by [OI Runner](https://github.com/CmdBlockZQG/oi-runner/).
+The project is heavily inspired by [CmdBlockZQG](https://github.com/CmdBlockZQG/)'s [OI Runner](https://github.com/CmdBlockZQG/oi-runner/).
 
 ## License
 
