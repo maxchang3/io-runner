@@ -1,9 +1,10 @@
 import * as vscode from "vscode"
-import { Runner, ConfigManager, postCommandToView, recieveCommandFromView } from "@/utils"
+import { Runner, ConfigManager, Logger, postCommandToView, recieveCommandFromView } from "@/utils"
 import type { CommandMessageSender } from "@/utils"
 
-const getFilenameAndExt = (editor?: vscode.TextEditor) => [editor?.document.fileName || "", editor?.document.fileName.split(".").pop() || ""] as const
+const logger = new Logger()
 
+const getFilenameAndExt = (editor?: vscode.TextEditor) => [editor?.document.fileName || "", editor?.document.fileName.split(".").pop() || ""] as const
 
 const changeDoc = (postCommand: CommandMessageSender, config: ConfigManager, editor?: vscode.TextEditor,) => {
     const [filename, ext] = getFilenameAndExt(editor)
@@ -22,6 +23,7 @@ export const init = async (view: vscode.Webview) => {
     handleWebviewCommand(view, postCommand, config)
     postCommand.init(config.extensionConfigs)
     changeDoc(postCommand, config, vscode.window.activeTextEditor)
+    logger.info("initialized!")
 }
 
 const registerEvents = (view: vscode.Webview, postCommand: CommandMessageSender, config: ConfigManager) => {
@@ -47,11 +49,17 @@ const handleWebviewCommand = (view: vscode.Webview, postCommand: CommandMessageS
         run: async ({ launchName, stdin }) => {
             const timeStart = performance.now()
             const targetLaunch = config.launchConfigs.get(launchName)
-            if (!targetLaunch) throw new Error(`Launch "${launchName}" not found`)
+            if (!targetLaunch) {
+                logger.showError(`Launch "${launchName}" not found`)
+                return
+            }
             runner = new Runner(targetLaunch, stdin, config)
             runner.run()
             runner.on("output", ({ stdout, stderr, exitCode }) => {
-                if (stderr) throw new Error(`${stderr}`)
+                if (stderr) {
+                    logger.showError(`Stderr: ${stderr}`)
+                    return
+                }
                 const timeEnd = performance.now()
                 postCommand.endRun({
                     stdout,
