@@ -1,9 +1,14 @@
-# IO Runner <a href="https://marketplace.visualstudio.com/items?itemName=antfu.ext-name" target="__blank"><img src="https://img.shields.io/visual-studio-marketplace/v/antfu.ext-name.svg?color=eee&amp;label=VS%20Code%20Marketplace&logo=visual-studio-code" alt="Visual Studio Marketplace Version" /></a> <sup>*Input/Output Runner*</sup>
+# IO Runner <sup>*Input/Output Runner*</sup>
 
+<a href="https://marketplace.visualstudio.com/items?itemName=antfu.ext-name" target="__blank"><img src="https://img.shields.io/visual-studio-marketplace/v/antfu.ext-name.svg?color=eee&amp;label=VS%20Code%20Marketplace&logo=visual-studio-code" alt="Visual Studio Marketplace Version" /></a> 
 
 **WIP ⚠️**
 
 Single-file code execution made easy, redirect input/output to separate views, build for competitive programming.
+
+## Related Project
+
+The project is heavily inspired by [OI Runner](https://github.com/CmdBlockZQG/oi-runner/).
 
 ## License
 
