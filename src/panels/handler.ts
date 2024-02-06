@@ -23,7 +23,6 @@ export const init = async (view: vscode.Webview) => {
     handleWebviewCommand(view, postCommand, config)
     postCommand.init(config.extensionConfigs)
     changeDoc(postCommand, config, vscode.window.activeTextEditor)
-    logger.info("initialized!")
 }
 
 const registerEvents = (view: vscode.Webview, postCommand: CommandMessageSender, config: ConfigManager) => {
