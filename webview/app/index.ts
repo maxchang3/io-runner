@@ -75,6 +75,9 @@ export class App extends FoundationElement {
                 this.status = RUNNER_STATUS.running
                 this.postCommand.run({ launchName, stdin })
             },
+            stopView: () => {
+                this.status = RUNNER_STATUS.ready
+            },
             prepareStop: () => {
                 this.status = RUNNER_STATUS.ready
                 this.postCommand.stop()

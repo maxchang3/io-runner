@@ -8,6 +8,7 @@ export namespace Owner {
             filename: string
             ext: string
         },
+        stopView: undefined,
         prepareRun: undefined,
         prepareStop: undefined,
         endRun: {

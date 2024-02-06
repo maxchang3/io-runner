@@ -51,7 +51,9 @@ const handleWebviewCommand = (view: vscode.Webview, postCommand: CommandMessageS
             const timeStart = performance.now()
             const targetLaunch = config.launchConfigs.get(launchName)
             if (!targetLaunch) {
-                logger.showError(`Launch "${launchName}" not found`)
+                vscode.window.showErrorMessage(`Launch "${launchName}" not found!`)
+                vscode.commands.executeCommand('setContext', 'io-runner.running', false)
+                postCommand.stopView()
                 return
             }
             runner = new Runner(targetLaunch, stdin, config)
@@ -59,6 +61,7 @@ const handleWebviewCommand = (view: vscode.Webview, postCommand: CommandMessageS
             runner.on("output", ({ stdout, stderr, exitCode }) => {
                 if (stderr) {
                     logger.showError(`Stderr: ${stderr}`)
+                    postCommand.stopView()
                     return
                 }
                 const timeEnd = performance.now()
