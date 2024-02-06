@@ -7,7 +7,7 @@ import type { WebviewApi } from "vscode-webview"
 import type { TextArea, TaskSelector } from "../components"
 import type { Owner, IORunneronfig } from "../types"
 
-const DEFAULT_STATE = { selectedTaskIndex: -1, input: "", output: "" }
+const DEFAULT_STATE = { selectedTaskIndex: 0, input: "", output: "" }
 
 export enum RUNNER_STATUS {
     ready,
