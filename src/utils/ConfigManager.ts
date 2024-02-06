@@ -16,13 +16,16 @@ export class ConfigManager {
     static init(folder?: vscode.WorkspaceFolder) {
         return new ConfigManager(folder)
     }
-    public async updateConfigs(type: "extension" | "launch") {
+    public async updateConfigs(type: "extension" | "launch" | "task") {
         switch (type) {
             case "extension":
                 this.extensionConfigs = this.resolveExtensionConfigs()
                 break
             case "launch":
                 this.launchConfigs = this.resolveLaunchConfigs()
+                break
+            case "task":
+                this.taskConfigs = this.resolveTaskConfigs()
                 break
         }
     }

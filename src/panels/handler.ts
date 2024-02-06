@@ -8,7 +8,7 @@ const getFilenameAndExt = (editor?: vscode.TextEditor) => [editor?.document.file
 
 const changeDoc = (postCommand: CommandMessageSender, config: ConfigManager, editor?: vscode.TextEditor,) => {
     const [filename, ext] = getFilenameAndExt(editor)
-    if (editor) postCommand.changeDoc({ filename, ext })
+    postCommand.changeDoc({ filename, ext })
     vscode.commands.executeCommand(
         'setContext',
         'io-runner.runable',
@@ -37,6 +37,7 @@ const registerEvents = (view: vscode.Webview, postCommand: CommandMessageSender,
             changeDoc(postCommand, config, vscode.window.activeTextEditor)
         }
         if (e.affectsConfiguration("launch")) config.updateConfigs("launch")
+        if (e.affectsConfiguration("tasks")) config.updateConfigs("task")
     })
 }
 
