@@ -19,7 +19,7 @@ export class App extends FoundationElement {
     taskSelectorEl!: TaskSelector
     inputEl!: TextArea
     outputEl!: TextArea
-    taskMap?: IORunneronfig["taskMap"]
+    launchMap?: IORunneronfig["launchMap"]
     docState: Map<string, {
         selectedTaskIndex: number,
         input: string,
@@ -40,13 +40,13 @@ export class App extends FoundationElement {
     onVSCodeMessage(event: MessageEvent<Owner.CommandMessage>) {
         return recieveCommandFromOwner(event, {
             init: (data) => {
-                const { taskMap } = data
-                this.taskMap = taskMap
+                const { launchMap } = data
+                this.launchMap = launchMap
             },
             changeDoc: ({ filename, ext }) => {
-                if (!this.taskMap) throw new Error('taskMap is not initialized')
+                if (!this.launchMap) throw new Error('launchMap is not initialized')
                 if (!this.lastFilename) {
-                    this.taskSelectorEl.updateOptions(this.taskMap[ext] || [])
+                    this.taskSelectorEl.updateOptions(this.launchMap[ext] || [])
                     this.lastFilename = filename
                     return
                 }
@@ -61,14 +61,14 @@ export class App extends FoundationElement {
                     })
                 }
                 const { selectedTaskIndex, input, output } = this.docState.get(filename) ?? DEFAULT_STATE
-                this.taskSelectorEl.updateOptions(this.taskMap[ext] || [])
+                this.taskSelectorEl.updateOptions(this.launchMap[ext] || [])
                 this.taskSelectorEl.selectedIndex = selectedTaskIndex
                 this.inputEl.value = input
                 this.outputEl.value = output
                 this.lastFilename = filename
             },
             prepareRun: () => {
-                if (!this.taskMap) throw new Error('taskMap is not initialized')
+                if (!this.launchMap) throw new Error('launchMap is not initialized')
                 const launchName = this.taskSelectorEl.current
                 const stdin = this.inputEl.value
                 this.outputEl.value = ""

@@ -12,7 +12,7 @@ const changeDoc = (postCommand: CommandMessageSender, config: ConfigManager, edi
     vscode.commands.executeCommand(
         'setContext',
         'io-runner.runable',
-        !!config.extensionConfigs.taskMap[ext]
+        !!config.extensionConfigs.launchMap[ext]
     )
 }
 

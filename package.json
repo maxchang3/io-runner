@@ -40,15 +40,15 @@
               "node": "node"
             }
           },
-          "io-runner.taskMap": {
-            "description": "Mapping file extension to task name",
+          "io-runner.launchMap": {
+            "description": "Mapping file extension to launch name",
             "type": "object",
             "additionalProperties": {
               "type": [
                 "string",
                 "array"
               ],
-              "description": "task name or array of task names"
+              "description": "launch name or array of launch names"
             },
             "default": {
               "py": [

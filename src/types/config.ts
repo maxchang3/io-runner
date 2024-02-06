@@ -1,7 +1,7 @@
 import type { DebugConfiguration, Task } from 'vscode'
 
 export interface IORunneronfig {
-    taskMap: Record<string, string[] | undefined>
+    launchMap: Record<string, string[] | undefined>
     launchInterpreter: Record<string, string | undefined>
 }
 
