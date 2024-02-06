@@ -8,7 +8,7 @@ const getFilenameAndExt = (editor?: vscode.TextEditor) => [editor?.document.file
 
 const changeDoc = (postCommand: CommandMessageSender, config: ConfigManager, editor?: vscode.TextEditor,) => {
     const [filename, ext] = getFilenameAndExt(editor)
-    postCommand.changeDoc({ filename, ext })
+    if (editor) postCommand.changeDoc({ filename, ext })
     vscode.commands.executeCommand(
         'setContext',
         'io-runner.runable',
