@@ -12,14 +12,14 @@ export class Runner extends EventEmitter {
     private launchConfig: ComputedLaunchConfiguration
     private preLaunchTask?: string
     private postLaunchTask?: string
-    private configManager?: ConfigManager
-    constructor(launchConfig: ComputedLaunchConfiguration, stdin: string, configManager: ConfigManager) {
+    private config?: ConfigManager
+    constructor(launchConfig: ComputedLaunchConfiguration, stdin: string, config: ConfigManager) {
         super()
         this.launchConfig = launchConfig
         this.preLaunchTask = launchConfig.preLaunchTask
         this.postLaunchTask = launchConfig.postLaunchTask
         this.stdin = stdin
-        this.configManager = configManager
+        this.config = config
     }
     private checkStatus = () => (this.status as RunnerStatus === "ready")
     async runStep() {
@@ -59,7 +59,7 @@ export class Runner extends EventEmitter {
         }
     }
     async stop() {
-        const taskConfigs = this.configManager?.taskConfigs
+        const taskConfigs = this.config?.taskConfigs
         if (this.status === "preLaunchTask" && this.preLaunchTask) {
             await terminateTask(this.preLaunchTask, taskConfigs?.get(this.preLaunchTask)?.dependsOn)
         } else if (this.status === "running") {
