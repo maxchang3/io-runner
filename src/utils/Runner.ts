@@ -21,7 +21,7 @@ export class Runner extends EventEmitter {
         this.stdin = stdin
         this.config = config
     }
-    private checkStatus = () => (this.status as RunnerStatus === "ready")
+    private checkStatus = () => (this.status === "ready")
     async runStep() {
         switch (this.status) {
             case "preLaunchTask":
