@@ -25,6 +25,7 @@ export class Runner extends EventEmitter {
     async runStep() {
         switch (this.status) {
             case "preLaunchTask":
+                if (this.checkStatus()) return
                 if (this.preLaunchTask) await executeTask(this.preLaunchTask)
                 if (this.checkStatus()) return
                 this.status = "running"
