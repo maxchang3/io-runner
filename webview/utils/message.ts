@@ -16,7 +16,10 @@ export const postCommandToOwner = (vscode: WebviewApi<unknown>) => new Proxy({} 
 
 
 export const recieveCommandFromOwner = <T extends Owner.Command>(event: MessageEvent<Owner.CommandMessage<T>>, onMessage: {
-    [K in Owner.Command]: (data: Owner.CommandData[K]) => void
+    [K in Owner.Command]: 
+        Owner.CommandData[K] extends undefined 
+            ? () => void 
+            : (data: Owner.CommandData[K]) => void
 }) => {
     const { data: message } = event
     console.assert(message.command in onMessage, `command ${message.command} not found`)
