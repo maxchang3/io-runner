@@ -9,6 +9,8 @@ type EventDataType = {
     output: Awaited<ReturnType<typeof executeProgram>[1]>
 }
 
+type EventListener<E extends keyof EventDataType> = (arg: EventDataType[E]) => void
+
 export class Runner extends EventEmitter {
     private child?: ChildProcessWithoutNullStreams
     private status: RunnerStatus = "ready"
@@ -25,11 +27,11 @@ export class Runner extends EventEmitter {
         this.stdin = stdin
         this.config = config
     }
-    on<E extends string | symbol>(eventName: E, listener: (...args: E extends keyof EventDataType ? [EventDataType[E]] : any[]) => void) {
+    on<E extends keyof EventDataType>(eventName: E, listener: EventListener<E>) {
         return super.on(eventName, listener as (...args: any[]) => void)
     }
-    emit<E extends string | symbol>(eventName: E, ...args: E extends keyof EventDataType ? [EventDataType[E]] : any[]) {
-        return super.emit(eventName, ...args)
+    emit<E extends keyof EventDataType>(eventName: E, arg: EventDataType[E]) {
+        return super.emit(eventName, arg)
     }
     private checkStatus = () => (this.status === "ready")
     async runStep() {
