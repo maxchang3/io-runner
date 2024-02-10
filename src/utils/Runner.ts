@@ -5,6 +5,10 @@ import type { ChildProcessWithoutNullStreams } from 'node:child_process'
 
 type RunnerStatus = "ready" | "preLaunchTask" | "running" | "postDebugTask"
 
+type EventDataType = {
+    output: Awaited<ReturnType<typeof executeProgram>[1]>
+}
+
 export class Runner extends EventEmitter {
     private child?: ChildProcessWithoutNullStreams
     private status: RunnerStatus = "ready"
@@ -20,6 +24,12 @@ export class Runner extends EventEmitter {
         this.postLaunchTask = launchConfig.postLaunchTask
         this.stdin = stdin
         this.config = config
+    }
+    on<E extends string | symbol>(eventName: E, listener: (...args: E extends keyof EventDataType ? [EventDataType[E]] : any[]) => void) {
+        return super.on(eventName, listener as (...args: any[]) => void)
+    }
+    emit<E extends string | symbol>(eventName: E, ...args: E extends keyof EventDataType ? [EventDataType[E]] : any[]) {
+        return super.emit(eventName, ...args)
     }
     private checkStatus = () => (this.status === "ready")
     async runStep() {
