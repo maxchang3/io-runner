@@ -5,6 +5,7 @@
     "lib": [ "es2020" ],
     "types": [ "@types/node" ],
     "moduleResolution": "node",
+    "incremental": true,
     "esModuleInterop": true,
     "strict": true,
     "strictNullChecks": true,
