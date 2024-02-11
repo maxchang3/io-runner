@@ -14,7 +14,6 @@ export const postCommandToView = (view: Webview) => new Proxy({} as CommandMessa
     }
 })
 
-
 export const recieveCommandFromView = <T extends WebviewContext.Command>(view: Webview, onMessage: {
     [K in WebviewContext.Command]: (data: WebviewContext.CommandData[K]) => void
 }) => {
