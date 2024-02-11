@@ -2,7 +2,7 @@ import * as vscode from "vscode"
 import { Runner, ConfigManager, Logger, postCommandToView, recieveCommandFromView } from "@/utils"
 import type { CommandMessageSender } from "@/utils"
 
-const logger = new Logger()
+const logger = Logger.getInstance()
 
 const getFilenameAndExt = (editor?: vscode.TextEditor) => [editor?.document.fileName || "", editor?.document.fileName.split(".").pop() || ""] as const
 
