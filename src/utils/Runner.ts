@@ -33,7 +33,7 @@ export class Runner extends EventEmitter {
     emit<E extends keyof EventDataType>(eventName: E, arg: EventDataType[E]) {
         return super.emit(eventName, arg)
     }
-    private checkStatus = () => (this.status === "ready")
+    private checkStatus() { return this.status === "ready" }
     async runStep() {
         switch (this.status) {
             case "preLaunchTask":
