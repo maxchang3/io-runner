@@ -27,14 +27,14 @@ export class Runner extends EventEmitter {
         this.stdin = stdin
         this.config = config
     }
-    on<E extends keyof EventDataType>(eventName: E, listener: EventListener<E>) {
+    public on<E extends keyof EventDataType>(eventName: E, listener: EventListener<E>) {
         return super.on(eventName, listener as (...args: any[]) => void)
     }
-    emit<E extends keyof EventDataType>(eventName: E, arg: EventDataType[E]) {
+    public emit<E extends keyof EventDataType>(eventName: E, arg: EventDataType[E]) {
         return super.emit(eventName, arg)
     }
     private checkStatus() { return this.status === "ready" }
-    async runStep() {
+    private async runStep() {
         switch (this.status) {
             case "preLaunchTask":
                 if (this.checkStatus()) return
@@ -63,14 +63,14 @@ export class Runner extends EventEmitter {
                 break
         }
     }
-    async run() {
+    public async run() {
         this.status = "preLaunchTask"
         for (let i = 0; i < 4; i++) {
             if (this.checkStatus()) return
             await this.runStep()
         }
     }
-    async stop() {
+    public async stop() {
         const taskConfigs = this.config?.taskConfigs
         if (this.status === "preLaunchTask" && this.preLaunchTask) {
             await terminateTask(this.preLaunchTask, taskConfigs?.get(this.preLaunchTask)?.dependsOn)
