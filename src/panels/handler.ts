@@ -59,7 +59,7 @@ const handleWebviewCommand = (view: vscode.Webview, postCommand: CommandMessageS
             runner.run()
             runner.on("output", ({ stdout, stderr, exitCode }) => {
                 if (stderr) {
-                    logger.showError(`Stderr: ${stderr}`)
+                    logger.showError(`STDERR: ${stderr}`)
                     postCommand.stopView()
                     return
                 }
