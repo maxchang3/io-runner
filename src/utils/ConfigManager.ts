@@ -3,6 +3,7 @@ import { replaceVariables } from '@c4312/vscode-variables'
 import type { ComputedLaunchConfiguration, IORunneronfig, LaunchConfiguration } from '@/types/config'
 
 export class ConfigManager {
+    private static instance: ConfigManager | null = null
     private folder?: vscode.WorkspaceFolder
     public extensionConfigs: IORunneronfig
     public launchConfigs: Map<string, ComputedLaunchConfiguration>
@@ -13,8 +14,8 @@ export class ConfigManager {
         this.launchConfigs = this.resolveLaunchConfigs()
         this.taskConfigs = this.resolveTaskConfigs()
     }
-    static init(folder?: vscode.WorkspaceFolder) {
-        return new ConfigManager(folder)
+    public static getInstance(folder?: vscode.WorkspaceFolder) {
+        return ConfigManager.instance ? ConfigManager.instance : new ConfigManager(folder)
     }
     public async updateConfigs(type: "extension" | "launch" | "task") {
         switch (type) {

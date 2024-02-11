@@ -18,7 +18,7 @@ const changeDoc = (postCommand: CommandMessageSender, config: ConfigManager, edi
 
 export const init = async (view: vscode.Webview) => {
     const postCommand = postCommandToView(view)
-    const config = ConfigManager.init()
+    const config = ConfigManager.getInstance()
     registerEvents(view, postCommand, config)
     handleWebviewCommand(view, postCommand, config)
     postCommand.init(config.extensionConfigs)
