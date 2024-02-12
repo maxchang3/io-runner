@@ -1,12 +1,16 @@
 import { EventEmitter } from "node:stream"
 import { ConfigManager, executeProgram, executeTask, terminateTask } from "."
-import type { ComputedLaunchConfiguration } from "@/types"
+import type { ComputedLaunchConfiguration, Owner } from "@/types"
 import type { ChildProcessWithoutNullStreams } from 'node:child_process'
 
 type RunnerStatus = "ready" | "preLaunchTask" | "running" | "postDebugTask"
 
 type EventDataType = {
-    output: Awaited<ReturnType<typeof executeProgram>[1]>
+    end: {
+        stderr: string
+        exitCode: number
+    }
+    stdout: Buffer
 }
 
 type EventListener<E extends keyof EventDataType> = (arg: EventDataType[E]) => void
@@ -47,12 +51,13 @@ export class Runner extends EventEmitter {
                 const { program, cwd, args } = this.launchConfig.computeVariables()
                 if (this.checkStatus()) return
                 const [child, programExecution] = executeProgram(program, this.stdin, args, cwd)
+                child.stdout.on("data", (data) => this.emit("stdout", data))
                 if (this.checkStatus()) return
                 this.child = child
                 if (this.checkStatus()) return
-                const { stdout, stderr, exitCode } = await programExecution
+                const { stdout: _, stderr, exitCode } = await programExecution
                 if (this.checkStatus()) return
-                this.emit("output", { stdout, stderr, exitCode })
+                this.emit("end", { stderr, exitCode })
                 if (this.checkStatus()) return
                 this.status = "postDebugTask"
                 break

@@ -12,12 +12,11 @@ export namespace Owner {
         prepareRun: undefined,
         prepareStop: undefined,
         endRun: {
-            stdout: string
             exitCode: number,
             time: number
         },
+        stdout: ArrayBuffer
     }
-
     export type Command = keyof CommandData
 
     export type CommandMessage<K extends Command = Command> = {

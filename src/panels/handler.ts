@@ -55,7 +55,10 @@ const handleWebviewCommand = (view: vscode.Webview, postCommand: CommandMessageS
             }
             runner = new Runner(targetLaunch, stdin, config)
             runner.run()
-            runner.on("output", ({ stdout, stderr, exitCode }) => {
+            runner.on("stdout", (data) => {
+                postCommand.stdout(data.buffer)
+            })
+            runner.on("end", ({ stderr, exitCode }) => {
                 if (stderr) {
                     logger.showError(`STDERR: ${stderr}`)
                     postCommand.stopView()
@@ -63,7 +66,6 @@ const handleWebviewCommand = (view: vscode.Webview, postCommand: CommandMessageS
                 }
                 const timeEnd = performance.now()
                 postCommand.endRun({
-                    stdout,
                     exitCode,
                     time: timeEnd - timeStart
                 })

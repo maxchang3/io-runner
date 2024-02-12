@@ -9,6 +9,8 @@ import type { Owner, IORunneronfig } from "../types"
 
 const DEFAULT_STATE = { selectedTaskIndex: 0, input: "", output: "" }
 
+const decoder = new TextDecoder('utf-8')
+
 export enum RUNNER_STATUS {
     ready,
     running
@@ -82,9 +84,12 @@ export class App extends FoundationElement {
                 this.status = RUNNER_STATUS.ready
                 this.postCommand.stop()
             },
-            endRun: ({ stdout, exitCode, time }) => {
+            endRun: ({ exitCode, time }) => {
                 this.status = RUNNER_STATUS.ready
-                this.outputEl.value = `${stdout}\n--------\nexit with code ${exitCode} in ${((time) / 1000).toFixed(3)}s`
+                this.outputEl.value += `\n--------\nexit with code ${exitCode} in ${((time) / 1000).toFixed(3)}s`
+            },
+            stdout: (data) => {
+                this.outputEl.value += decoder.decode(data)
             }
         })
     }
