@@ -30,23 +30,20 @@ export const executeProgram = (filename: string, stdin: string, args?: readonly 
 }>] => {
     const child = spawn(filename, args, { cwd })
     return [child, new Promise(resolve => {
-        let output = ''
+        let stdout = ''
+        let stderr = ''
         child.stdout.on('data', (data) => {
-            output += data
+            stdout += data
         })
 
         child.stderr.on('data', (data) => {
-            resolve({
-                stdout: output,
-                stderr: data.toString(),
-                exitCode: child.exitCode || 1
-            })
+            stderr += data
         })
 
         child.on('close', (code) => {
             resolve({
-                stdout: output,
-                stderr: '',
+                stdout,
+                stderr,
                 exitCode: code || 0
             })
         })
