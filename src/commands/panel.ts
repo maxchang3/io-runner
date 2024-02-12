@@ -1,5 +1,5 @@
 import * as vscode from 'vscode'
-import { postCommandToView } from '@/utils'
+import { ViewContext, postCommandToView } from '@/utils'
 import type { CommandParameters } from '@/types/commands'
 import type { RunnerPanelProvider } from '@/panels/RunnerPanel'
 
@@ -8,7 +8,7 @@ export const RunCommand = (provider: RunnerPanelProvider): CommandParameters => 
     () => {
         const view = provider.getWebviewView()
         if (!view) return
-        vscode.commands.executeCommand('setContext', 'io-runner.running', true)
+        ViewContext.setRunning(true)
         const postCommand = postCommandToView(view)
         postCommand.prepareRun()
     }

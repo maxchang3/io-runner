@@ -1,5 +1,5 @@
 import * as vscode from "vscode"
-import { Runner, ConfigManager, logger, postCommandToView, recieveCommandFromView } from "@/utils"
+import { Runner, ConfigManager, logger, postCommandToView, recieveCommandFromView, ViewContext } from "@/utils"
 import type { CommandMessageSender } from "@/utils"
 
 const getFilenameAndExt = (editor?: vscode.TextEditor) => [editor?.document.fileName || "", editor?.document.fileName.split(".").pop() || ""] as const
@@ -49,7 +49,7 @@ const handleWebviewCommand = (view: vscode.Webview, postCommand: CommandMessageS
             const targetLaunch = config.launchConfigs.get(launchName)
             if (!targetLaunch) {
                 vscode.window.showErrorMessage(`Launch "${launchName}" not found!`)
-                vscode.commands.executeCommand('setContext', 'io-runner.running', false)
+                ViewContext.setRunning(false)
                 postCommand.stopView()
                 return
             }
@@ -61,6 +61,7 @@ const handleWebviewCommand = (view: vscode.Webview, postCommand: CommandMessageS
             runner.on("end", ({ stderr, exitCode }) => {
                 if (stderr) {
                     logger.showError(`STDERR: ${stderr}`)
+                    ViewContext.setRunning(false)
                     postCommand.stopView()
                     return
                 }
@@ -69,12 +70,12 @@ const handleWebviewCommand = (view: vscode.Webview, postCommand: CommandMessageS
                     exitCode,
                     time: timeEnd - timeStart
                 })
-                vscode.commands.executeCommand('setContext', 'io-runner.running', false)
+                ViewContext.setRunning(false)
             })
         },
         stop: async () => {
             await runner.stop()
-            vscode.commands.executeCommand('setContext', 'io-runner.running', false)
+            ViewContext.setRunning(false)
         }
     })
 }

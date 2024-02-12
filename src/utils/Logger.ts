@@ -36,7 +36,6 @@ class Logger {
     public showError(errorMessage: string) {
         this.appendLine("ERROR", errorMessage)
         this.show(true)
-        vscode.commands.executeCommand('setContext', 'io-runner.running', false)
     }
 }
 
