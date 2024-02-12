@@ -32,6 +32,7 @@ export const executeProgram = (filename: string, stdin: string, args?: readonly 
     return [child, new Promise(resolve => {
         let stdout = ''
         let stderr = ''
+        
         child.stdout.on('data', (data) => {
             stdout += data
         })
