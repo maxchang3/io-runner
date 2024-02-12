@@ -1,4 +1,4 @@
-import { App, RUNNER_STATUS } from '.'
+import { App, RUNNER_STATUS } from './app'
 import { TextArea, TaskSelector } from '../components'
 import { ProgressRing } from '@vscode/webview-ui-toolkit'
 import { html, ref } from '@microsoft/fast-element'

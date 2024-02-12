@@ -1,6 +1,6 @@
 import { html, repeat, ref } from '@microsoft/fast-element'
 import { Dropdown, Option } from "@vscode/webview-ui-toolkit"
-import type { TaskSelector } from '.'
+import type { TaskSelector } from './task-selector'
 import type { ElementDefinitionContext } from "@microsoft/fast-foundation"
 
 export const template = (context: ElementDefinitionContext) => {

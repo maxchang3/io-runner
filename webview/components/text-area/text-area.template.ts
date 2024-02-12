@@ -1,6 +1,6 @@
-import { TextAreaResize } from "."
+import { TextAreaResize } from "./text-area"
 import { html, ref, slotted } from "@microsoft/fast-element"
-import type { TextArea } from "."
+import type { TextArea } from "./text-area"
 import type { ViewTemplate } from "@microsoft/fast-element"
 import type { FoundationElementTemplate } from "@microsoft/fast-foundation"
 
