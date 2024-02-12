@@ -2,7 +2,7 @@ import * as vscode from 'vscode'
 
 type LogLevel = "DEBUG" | "INFO" | "WARN" | "ERROR" | "NONE"
 
-export class Logger {
+class Logger {
     private static instance: Logger | null = null
     private logChannel: vscode.OutputChannel
 
@@ -17,12 +17,16 @@ export class Logger {
         return Logger.instance
     }
 
-    public show() {
-        this.logChannel.show()
+    public clear() {
+        this.logChannel.clear()
+    }
+
+    public show(preserveFocus: boolean = false) {
+        this.logChannel.show(preserveFocus)
     }
 
     public appendLine(level: LogLevel, message: string) {
-        this.logChannel.appendLine(`[${level}] ${message}`)
+        this.logChannel.append(`[${level}] ${message}\n`)
     }
 
     public info(message: string) {
@@ -31,7 +35,9 @@ export class Logger {
 
     public showError(errorMessage: string) {
         this.appendLine("ERROR", errorMessage)
-        this.show()
+        this.show(true)
         vscode.commands.executeCommand('setContext', 'io-runner.running', false)
     }
 }
+
+export const logger = Logger.getInstance()
