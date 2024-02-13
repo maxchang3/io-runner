@@ -3,7 +3,12 @@ import { ConfigManager, executeProgram, executeTask, terminateTask } from "."
 import type { ComputedLaunchConfiguration } from "@/types"
 import type { ChildProcessWithoutNullStreams } from 'node:child_process'
 
-type RunnerStatus = "ready" | "preLaunchTask" | "running" | "postDebugTask"
+enum RUNNER_STATUS {
+    ready,
+    preLaunchTask,
+    running,
+    postDebugTask,
+}
 
 type EventDataType = {
     end: {
@@ -17,7 +22,7 @@ type EventListener<E extends keyof EventDataType> = (arg: EventDataType[E]) => v
 
 export class Runner extends EventEmitter {
     private child?: ChildProcessWithoutNullStreams
-    private status: RunnerStatus = "ready"
+    private status: RUNNER_STATUS = RUNNER_STATUS.ready
     private stdin: string
     private launchConfig: ComputedLaunchConfiguration
     private preLaunchTask?: string
@@ -37,16 +42,16 @@ export class Runner extends EventEmitter {
     public emit<E extends keyof EventDataType>(eventName: E, arg: EventDataType[E]) {
         return super.emit(eventName, arg)
     }
-    private checkStatus() { return this.status === "ready" }
+    private checkStatus() { return this.status === RUNNER_STATUS.ready }
     private async runStep() {
         switch (this.status) {
-            case "preLaunchTask":
+            case RUNNER_STATUS.preLaunchTask:
                 if (this.checkStatus()) return
                 if (this.preLaunchTask) await executeTask(this.preLaunchTask)
                 if (this.checkStatus()) return
-                this.status = "running"
+                this.status = RUNNER_STATUS.running
                 break
-            case "running":
+            case RUNNER_STATUS.running:
                 if (this.checkStatus()) return
                 const { program, cwd, args } = this.launchConfig.computeVariables()
                 if (this.checkStatus()) return
@@ -59,17 +64,17 @@ export class Runner extends EventEmitter {
                 if (this.checkStatus()) return
                 this.emit("end", { stderr, exitCode })
                 if (this.checkStatus()) return
-                this.status = "postDebugTask"
+                this.status = RUNNER_STATUS.postDebugTask
                 break
-            case "postDebugTask":
+            case RUNNER_STATUS.postDebugTask:
                 if (this.checkStatus()) return
                 if (this.postLaunchTask) await executeTask(this.postLaunchTask)
-                this.status = "ready"
+                this.status = RUNNER_STATUS.ready
                 break
         }
     }
     public async run() {
-        this.status = "preLaunchTask"
+        this.status = RUNNER_STATUS.preLaunchTask
         for (let i = 0; i < 4; i++) {
             if (this.checkStatus()) return
             await this.runStep()
@@ -77,13 +82,13 @@ export class Runner extends EventEmitter {
     }
     public async stop() {
         const taskConfigs = this.config?.taskConfigs
-        if (this.status === "preLaunchTask" && this.preLaunchTask) {
+        if (this.status === RUNNER_STATUS.preLaunchTask && this.preLaunchTask) {
             await terminateTask(this.preLaunchTask, taskConfigs?.get(this.preLaunchTask)?.dependsOn)
-        } else if (this.status === "running") {
+        } else if (this.status === RUNNER_STATUS.running) {
             this.child?.kill()
-        } else if (this.status === "postDebugTask" && this.postLaunchTask) {
+        } else if (this.status === RUNNER_STATUS.postDebugTask && this.postLaunchTask) {
             await terminateTask(this.postLaunchTask, taskConfigs?.get(this.postLaunchTask)?.dependsOn)
         }
-        this.status = "ready"
+        this.status = RUNNER_STATUS.ready
     }
 }
