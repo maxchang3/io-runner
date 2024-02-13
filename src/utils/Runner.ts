@@ -1,6 +1,6 @@
 import { EventEmitter } from "node:stream"
 import { ConfigManager, executeProgram, executeTask, terminateTask } from "."
-import type { ComputedLaunchConfiguration, Owner } from "@/types"
+import type { ComputedLaunchConfiguration } from "@/types"
 import type { ChildProcessWithoutNullStreams } from 'node:child_process'
 
 type RunnerStatus = "ready" | "preLaunchTask" | "running" | "postDebugTask"
@@ -32,7 +32,7 @@ export class Runner extends EventEmitter {
         this.config = config
     }
     public on<E extends keyof EventDataType>(eventName: E, listener: EventListener<E>) {
-        return super.on(eventName, listener as (...args: any[]) => void)
+        return super.on(eventName, listener)
     }
     public emit<E extends keyof EventDataType>(eventName: E, arg: EventDataType[E]) {
         return super.emit(eventName, arg)
