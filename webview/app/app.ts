@@ -4,7 +4,7 @@ import { attr } from "@microsoft/fast-element"
 import { postCommandToOwner, recieveCommandFromOwner } from "../utils/message"
 import { FoundationElement, FoundationElementDefinition } from "@microsoft/fast-foundation"
 import type { WebviewApi } from "vscode-webview"
-import type { TextArea, TaskSelector } from "../components"
+import type { TaskSelector, CodeMirror } from "../components"
 import type { Owner, IORunneronfig } from "../types"
 
 const DEFAULT_STATE = { selectedTaskIndex: 0, input: "", output: "" }
@@ -19,8 +19,8 @@ export enum RUNNER_STATUS {
 export class App extends FoundationElement {
     vscode: WebviewApi<unknown>
     taskSelectorEl!: TaskSelector
-    inputEl!: TextArea
-    outputEl!: TextArea
+    inputEl!: CodeMirror
+    outputEl!: CodeMirror
     launchMap?: IORunneronfig["launchMap"]
     docState: Map<string, {
         selectedTaskIndex: number,
@@ -84,12 +84,14 @@ export class App extends FoundationElement {
                 this.status = RUNNER_STATUS.ready
                 this.postCommand.stop()
             },
-            endRun: ({ exitCode, time }) => {
+            endRun: ({ stdout, exitCode, time }) => {
                 this.status = RUNNER_STATUS.ready
-                this.outputEl.value += `\n--------\nexit with code ${exitCode} in ${((time) / 1000).toFixed(3)}s`
+                this.outputEl.value = stdout
+                this.outputEl.insert(`\n--------\nexit with code ${exitCode} in ${((time) / 1000).toFixed(3)}s`)
             },
             stdout: (data) => {
-                this.outputEl.value += decoder.decode(data)
+                if (this.status === RUNNER_STATUS.ready) return
+                this.outputEl.insert(decoder.decode(data))
             }
         })
     }
