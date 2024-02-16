@@ -13,7 +13,7 @@
 
 ## 配置说明
 
-目前，此插件并不是开箱即用的。它依赖于 `launch.json` 中的配置和 `tasks.json` 中指定的任务。
+目前，此插件**并不是**开箱即用的。它依赖于 `launch.json` 中的配置和 `tasks.json` 中指定的任务。
 
 ### `io-runner.launchMap`
 

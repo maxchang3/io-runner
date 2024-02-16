@@ -13,7 +13,7 @@ VSCode extension simplifies single-file code execution.
 
 ## Configuration Guide
 
-Currently, this plugin is not ready to use out of the box. It depends on configurations in `launch.json` and tasks specified in `tasks.json`.
+Currently, this plugin is **NOT** ready to use out of the box. It depends on configurations in `launch.json` and tasks specified in `tasks.json`.
 
 ### `io-runner.launchMap`
 
