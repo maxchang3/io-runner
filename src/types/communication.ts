@@ -12,6 +12,7 @@ export namespace Owner {
         prepareRun: undefined,
         prepareStop: undefined,
         endRun: {
+            stdout: string
             exitCode: number,
             time: number
         },

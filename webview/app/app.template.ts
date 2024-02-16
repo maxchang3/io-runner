@@ -1,12 +1,12 @@
 import { App, RUNNER_STATUS } from './app'
-import { TextArea, TaskSelector } from '../components'
+import { CodeMirror, TaskSelector } from '../components'
 import { ProgressRing } from '@vscode/webview-ui-toolkit'
 import { html, ref } from '@microsoft/fast-element'
 import type { ElementDefinitionContext } from "@microsoft/fast-foundation"
 
 export const template = (context: ElementDefinitionContext) => {
     const taskSelector = context.tagFor(TaskSelector)
-    const textArea = context.tagFor(TextArea)
+    const codeMirror = context.tagFor(CodeMirror)
     const progressRing = context.tagFor(ProgressRing)
 
     return html<App>`
@@ -19,14 +19,14 @@ export const template = (context: ElementDefinitionContext) => {
                 </div>
             </div>
             <div class="editor input" >
-                <${textArea} ${ref('inputEl')} resize="none" autofocus>
+                <${codeMirror} ${ref('inputEl')} resize="none" autofocus>
                     <div slot="label">INPUT</div>
-                </${textArea}>
+                </${codeMirror}>
             </div>
             <div class="editor output" >
-                <${textArea} ${ref('outputEl')}  resize="none" readonly>
+                <${codeMirror} ${ref('outputEl')}  resize="none" readonly>
                     <div slot="label">OUTPUT</div>
-                </${textArea}>
+                </${codeMirror}>
             </div>
         </div>
     </template>

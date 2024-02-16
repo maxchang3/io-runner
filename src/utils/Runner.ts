@@ -12,6 +12,7 @@ enum RUNNER_STATUS {
 
 type EventDataType = {
     end: {
+        stdout: string
         stderr: string
         exitCode: number
     }
@@ -60,9 +61,9 @@ export class Runner extends EventEmitter {
                 if (this.checkStatus()) return
                 this.child = child
                 if (this.checkStatus()) return
-                const { stdout: _, stderr, exitCode } = await programExecution
+                const { stdout, stderr, exitCode } = await programExecution
                 if (this.checkStatus()) return
-                this.emit("end", { stderr, exitCode })
+                this.emit("end", { stdout, stderr, exitCode })
                 if (this.checkStatus()) return
                 this.status = RUNNER_STATUS.postDebugTask
                 break
