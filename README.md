@@ -9,13 +9,14 @@ VSCode extension simplifies single-file code execution.
 * [x] Execute single-file code quickly.
 * [x] Redirects input/output to separate views.
 * [x] Execute launch configurations from `launch.json` and tasks from `tasks.json`.
-* [x] Support [variables](https://code.visualstudio.com/docs/editor/variables-reference) in configuration. (Not fully [implemented](https://github.com/DominicVonk/vscode-variables))
+* [x] Support [variables](https://code.visualstudio.com/docs/editor/variables-reference) in configuration. (Not fully [implemented](https://github.com/DominicVonk/vscode-variables)).
 * [x] Choose launch configurations based on file extensions, restore output/input history (non-persistent storage).
+* [x]  Automatically adapts to any theme in VSCode via CSS variables for better native compatibility.
 * [ ] more...
 
 ## Configuration Guide
 
-Currently, this plugin is **NOT** ready to use out of the box. It depends on configurations in `launch.json` and tasks specified in `tasks.json`.
+Currently, this extension is **NOT** ready to use out of the box. It depends on configurations in `launch.json` and tasks specified in `tasks.json`.
 
 ### `io-runner.launchMap`
 
@@ -67,7 +68,7 @@ You need to add the following to io-runner.launchMap:
 }
 ```
 
-When you open the IO Runner panel in a C/C++ file, you can choose `(lldb) Launch` to start the process. The plugin will automatically execute the `buildG++` task (preLaunchTask), then run the output file specified in the program field. Finally, it will execute the `removeDevFolder` task (postDebugTask).
+When you open the IO Runner panel in a C/C++ file, you can choose `(lldb) Launch` to start the process. The e x t en si o n will automatically execute the `buildG++` task (preLaunchTask), then run the output file specified in the program field. Finally, it will execute the `removeDevFolder` task (postDebugTask).
 
 
 ### Interpreted Languages
@@ -100,7 +101,7 @@ Also, configure in `io-runner.launchInterpreter` with the interpreter command ma
 }
 ```
 
-Now, in a Python file, when you open the IO Runner panel, you can choose `Python: Current File` to start. The plugin will automatically execute the python3 command, running the current file.
+Now, in a Python file, when you open the IO Runner panel, you can choose `Python: Current File` to start. The extension will automatically execute the python3 command, running the current file.
 
 ## Commands
 

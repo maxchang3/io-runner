@@ -2,13 +2,14 @@
 
 <a href="https://marketplace.visualstudio.com/items?itemName=antfu.ext-name" target="__blank"><img src="https://img.shields.io/visual-studio-marketplace/v/antfu.ext-name.svg?color=eee&amp;label=VS%20Code%20Marketplace&logo=visual-studio-code" alt="Visual Studio Marketplace Version" /></a> 
 
-简化单文件代码执行的 VSCode 插件。
+简化 VSCode 下的单文件代码执行。
 
 * [x] 快速执行单文件代码
-* [x] 重定向输入输出到独立的视图。
-* [x] 执行 `launch.json` 中的启动项和 `tasks.json` 中的任务。
+* [x] 重定向输入输出到独立视图。
+* [x] 执行 `launch.json` 中的启动项和 `tasks.json` 中的任务
 * [x] 支持 VSCode 配置文件的[变量](https://code.visualstudio.com/docs/editor/variables-reference)  (并非完整[实现](https://github.com/DominicVonk/vscode-variables))
-* [x] 根据文件后缀选择启动项，恢复输出/输出记录（非持久化存储）。
+* [x] 根据文件后缀选择启动项，恢复输出/输出记录（非持久化存储）
+* [x] 通过 CSS 变量，自动适配 VSCode 的任意主题，更加与原生协调
 * [ ] more...
 
 ## 配置说明
