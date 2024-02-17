@@ -14,7 +14,7 @@
 
 ## 配置说明
 
-目前，此插件**并不是**开箱即用的。它依赖于 `launch.json` 中的配置和 `tasks.json` 中指定的任务。
+目前，此扩展**并不是**开箱即用的。它依赖于 `launch.json` 中的配置和 `tasks.json` 中指定的任务。
 
 ### `io-runner.launchMap`
 
@@ -29,7 +29,7 @@
 
 ### `io-runner.launchInterpreter`
 
-（对于解释型语言）映射启动项的类型（type）与解释器，例如：
+对于解释型语言，映射启动项的类型（type）与解释器，例如：
 
 ```jsonc
 "io-runner.launchInterpreter": {
@@ -42,7 +42,7 @@
 
 #### 编译型语言
 
-如果你有如下启动配置：
+对于编译型语言，以 C/C++ 为例。如果你有如下启动配置：
 
 ```jsonc
 {
@@ -66,7 +66,7 @@
 }
 ```
 
-当你在 C/C++ 文件中打开 IO Runner 面板时，你可以选择 `(lldb) Launch` 来启动进程。插件会自动执行 `buildG++` 任务（preLaunchTask），然后运行 `program` 字段中指定的输出文件。最后，它会执行 `removeDevFolder` 任务（postDebugTask）。
+当你在 C/C++ 文件中打开 IO Runner 面板时，你可以选择 `(lldb) Launch` 来启动进程。此时，扩展会自动执行 `buildG++` 任务（preLaunchTask），然后运行 `program` 字段中指定的输出文件。最后，它会执行 `removeDevFolder` 任务（postDebugTask）。
 
 #### 解释型语言
 
@@ -82,7 +82,7 @@
 }
 ```
 
-并且在 `io-runner.launchMap` 中配置：
+你仍需要在 `io-runner.launchMap` 中配置：
 
 ```jsonc
 "io-runner.launchMap": {
@@ -90,7 +90,7 @@
 }
 ```
 
-还需要在 `io-runner.launchInterpreter` 中配置与 `type` 项相符的解释器命令，例如：
+同时，还需要在 `io-runner.launchInterpreter` 中配置与 `type` 项相符的解释器命令，例如：
 
 ```jsonc
 "io-runner.launchInterpreter": {
@@ -98,7 +98,7 @@
 }
 ```
 
-那么在 Python 文件中，打开了 IO Runner 面板，你就可以选择 `Python: Current File` 进行启动。插件会自动执行 `python3` 命令，运行当前文件。
+那么在 Python 文件中，打开了 IO Runner 面板，你就可以选择 `Python: Current File` 进行启动。扩展会自动执行 `python3` 命令，运行当前文件。
 
 ## 命令
 

@@ -31,7 +31,7 @@ Map file extensions to launch configuration names, for example:
 
 ### `io-runner.launchInterpreter`
 
-(For interpreted languages) Map the type of launch configuration (`type`) to the interpreter, for example:
+Map the type of launch configuration to the interpreter for interpreted languages, for example:
 
 ```jsonc
 "io-runner.launchInterpreter": {
@@ -44,7 +44,7 @@ Map file extensions to launch configuration names, for example:
 
 ### Compiled Languages
 
-If you have the following launch configuration:
+For compiled languages, take C/C++ as an example， if you have the following launch configuration:
 
 ```jsonc
 {
@@ -85,7 +85,7 @@ For languages that require an interpreter, such as Python, you have the followin
 }
 ```
 
-And configure in `io-runner.launchMap`:
+You still need to configure in `io-runner.launchMap`:
 
 ```jsonc
 "io-runner.launchMap": {
@@ -93,7 +93,7 @@ And configure in `io-runner.launchMap`:
 }
 ```
 
-Also, configure in `io-runner.launchInterpreter` with the interpreter command matching the type field:
+Also, You need to configure in `io-runner.launchInterpreter` with the interpreter command matching the type field:
 
 ```jsonc
 "io-runner.launchInterpreter": {
