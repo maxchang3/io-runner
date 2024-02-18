@@ -7,8 +7,8 @@
 * [x] 快速执行单文件代码
 * [x] 重定向输入输出到独立视图。
 * [x] 执行 `launch.json` 中的启动项和 `tasks.json` 中的任务
-* [x] 支持 VSCode 配置文件的[变量](https://code.visualstudio.com/docs/editor/variables-reference)  (并非完整[实现](https://github.com/DominicVonk/vscode-variables))
-* [x] 根据文件后缀选择启动项，恢复输出/输出记录（非持久化存储）
+* [x] 支持 [VSCode 配置文件的变量](https://code.visualstudio.com/docs/editor/variables-reference)  (并非完整[实现](https://github.com/connor4312/vscode-variables))
+* [x] 根据文件扩展名自动选择启动配置，为每个文件保持独立的上下文环境（非持久化存储）。
 * [x] 通过 CSS 变量，自动适配 VSCode 的任意主题，更加与原生协调
 * [ ] more...
 
