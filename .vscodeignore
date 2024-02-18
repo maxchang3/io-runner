@@ -13,3 +13,4 @@ tsconfig.json
 .gitignore
 dist/extension.js.map
 dist/webview.js.map
+.vsix
