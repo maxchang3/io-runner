@@ -124,6 +124,10 @@ You can increase efficiency by binding these commands to shortcut keys.
 
 The project is heavily inspired by [CmdBlockZQG](https://github.com/CmdBlockZQG/)'s [OI Runner](https://github.com/CmdBlockZQG/oi-runner/).
 
+Some components and [design tokens](https://www.fast.design/docs/design-systems/design-tokens/) are from [vscode-webview-ui-toolkit](https://github.com/microsoft/vscode-webview-ui-toolkit) to maintain a consistent appearance with VSCode's interface.
+
+I employ [microsoft/fast](https://github.com/microsoft/fast) to develop the frontend interface for its lightweight design, seamlessly integrated with vscode-webview-ui-toolkit's components.
+
 ## License
 
 [MIT](https://github.com/maxchang3/io-runner/blob/main/LICENSE) License © 2023 [maxchang3](https://github.com/maxchang3)

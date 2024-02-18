@@ -121,6 +121,10 @@
 
 此项目大程度地受到 [CmdBlockZQG](https://github.com/CmdBlockZQG/) 的 [OI Runner](https://github.com/CmdBlockZQG/oi-runner/) 启发。
 
+一些组件和 [design token](https://www.fast.design/docs/design-systems/design-tokens/) 来自 [vscode-webview-ui-toolkit](https://github.com/microsoft/vscode-webview-ui-toolkit)，以保持与 VSCode 界面的一致性。
+
+我采用 [microsoft/fast](https://github.com/microsoft/fast) 开发前端界面，以实现轻量级设计，并与 vscode-webview-ui-toolkit 的组件无缝集成。
+
 ## License
 
 [MIT](https://github.com/maxchang3/io-runner/blob/main/LICENSE) License © 2023 [maxchang3](https://github.com/maxchang3)
