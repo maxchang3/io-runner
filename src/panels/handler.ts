@@ -30,6 +30,7 @@ const registerEvents = (view: vscode.Webview, postCommand: CommandMessageSender,
     vscode.workspace.onDidChangeConfiguration((e) => {
         if (e.affectsConfiguration("io-runner")) {
             config.updateConfigs("extension")
+            config.updateConfigs("launch")
             postCommand.init(config.extensionConfigs)
             changeDoc(postCommand, config, vscode.window.activeTextEditor)
         }
