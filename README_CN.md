@@ -123,7 +123,7 @@
 
 一些组件和 [design token](https://www.fast.design/docs/design-systems/design-tokens/) 来自 [vscode-webview-ui-toolkit](https://github.com/microsoft/vscode-webview-ui-toolkit)，以保持与 VSCode 界面的一致性。
 
-我采用 [microsoft/fast](https://github.com/microsoft/fast) 开发前端界面，以实现轻量级设计，并与 vscode-webview-ui-toolkit 的组件无缝集成。
+我采用 [microsoft/fast](https://github.com/microsoft/fast) 开发前端界面。因为它设计轻量，且与 vscode-webview-ui-toolkit 的组件无缝集成。
 
 ## License
 

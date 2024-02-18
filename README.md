@@ -126,7 +126,7 @@ The project is heavily inspired by [CmdBlockZQG](https://github.com/CmdBlockZQG/
 
 Some components and [design tokens](https://www.fast.design/docs/design-systems/design-tokens/) are from [vscode-webview-ui-toolkit](https://github.com/microsoft/vscode-webview-ui-toolkit) to maintain a consistent appearance with VSCode's interface.
 
-I employ [microsoft/fast](https://github.com/microsoft/fast) to develop the frontend interface for its lightweight design, seamlessly integrated with vscode-webview-ui-toolkit's components.
+I employ [microsoft/fast](https://github.com/microsoft/fast) to develop the frontend interface because of its lightweight design, seamlessly integrated with vscode-webview-ui-toolkit's components.
 
 ## License
 
