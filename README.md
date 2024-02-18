@@ -11,7 +11,7 @@ Simplifies single-file code execution in VSCode.
 * [x] Execute launch configurations from `launch.json` and tasks from `tasks.json`.
 * [x] Support [VSCode's configuration variables](https://code.visualstudio.com/docs/editor/variables-reference) in configuration. (Not fully [implemented](https://github.com/connor4312/vscode-variables)).
 * [x] Automatically choose launch configurations based on file extensions, maintaining independent context environments for each file(non-persistent storage).
-* [x]  Automatically adapts to any theme in VSCode via CSS variables for better native compatibility.
+* [x] Automatically adapts to any theme in VSCode via CSS variables for better native compatibility.
 * [ ] more...
 
 This extension may still have the following issues to be resolved:
