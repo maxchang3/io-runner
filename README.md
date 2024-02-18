@@ -19,7 +19,7 @@ This extension may still have the following issues to be resolved:
 * [ ] Due to executing native tasks in VSCode, it is significantly slower than running commands directly.
     * Consider manually executing tasks by parsing the task configuration.
 * [ ] CodeMirror has been introduced as an editor, but it seems unnecessary.
-    * Simulating some features through a textarea would suffice, but for large texts, a virtual view/line number mechanism needs to be implemented.
+    * Consider simulating some features through a textarea would suffice, but for large texts, a virtual view/line number mechanism needs to be implemented.
     * Pray that VSCode provides Webview with the ability to use native editors.
 * [ ] The pause mechanism for file execution is not elegant enough.
 
