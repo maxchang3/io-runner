@@ -1,10 +1,10 @@
 {
-  "publisher": "maxchang3",
+  "publisher": "maxchang",
   "name": "io-runner",
   "displayName": "IO Runner",
   "version": "0.0.0",
   "private": true,
-  "description": "",
+  "description": "Simplifies single-file code execution. Redirects input/output to separate views. Built for competitive programming.",
   "author": "maxchang3 <maxcfoo@gmail.com>",
   "repository": {
     "url": "https://github.com/maxchang3/io-runner"
@@ -126,7 +126,7 @@
     "publish": "vsce publish --no-dependencies",
     "pack": "vsce package --no-dependencies",
     "typecheck": "tsc --noEmit",
-    "release": "bumpp && pnpm publish"
+    "release": "bumpp && pnpm run publish"
   },
   "devDependencies": {
     "@types/node": "^18.16.16",
