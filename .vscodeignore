@@ -4,4 +4,12 @@ test
 .github
 .vscode
 .env
-temp    
+temp
+webview
+tsup.config.ts
+pnpm-lock.yaml
+tsconfig.tsbuildinfo
+tsconfig.json
+.gitignore
+dist/extension.js.map
+dist/webview.js.map
