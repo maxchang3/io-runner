@@ -14,3 +14,4 @@ tsconfig.json
 dist/extension.js.map
 dist/webview.js.map
 .vsix
+renovate.json
