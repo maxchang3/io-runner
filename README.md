@@ -4,6 +4,8 @@
 
 <a href="https://marketplace.visualstudio.com/items?itemName=maxchang.io-runner" target="__blank"><img src="https://img.shields.io/visual-studio-marketplace/v/maxchang.io-runner.svg?color=eee&amp;label=VS%20Code%20Marketplace&logo=visual-studio-code" alt="Visual Studio Marketplace Version" /></a> 
 
+![](./res/preview.png)
+
 Simplifies single-file code execution in VSCode.
 
 * [x] Execute single-file code quickly.

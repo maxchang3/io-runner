@@ -2,6 +2,8 @@
 
 <a href="https://marketplace.visualstudio.com/items?itemName=maxchang.io-runner" target="__blank"><img src="https://img.shields.io/visual-studio-marketplace/v/maxchang.io-runner.svg?color=eee&amp;label=VS%20Code%20Marketplace&logo=visual-studio-code" alt="Visual Studio Marketplace Version" /></a> 
 
+![](./res/preview.png)
+
 简化 VSCode 下的单文件代码执行。
 
 * [x] 快速执行单文件代码
