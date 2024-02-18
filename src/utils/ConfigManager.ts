@@ -64,9 +64,9 @@ export class ConfigManager {
     }
 
     private resolveTaskConfigs() {
-        const config = vscode.workspace.getConfiguration('tasks', this.folder).get<vscode.TaskDefinition[]>('tasks')
+        const config = vscode.workspace.getConfiguration('tasks', this.folder).get<vscode.TaskDefinition[]>('tasks') ?? []
         const taskConfigs = new Map<string, vscode.TaskDefinition>()
-        for (const task of config!) {
+        for (const task of config) {
             taskConfigs.set(task.label, task)
         }
         return taskConfigs
