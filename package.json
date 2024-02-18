@@ -143,7 +143,6 @@
     "@codemirror/commands": "^6.3.3",
     "@codemirror/state": "^6.4.0",
     "@codemirror/view": "^6.24.0",
-    "@martinstark/throttle-ts": "^1.3.0",
     "@uiw/codemirror-extensions-basic-setup": "^4.21.21",
     "@vscode/webview-ui-toolkit": "^1.4.0"
   }
