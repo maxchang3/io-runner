@@ -37,7 +37,7 @@ import {
 import { css } from '@microsoft/fast-element'
 export const styles = css`
    :host {
-      font-family: ${editorFontFamily};
+      font-family: ${editorFontFamily} !important;
       width: 100%;
       height: 100%;
    }
@@ -58,6 +58,10 @@ export const styles = css`
       height: 87%;
       background: ${background} !important;
       border: calc(${borderWidth} * .5px) solid ${dropdownBorder};
+   }
+   .cm-line,
+   .cm-scroller {
+      font-family: ${editorFontFamily} !important;
    }
    .cm-scroller::-webkit-scrollbar {
         width: ${scrollbarWidth};
@@ -80,6 +84,7 @@ export const styles = css`
       border-left-color: #f2f2f2 !important;
    }
    .cm-editor {
+      font-family: ${editorFontFamily} !important;
       height: 100%;
       max-height: 100% !important;
       position: relative !important;
