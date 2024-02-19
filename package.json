@@ -10,6 +10,10 @@
     "url": "https://github.com/maxchang3/io-runner"
   },
   "license": "MIT",
+  "categories": [
+    "Programming Languages",
+    "Testing"
+  ],
   "main": "./dist/extension.js",
   "icon": "res/icon.png",
   "files": [
