@@ -17,7 +17,8 @@
       "@/*": [ "src/*" ],
       "webview": [ "webview/*" ],
     },
-    "noUncheckedIndexedAccess": true
+    "noUncheckedIndexedAccess": true,
+    "experimentalDecorators": true
   },
   "references": [
     { "path": "./webview" }
