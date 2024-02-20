@@ -1,4 +1,4 @@
-import type { DebugConfiguration, Task } from 'vscode'
+import type { DebugConfiguration } from 'vscode'
 
 export interface IORunneronfig {
     launchMap: Record<string, string[] | undefined>
