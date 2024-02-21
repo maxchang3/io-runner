@@ -2,7 +2,7 @@
   "publisher": "maxchang",
   "name": "io-runner",
   "displayName": "IO Runner",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": true,
   "description": "Simplifies single-file code execution. Redirects input/output to separate views. Built for competitive programming.",
   "author": "maxchang3 <maxcfoo@gmail.com>",
