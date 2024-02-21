@@ -86,9 +86,7 @@
             "description": "Mapping launch type to interpreter",
             "type": "object",
             "additionalProperties": {
-              "type": [
-                "string"
-              ],
+              "type": "string",
               "description": "launch type to interpreter"
             },
             "default": {
