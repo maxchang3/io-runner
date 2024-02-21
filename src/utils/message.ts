@@ -8,7 +8,7 @@ export type CommandMessageSender = {
             : (data: Owner.CommandData[T]) => ReturnType<Webview["postMessage"]>
 }
 
-export const postCommandToView = (view: Webview) => new Proxy({} as CommandMessageSender, {
+export const getCommandSender = (view: Webview) => new Proxy({} as CommandMessageSender, {
     get: function <T extends Owner.Command>(_: CommandMessageSender, command: T) {
         return (data: Owner.CommandData[T]) => view.postMessage({ command, data })
     }

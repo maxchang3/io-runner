@@ -1,8 +1,9 @@
 import { template } from "./app.template"
 import { styles } from "./app.style"
 import { attr } from "@microsoft/fast-element"
-import { postCommandToOwner, recieveCommandFromOwner } from "../utils/message"
+import { getCommandSender, recieveCommandFromOwner } from "../utils/message"
 import { FoundationElement, FoundationElementDefinition } from "@microsoft/fast-foundation"
+import type { CommandSender } from "../utils/message"
 import type { WebviewApi } from "vscode-webview"
 import type { TaskSelector, CodeMirror } from "../components"
 import type { Owner, IORunneronfig } from "../types"
@@ -27,12 +28,12 @@ export class App extends FoundationElement {
         output: string
     }> = new Map()
     lastFilename: string | undefined
-    postCommand: ReturnType<typeof postCommandToOwner>
+    commandSender: CommandSender
     @attr status: RUNNER_STATUS = RUNNER_STATUS.ready
     constructor() {
         super()
         this.vscode = acquireVsCodeApi()
-        this.postCommand = postCommandToOwner(this.vscode)
+        this.commandSender = getCommandSender(this.vscode)
         this.decoder = new TextDecoder('utf-8')
     }
     public connectedCallback() {
@@ -76,14 +77,14 @@ export class App extends FoundationElement {
                 const stdin = this.inputEl.value
                 this.outputEl.value = ""
                 this.status = RUNNER_STATUS.running
-                this.postCommand.run({ launchName, stdin })
+                this.commandSender.run({ launchName, stdin })
             },
             stopView: () => {
                 this.status = RUNNER_STATUS.ready
             },
             prepareStop: () => {
                 this.status = RUNNER_STATUS.ready
-                this.postCommand.stop()
+                this.commandSender.stop()
             },
             endRun: ({ stdout, exitCode, time }) => {
                 this.status = RUNNER_STATUS.ready

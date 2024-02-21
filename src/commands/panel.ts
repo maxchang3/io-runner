@@ -1,5 +1,5 @@
 import * as vscode from 'vscode'
-import { ViewContext, postCommandToView } from '@/utils'
+import { ViewContext, getCommandSender } from '@/utils'
 import type { CommandParameters } from '@/types/commands'
 import type { RunnerPanelProvider } from '@/panels/RunnerPanel'
 
@@ -10,8 +10,8 @@ export const RunCommand = (provider: RunnerPanelProvider): CommandParameters => 
         if (!view) return
         vscode.commands.executeCommand("io-runner.panel.focus")
         ViewContext.setRunning(true)
-        const postCommand = postCommandToView(view)
-        postCommand.prepareRun()
+        const commandSender = getCommandSender(view)
+        commandSender.prepareRun()
     }
 ]
 
@@ -20,7 +20,7 @@ export const StopCommand = (provider: RunnerPanelProvider): CommandParameters =>
     () => {
         const view = provider.getWebviewView()
         if (!view) return
-        const postCommand = postCommandToView(view)
-        postCommand.prepareStop()
+        const commandSender = getCommandSender(view)
+        commandSender.prepareStop()
     }
 ]
