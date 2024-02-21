@@ -2,7 +2,7 @@ import * as vscode from 'vscode'
 import { replaceVariables } from '@c4312/vscode-variables'
 import type { ComputedLaunchConfiguration, IORunneronfig, LaunchConfiguration } from '@/types/config'
 
-export class ConfigManager {
+class ConfigManager {
     private static instance: ConfigManager | null = null
     private folder?: vscode.WorkspaceFolder
     public extensionConfigs: IORunneronfig
@@ -72,3 +72,5 @@ export class ConfigManager {
         return taskConfigs
     }
 }
+
+export const config = ConfigManager.getInstance()

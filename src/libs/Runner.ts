@@ -1,5 +1,5 @@
+import { config } from "."
 import { EventEmitter } from "node:stream"
-import { ConfigManager } from "."
 import { executeProgram, executeTask, terminateTask } from "@/utils"
 import type { ComputedLaunchConfiguration } from "@/types"
 import type { ChildProcessWithoutNullStreams } from 'node:child_process'
@@ -29,14 +29,12 @@ export class Runner extends EventEmitter {
     private launchConfig: ComputedLaunchConfiguration
     private preLaunchTask?: string
     private postLaunchTask?: string
-    private config?: ConfigManager
-    constructor(launchConfig: ComputedLaunchConfiguration, stdin: string, config: ConfigManager) {
+    constructor(launchConfig: ComputedLaunchConfiguration, stdin: string) {
         super()
         this.launchConfig = launchConfig
         this.preLaunchTask = launchConfig.preLaunchTask
         this.postLaunchTask = launchConfig.postLaunchTask
         this.stdin = stdin
-        this.config = config
     }
     public on<E extends keyof EventDataType>(eventName: E, listener: EventListener<E>) {
         return super.on(eventName, listener)
@@ -83,7 +81,7 @@ export class Runner extends EventEmitter {
         }
     }
     public async stop() {
-        const taskConfigs = this.config?.taskConfigs
+        const taskConfigs = config.taskConfigs
         if (this.status === RUNNER_STATUS.preLaunchTask && this.preLaunchTask) {
             await terminateTask(this.preLaunchTask, taskConfigs?.get(this.preLaunchTask)?.dependsOn)
         } else if (this.status === RUNNER_STATUS.running) {

@@ -1,12 +1,12 @@
 import * as vscode from "vscode"
-import { Runner, ConfigManager, logger } from "@/libs"
+import { Runner, config, logger } from "@/libs"
 import { postCommandToView, recieveCommandFromView, ViewContext } from "@/utils"
 import type { CommandMessageSender } from "@/utils"
 import { TextDecoder } from "util"
 
 const getFilenameAndExt = (editor?: vscode.TextEditor) => [editor?.document.fileName || "", editor?.document.fileName.split(".").pop() || ""] as const
 
-const changeDoc = (postCommand: CommandMessageSender, config: ConfigManager, editor?: vscode.TextEditor,) => {
+const changeDoc = (postCommand: CommandMessageSender, editor?: vscode.TextEditor,) => {
     const [filename, ext] = getFilenameAndExt(editor)
     if (editor) postCommand.changeDoc({ filename, ext })
     ViewContext.setRunable(!!config.extensionConfigs.launchMap[ext])
@@ -14,28 +14,26 @@ const changeDoc = (postCommand: CommandMessageSender, config: ConfigManager, edi
 
 export const init = async (view: vscode.Webview) => {
     const postCommand = postCommandToView(view)
-    const config = ConfigManager.getInstance()
     const decoder = new TextDecoder(config.extensionConfigs.defaultEncoding)
-    registerEvents(view, postCommand, config)
-    handleWebviewCommand(view, postCommand, config, decoder)
+    registerEvents(view, postCommand)
+    handleWebviewCommand(view, postCommand, decoder)
     postCommand.init(config.extensionConfigs)
-    changeDoc(postCommand, config, vscode.window.activeTextEditor)
+    changeDoc(postCommand, vscode.window.activeTextEditor)
 }
 
 const registerEvents = (
     view: vscode.Webview,
     postCommand: CommandMessageSender,
-    config: ConfigManager
 ) => {
     vscode.window.onDidChangeActiveTextEditor(editor => {
-        changeDoc(postCommand, config, editor)
+        changeDoc(postCommand, editor)
     })
     vscode.workspace.onDidChangeConfiguration((e) => {
         if (e.affectsConfiguration("io-runner")) {
             config.updateConfigs("extension")
             config.updateConfigs("launch")
             postCommand.init(config.extensionConfigs)
-            changeDoc(postCommand, config, vscode.window.activeTextEditor)
+            changeDoc(postCommand, vscode.window.activeTextEditor)
         }
         if (e.affectsConfiguration("launch")) config.updateConfigs("launch")
         if (e.affectsConfiguration("tasks")) config.updateConfigs("task")
@@ -45,7 +43,6 @@ const registerEvents = (
 const handleWebviewCommand = (
     view: vscode.Webview,
     postCommand: CommandMessageSender,
-    config: ConfigManager,
     decoder: TextDecoder
 ) => {
     let runner: Runner
@@ -62,7 +59,7 @@ const handleWebviewCommand = (
                 postCommand.stopView()
                 return
             }
-            runner = new Runner(targetLaunch, stdin, config)
+            runner = new Runner(targetLaunch, stdin)
             runner.run()
             runner.on("stdout", (data) => {
                 postCommand.stdout(data.buffer)
