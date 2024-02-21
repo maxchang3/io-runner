@@ -9,11 +9,7 @@ const getFilenameAndExt = (editor?: vscode.TextEditor) => [editor?.document.file
 const changeDoc = (postCommand: CommandMessageSender, config: ConfigManager, editor?: vscode.TextEditor,) => {
     const [filename, ext] = getFilenameAndExt(editor)
     if (editor) postCommand.changeDoc({ filename, ext })
-    vscode.commands.executeCommand(
-        'setContext',
-        'io-runner.runable',
-        !!config.extensionConfigs.launchMap[ext]
-    )
+    ViewContext.setRunable(!!config.extensionConfigs.launchMap[ext])
 }
 
 export const init = async (view: vscode.Webview) => {
