@@ -1,7 +1,7 @@
 import * as vscode from 'vscode'
 import { spawn } from 'node:child_process'
 import type { ChildProcessWithoutNullStreams } from "node:child_process"
-import { Readable } from 'node:stream'
+import type { Readable } from 'node:stream'
 
 /**
  * @from https://stackoverflow.com/a/61703141
