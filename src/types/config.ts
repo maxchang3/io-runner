@@ -24,7 +24,7 @@ export interface LaunchConfiguration extends DebugConfiguration {
 }
 
 export interface ComputedLaunchConfiguration extends LaunchConfiguration {
-    computeVariables: ()=>{
+    computeVariables: () => {
         program: string,
         args: string[],
         cwd?: string
