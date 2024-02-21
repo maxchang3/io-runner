@@ -1,5 +1,7 @@
 import * as vscode from 'vscode'
 import { spawn } from 'node:child_process'
+import type { ChildProcessWithoutNullStreams } from "node:child_process"
+import { Readable } from 'node:stream'
 
 /**
  * @from https://stackoverflow.com/a/61703141
@@ -22,8 +24,23 @@ export const terminateTask = async (taskName: string, dependsOnTaskName?: string
     if (isTaskExecuting(taskName)) await vscode.commands.executeCommand('workbench.action.tasks.terminate', taskName)
 }
 
+interface IReadable extends Readable {
+    on(event: "close", listener: () => void): this
+    on(event: "data", listener: (chunk: Buffer) => void): this
+    on(event: "end", listener: () => void): this
+    on(event: "error", listener: (err: Error) => void): this
+    on(event: "pause", listener: () => void): this
+    on(event: "readable", listener: () => void): this
+    on(event: "resume", listener: () => void): this
+}
+
+interface ChildProcess extends ChildProcessWithoutNullStreams {
+    stdout: IReadable
+    stderr: IReadable
+}
+
 export const executeProgram = (filename: string, stdin: string, args?: readonly string[], cwd?: string) => {
-    const child = spawn(filename, args, { cwd })
+    const child: ChildProcess = spawn(filename, args, { cwd })
     return [child, new Promise<{
         stdout: ArrayBuffer[],
         stderr: ArrayBuffer[],
