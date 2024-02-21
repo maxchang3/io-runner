@@ -12,8 +12,8 @@ enum RUNNER_STATUS {
 
 type EventDataType = {
     end: {
-        stdout: string
-        stderr: string
+        stdout: ArrayBuffer[]
+        stderr: ArrayBuffer[]
         exitCode: number
     }
     stdout: Buffer

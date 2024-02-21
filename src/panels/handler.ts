@@ -1,6 +1,7 @@
 import * as vscode from "vscode"
 import { Runner, ConfigManager, logger, postCommandToView, recieveCommandFromView, ViewContext } from "@/utils"
 import type { CommandMessageSender } from "@/utils"
+import { TextDecoder } from "util"
 
 const getFilenameAndExt = (editor?: vscode.TextEditor) => [editor?.document.fileName || "", editor?.document.fileName.split(".").pop() || ""] as const
 
@@ -17,13 +18,18 @@ const changeDoc = (postCommand: CommandMessageSender, config: ConfigManager, edi
 export const init = async (view: vscode.Webview) => {
     const postCommand = postCommandToView(view)
     const config = ConfigManager.getInstance()
+    const decoder = new TextDecoder(config.extensionConfigs.defaultEncoding)
     registerEvents(view, postCommand, config)
-    handleWebviewCommand(view, postCommand, config)
+    handleWebviewCommand(view, postCommand, config, decoder)
     postCommand.init(config.extensionConfigs)
     changeDoc(postCommand, config, vscode.window.activeTextEditor)
 }
 
-const registerEvents = (view: vscode.Webview, postCommand: CommandMessageSender, config: ConfigManager) => {
+const registerEvents = (
+    view: vscode.Webview,
+    postCommand: CommandMessageSender,
+    config: ConfigManager
+) => {
     vscode.window.onDidChangeActiveTextEditor(editor => {
         changeDoc(postCommand, config, editor)
     })
@@ -39,7 +45,12 @@ const registerEvents = (view: vscode.Webview, postCommand: CommandMessageSender,
     })
 }
 
-const handleWebviewCommand = (view: vscode.Webview, postCommand: CommandMessageSender, config: ConfigManager) => {
+const handleWebviewCommand = (
+    view: vscode.Webview,
+    postCommand: CommandMessageSender,
+    config: ConfigManager,
+    decoder: TextDecoder
+) => {
     let runner: Runner
     recieveCommandFromView(view, {
         test: (data) => {
@@ -60,8 +71,8 @@ const handleWebviewCommand = (view: vscode.Webview, postCommand: CommandMessageS
                 postCommand.stdout(data.buffer)
             })
             runner.on("end", ({ stdout, stderr, exitCode }) => {
-                if (stderr) {
-                    logger.showError(`STDERR: ${stderr}`)
+                if (stderr.length !== 0) {
+                    logger.showError(`STDERR: ${stderr.map(buffer => decoder.decode(buffer)).join("")}`)
                     ViewContext.setRunning(false)
                     postCommand.stopView()
                     return

@@ -1,6 +1,5 @@
 import * as vscode from 'vscode'
 import { spawn } from 'node:child_process'
-import type { ChildProcessWithoutNullStreams } from 'node:child_process'
 
 /**
  * @from https://stackoverflow.com/a/61703141
@@ -23,22 +22,22 @@ export const terminateTask = async (taskName: string, dependsOnTaskName?: string
     if (isTaskExecuting(taskName)) await vscode.commands.executeCommand('workbench.action.tasks.terminate', taskName)
 }
 
-export const executeProgram = (filename: string, stdin: string, args?: readonly string[], cwd?: string): [ChildProcessWithoutNullStreams, Promise<{
-    stdout: string
-    stderr: string
-    exitCode: number
-}>] => {
+export const executeProgram = (filename: string, stdin: string, args?: readonly string[], cwd?: string) => {
     const child = spawn(filename, args, { cwd })
-    return [child, new Promise(resolve => {
-        let stdout = ''
-        let stderr = ''
-        
-        child.stdout.on('data', (data) => {
-            stdout += data
+    return [child, new Promise<{
+        stdout: ArrayBuffer[],
+        stderr: ArrayBuffer[],
+        exitCode: number
+    }>(resolve => {
+        const stdout: ArrayBuffer[] = []
+        const stderr: ArrayBuffer[] = []
+
+        child.stdout.on('data', (data: Buffer) => {
+            stdout.push(data.buffer)
         })
 
-        child.stderr.on('data', (data) => {
-            stderr += data
+        child.stderr.on('data', (data: Buffer) => {
+            stderr.push(data.buffer)
         })
 
         child.on('close', (code) => {
@@ -51,5 +50,5 @@ export const executeProgram = (filename: string, stdin: string, args?: readonly 
 
         if (stdin) child.stdin.write(stdin)
         child.stdin.end()
-    })]
+    })] as const
 }

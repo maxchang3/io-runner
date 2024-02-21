@@ -3,6 +3,7 @@ import type { DebugConfiguration } from 'vscode'
 export interface IORunneronfig {
     launchMap: Record<string, string[] | undefined>
     launchInterpreter: Record<string, string | undefined>
+    defaultEncoding: string
 }
 
 export interface LaunchConfiguration extends DebugConfiguration {

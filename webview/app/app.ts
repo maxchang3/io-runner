@@ -9,8 +9,6 @@ import type { Owner, IORunneronfig } from "../types"
 
 const DEFAULT_STATE = { selectedTaskIndex: 0, input: "", output: "" }
 
-const decoder = new TextDecoder('utf-8')
-
 export enum RUNNER_STATUS {
     ready,
     running
@@ -18,6 +16,7 @@ export enum RUNNER_STATUS {
 
 export class App extends FoundationElement {
     vscode: WebviewApi<unknown>
+    decoder: TextDecoder
     taskSelectorEl!: TaskSelector
     inputEl!: CodeMirror
     outputEl!: CodeMirror
@@ -34,6 +33,7 @@ export class App extends FoundationElement {
         super()
         this.vscode = acquireVsCodeApi()
         this.postCommand = postCommandToOwner(this.vscode)
+        this.decoder = new TextDecoder('utf-8')
     }
     public connectedCallback() {
         super.connectedCallback()
@@ -42,8 +42,9 @@ export class App extends FoundationElement {
     onVSCodeMessage(event: MessageEvent<Owner.CommandMessage>) {
         return recieveCommandFromOwner(event, {
             init: (data) => {
-                const { launchMap } = data
+                const { launchMap, defaultEncoding } = data
                 this.launchMap = launchMap
+                if (defaultEncoding != "utf-8") this.decoder = new TextDecoder(defaultEncoding)
             },
             changeDoc: ({ filename, ext }) => {
                 if (!this.launchMap) throw new Error('launchMap is not initialized')
@@ -86,12 +87,12 @@ export class App extends FoundationElement {
             },
             endRun: ({ stdout, exitCode, time }) => {
                 this.status = RUNNER_STATUS.ready
-                this.outputEl.value = stdout
+                this.outputEl.value = stdout.map(buffer => this.decoder.decode(buffer)).join('')
                 this.outputEl.insert(`\n--------\nexit with code ${exitCode} in ${((time) / 1000).toFixed(3)}s`)
             },
             stdout: (data) => {
                 if (this.status === RUNNER_STATUS.ready) return
-                this.outputEl.insert(decoder.decode(data))
+                this.outputEl.insert(this.decoder.decode(data))
             }
         })
     }
