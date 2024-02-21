@@ -8,6 +8,7 @@ export const RunCommand = (provider: RunnerPanelProvider): CommandParameters => 
     () => {
         const view = provider.getWebviewView()
         if (!view) return
+        vscode.commands.executeCommand("io-runner.panel.focus")
         ViewContext.setRunning(true)
         const postCommand = postCommandToView(view)
         postCommand.prepareRun()
