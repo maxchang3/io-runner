@@ -1,5 +1,6 @@
 import { EventEmitter } from "node:stream"
-import { ConfigManager, executeProgram, executeTask, terminateTask } from "."
+import { ConfigManager } from "."
+import { executeProgram, executeTask, terminateTask } from "@/utils"
 import type { ComputedLaunchConfiguration } from "@/types"
 import type { ChildProcessWithoutNullStreams } from 'node:child_process'
 

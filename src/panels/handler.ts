@@ -1,5 +1,6 @@
 import * as vscode from "vscode"
-import { Runner, ConfigManager, logger, postCommandToView, recieveCommandFromView, ViewContext } from "@/utils"
+import { Runner, ConfigManager, logger } from "@/libs"
+import { postCommandToView, recieveCommandFromView, ViewContext } from "@/utils"
 import type { CommandMessageSender } from "@/utils"
 import { TextDecoder } from "util"
 
