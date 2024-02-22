@@ -2,7 +2,8 @@ import * as vscode from "vscode"
 import { Runner, config, logger } from "@/libs"
 import { getCommandSender, recieveCommandFromView, ViewContext } from "@/utils"
 import type { CommandMessageSender } from "@/utils"
-import { TextDecoder } from "util"
+
+const decoder = new TextDecoder(config.extensionConfigs.defaultEncoding)
 
 const getFilenameAndExt = (editor?: vscode.TextEditor) => [editor?.document.fileName || "", editor?.document.fileName.split(".").pop() || ""] as const
 
@@ -14,9 +15,8 @@ const changeDoc = (commandSender: CommandMessageSender, editor?: vscode.TextEdit
 
 export const init = async (view: vscode.Webview) => {
     const commandSender = getCommandSender(view)
-    const decoder = new TextDecoder(config.extensionConfigs.defaultEncoding)
     registerEvents(view, commandSender)
-    handleWebviewCommand(view, commandSender, decoder)
+    handleWebviewCommand(view, commandSender)
     commandSender.init(config.extensionConfigs)
     changeDoc(commandSender, vscode.window.activeTextEditor)
 }
@@ -43,7 +43,6 @@ const registerEvents = (
 const handleWebviewCommand = (
     view: vscode.Webview,
     commandSender: CommandMessageSender,
-    decoder: TextDecoder
 ) => {
     let runner: Runner
     recieveCommandFromView(view, {
