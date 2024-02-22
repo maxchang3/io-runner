@@ -79,7 +79,7 @@ You need to add the following to io-runner.launchMap:
 }
 ```
 
-When you open the IO Runner panel in a C/C++ file, you can choose `(lldb) Launch` to start the process. The e x t en si o n will automatically execute the `buildG++` task (preLaunchTask), then run the output file specified in the program field. Finally, it will execute the `removeDevFolder` task (postDebugTask).
+When you open the IO Runner panel in a C/C++ file, you can choose `(lldb) Launch` to start the process. The extension will automatically execute the `buildG++` task (preLaunchTask), then run the output file specified in the program field. Finally, it will execute the `removeDevFolder` task (postDebugTask).
 
 
 ### Interpreted Languages
