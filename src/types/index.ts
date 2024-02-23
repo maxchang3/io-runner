@@ -1,3 +1,3 @@
 export * from './commands'
 export * from './config'
-export * from "./communication"
+export * from './message'

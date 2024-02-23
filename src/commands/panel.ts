@@ -1,6 +1,6 @@
 import * as vscode from 'vscode'
 import { ViewContext, getCommandSender } from '@/utils'
-import type { CommandParameters } from '@/types/commands'
+import type { CommandParameters } from '@/types'
 import type { RunnerPanelProvider } from '@/panels/RunnerPanel'
 
 export const RunCommand = (provider: RunnerPanelProvider): CommandParameters => [
