@@ -4,10 +4,10 @@ type LogLevel = "DEBUG" | "INFO" | "WARN" | "ERROR" | "NONE"
 
 class Logger {
     private static instance: Logger | null = null
-    private logChannel: vscode.OutputChannel
+    private outputChannel: vscode.OutputChannel
 
     private constructor() {
-        this.logChannel = vscode.window.createOutputChannel('IO Runner', { log: true })
+        this.outputChannel = vscode.window.createOutputChannel('IO Runner', { log: true })
     }
 
     public static getInstance(): Logger {
@@ -18,15 +18,15 @@ class Logger {
     }
 
     public clear() {
-        this.logChannel.clear()
+        this.outputChannel.clear()
     }
 
     public show(preserveFocus: boolean = false) {
-        this.logChannel.show(preserveFocus)
+        this.outputChannel.show(preserveFocus)
     }
 
     public appendLine(level: LogLevel, message: string) {
-        this.logChannel.append(`[${level}] ${message}\n`)
+        this.outputChannel.append(`[${level}] ${message}\n`)
     }
 
     public info(message: string) {
