@@ -18,7 +18,8 @@ class Logger {
     }
 
     public clear() {
-        this.outputChannel.clear()
+        // this.outputChannel.clear() can not entirely clear 
+        vscode.commands.executeCommand("workbench.output.action.clearOutput")
     }
 
     public show(preserveFocus: boolean = false) {
@@ -34,8 +35,9 @@ class Logger {
     }
 
     public showError(errorMessage: string) {
-        this.appendLine("ERROR", errorMessage)
         this.show(true)
+        this.clear()
+        this.appendLine("ERROR", errorMessage)
     }
 }
 
