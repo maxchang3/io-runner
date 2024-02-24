@@ -1,7 +1,7 @@
 import { template } from "./app.template"
 import { styles } from "./app.style"
 import { attr } from "@microsoft/fast-element"
-import { getCommandSender, recieveCommandFromOwner } from "../utils/message"
+import { createCommandSender, recieveCommandFromOwner } from "../utils/message"
 import { FoundationElement, FoundationElementDefinition } from "@microsoft/fast-foundation"
 import type { CommandSender } from "../utils/message"
 import type { WebviewApi } from "vscode-webview"
@@ -33,7 +33,7 @@ export class App extends FoundationElement {
     constructor() {
         super()
         this.vscode = acquireVsCodeApi()
-        this.commandSender = getCommandSender(this.vscode)
+        this.commandSender = createCommandSender(this.vscode)
         this.decoder = new TextDecoder('utf-8')
     }
     public connectedCallback() {

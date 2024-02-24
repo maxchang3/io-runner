@@ -8,7 +8,7 @@ export type CommandSender = {
             : (data: Webview.CommandData[T]) => ReturnType<WebviewApi<unknown>["postMessage"]>
 }
 
-export const getCommandSender = (vscode: WebviewApi<unknown>) => new Proxy({} as CommandSender, {
+export const createCommandSender = (vscode: WebviewApi<unknown>) => new Proxy({} as CommandSender, {
     get: function <T extends Webview.Command>(_: CommandSender, command: T) {
         return (data: Webview.CommandData[T]) => vscode.postMessage({ command, data })
     }

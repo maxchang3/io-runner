@@ -1,30 +1,27 @@
 import * as vscode from "vscode"
 import { Runner, config, logger } from "@/libs"
-import { getCommandSender, recieveCommandFromView, ViewContext } from "@/utils"
-import type { CommandMessageSender } from "@/utils"
+import { createCommandSender, recieveCommandFromView, ViewContext } from "@/utils"
+import type { CommandSender } from "@/utils"
 
 const decoder = new TextDecoder(config.extensionConfigs.defaultEncoding)
 
 const getFilenameAndExt = (editor?: vscode.TextEditor) => [editor?.document.fileName || "", editor?.document.fileName.split(".").pop() || ""] as const
 
-const changeDoc = (commandSender: CommandMessageSender, editor?: vscode.TextEditor,) => {
+const changeDoc = (commandSender: CommandSender, editor?: vscode.TextEditor,) => {
     const [filename, ext] = getFilenameAndExt(editor)
     if (editor) commandSender.changeDoc({ filename, ext })
     ViewContext.setRunable(!!config.extensionConfigs.launchMap[ext])
 }
 
 export const init = async (view: vscode.Webview) => {
-    const commandSender = getCommandSender(view)
-    registerEvents(view, commandSender)
+    const commandSender = createCommandSender(view)
+    registerEvents(commandSender)
     handleWebviewCommand(view, commandSender)
     commandSender.init(config.extensionConfigs)
     changeDoc(commandSender, vscode.window.activeTextEditor)
 }
 
-const registerEvents = (
-    view: vscode.Webview,
-    commandSender: CommandMessageSender,
-) => {
+const registerEvents = (commandSender: CommandSender,) => {
     vscode.window.onDidChangeActiveTextEditor(editor => {
         changeDoc(commandSender, editor)
     })
@@ -42,7 +39,7 @@ const registerEvents = (
 
 const handleWebviewCommand = (
     view: vscode.Webview,
-    commandSender: CommandMessageSender,
+    commandSender: CommandSender,
 ) => {
     let runner: Runner
     recieveCommandFromView(view, {
