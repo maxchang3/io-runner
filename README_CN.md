@@ -49,6 +49,14 @@
 }
 ```
 
+### `io-runner.defaultEncoding`
+
+输入输出的默认编码。如果你使用的是非英语的 Windows 系统，你可能需要将其设置为对应系统语言的编码，以显示正确的语言字符。
+
+例如，简体中文用户可能需要将其设置为 `gbk`。日语用户可能需要将其设置为 `shift_jis`。
+
+可以设置的值及其说明可以在设置(UI)中直接选择。你也可以查看 [TextDecoder: encoding property](https://developer.mozilla.org/en-US/docs/Web/API/TextDecoder/encoding) 或 [package.json](https://github.com/maxchang3/io-runner/blob/main/package.json#L36) 获得更详细的内容。
+
 ### 实例
 
 #### 编译型语言

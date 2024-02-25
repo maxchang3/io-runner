@@ -51,6 +51,14 @@ Map the type of launch configuration to the interpreter for interpreted language
 }
 ```
 
+### `io-runner.defaultEncoding`
+
+Default encoding for input/output. If you are using Windows with non-English language, you may need to set it to the encoding corresponding to your system language to display the correct language characters.
+
+For example, Simplified Chinese users may need to set it to `gbk`. Japanese users may need to set it to `shift_jis`.
+
+The values and their explanations can be selected directly in the settings(UI). You can also refer to [TextDecoder: encoding property](https://developer.mozilla.org/en-US/docs/Web/API/TextDecoder/encoding) or [package.json](https://github.com/maxchang3/io-runner/blob/main/package.json#L36) for more detailed information.
+
 ## Examples
 
 ### Compiled Languages
