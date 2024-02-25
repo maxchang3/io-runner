@@ -33,7 +33,7 @@ devDependencies:
     version: 1.86.0
   '@types/vscode-webview':
     specifier: ^1.57.2
-    version: 1.57.2
+    version: 1.57.5
   '@vscode/vsce':
     specifier: ^2.19.0
     version: 2.24.0
@@ -515,8 +515,8 @@ packages:
       undici-types: 5.26.5
     dev: true
 
-  /@types/vscode-webview@1.57.2:
-    resolution: {integrity: sha512-RpkIso3+FVoi9hFwHj9uBFO+9p8PGym0LnLJ9Yabo9mUJaV39CzOxz6EVtHg8AidA9hAf4cVmG0c+l9pvw6Lbw==}
+  /@types/vscode-webview@1.57.5:
+    resolution: {integrity: sha512-iBAUYNYkz+uk1kdsq05fEcoh8gJmwT3lqqFPN7MGyjQ3HVloViMdo7ZJ8DFIP8WOK74PjOEilosqAyxV2iUFUw==}
     dev: true
 
   /@types/vscode@1.86.0:
