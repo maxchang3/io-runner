@@ -42,7 +42,7 @@ devDependencies:
     version: 9.1.0
   pnpm:
     specifier: ^8.6.8
-    version: 8.6.8
+    version: 8.15.4
   tsup:
     specifier: ^8.0.0
     version: 8.0.2(typescript@5.1.3)
@@ -1643,8 +1643,8 @@ packages:
       pathe: 1.1.0
     dev: true
 
-  /pnpm@8.6.8:
-    resolution: {integrity: sha512-OtrCRUE7VqRyKly9E3gfExZHOAHtFDpmulyVFKrnl3v/n2xJckdueVumWJqUA5FHxcRP/T42r8P8CDr9duPP9w==}
+  /pnpm@8.15.4:
+    resolution: {integrity: sha512-C9Opvp6w6aaSZ23uwAowO6IYuiedmSQUdWFrOY267t0RFG+SwoQ0WPVXsdEn4J1MFx4QW9zWthACs5aFqAFrng==}
     engines: {node: '>=16.14'}
     hasBin: true
     dev: true
