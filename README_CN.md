@@ -17,10 +17,10 @@
 此扩展可能还存在以下问题有待解决：
 
 * [ ] 由于执行 VSCode 的原生任务，这比直接运行命令要慢的多
-    * 可能选择通过解析 task 配置手动执行
+    - 可能选择通过解析 task 配置手动执行
 * [ ] 引入了 CodeMirror 作为编辑器，但是似乎是不必要的
-    * 可能通过 textarea 模拟部分特性即可，但是对于大文本需要引入虚拟视图/行号机制
-    * 祈求 VSCode 提供 Webview 使用原生编辑器的特性
+    - 可能通过 textarea 模拟部分特性即可，但是对于大文本需要引入虚拟视图/行号机制
+    - 祈求 VSCode 提供 Webview 使用原生编辑器的特性
 * [ ] 文件执行的暂停机制不够优雅
 
 ## 配置说明
@@ -53,11 +53,19 @@
 
 输入输出的默认编码。如果你使用的是非英语的 Windows 系统，你可能需要将其设置为对应系统语言的编码，以显示正确的语言字符。
 
-例如，简体中文用户可能需要将其设置为 `gbk`。日语用户可能需要将其设置为 `shift_jis`。
+例如，简体中文用户可能需要将其设置为 `gbk` 。日语用户可能需要将其设置为 `shift_jis` 。
 
 可以设置的值及其说明可以在设置(UI)中直接选择。你也可以查看 [TextDecoder: encoding property](https://developer.mozilla.org/en-US/docs/Web/API/TextDecoder/encoding) 或 [package.json](https://github.com/maxchang3/io-runner/blob/main/package.json#L36) 获得更详细的内容。
 
 ### 实例
+
+为了更好的使用体验，最好在 `tasks.json` 的对应任务中，将 `presentation` 中的 `reveal` 设置为 `slient` 。
+
+```jsonc
+     "presentation": {
+        "reveal": "never"
+      },
+```
 
 #### 编译型语言
 
@@ -121,9 +129,9 @@
 
 ## 命令
 
-- `io-runner.run` - 执行当前文件
-- `io-runner.stop` - 停止当前执行
-- `io-runner.panel.focus` - 聚焦 IO Runner 面板
+* `io-runner.run` - 执行当前文件
+* `io-runner.stop` - 停止当前执行
+* `io-runner.panel.focus` - 聚焦 IO Runner 面板
 
 可以通过绑定快捷键增加执行效率。
 

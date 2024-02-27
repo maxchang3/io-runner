@@ -61,6 +61,14 @@ The values and their explanations can be selected directly in the settings(UI). 
 
 ## Examples
 
+For a better experience, it is better to set `reveal` in `presentation` to `slient` in the corresponding task in `tasks.json`.
+
+```jsonc
+    "presentation": {
+        "reveal": "never"
+    }, 
+```
+
 ### Compiled Languages
 
 For compiled languages, take C/C++ as an example， if you have the following launch configuration:
