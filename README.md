@@ -138,7 +138,7 @@ Now, in a Python file, when you open the IO Runner panel, you can choose `Python
 
 You can increase efficiency by binding these commands to shortcut keys.
 
-## Related Project
+## Credits
 
 The project is heavily inspired by [CmdBlockZQG](https://github.com/CmdBlockZQG/)'s [OI Runner](https://github.com/CmdBlockZQG/oi-runner/).
 

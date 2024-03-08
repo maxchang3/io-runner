@@ -135,7 +135,7 @@
 
 可以通过绑定快捷键增加执行效率。
 
-## 相关项目
+## 致谢
 
 此项目大程度地受到 [CmdBlockZQG](https://github.com/CmdBlockZQG/) 的 [OI Runner](https://github.com/CmdBlockZQG/oi-runner/) 启发。
 
