@@ -117,6 +117,7 @@
               "description": "launch type to interpreter"
             },
             "default": {
+              "debugpy": "python",
               "python": "python",
               "node": "node"
             }
@@ -133,7 +134,8 @@
             },
             "default": {
               "py": [
-                "Python: Current File"
+                "Python: Current File",
+                "Python Debugger: Current File"
               ],
               "c": [
                 "(lldb) Launch",
