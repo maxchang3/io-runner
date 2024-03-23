@@ -28,12 +28,12 @@ export class Runner extends EventEmitter {
     private stdin: string
     private launchConfig: ComputedLaunchConfiguration
     private preLaunchTask?: string
-    private postLaunchTask?: string
+    private postDebugTask?: string
     constructor(launchConfig: ComputedLaunchConfiguration, stdin: string) {
         super()
         this.launchConfig = launchConfig
         this.preLaunchTask = launchConfig.preLaunchTask
-        this.postLaunchTask = launchConfig.postLaunchTask
+        this.postDebugTask = launchConfig.postDebugTask
         this.stdin = stdin
     }
     public on<E extends keyof EventDataType>(eventName: E, listener: EventListener<E>) {
@@ -68,7 +68,7 @@ export class Runner extends EventEmitter {
                 break
             case RUNNER_STATUS.postDebugTask:
                 if (this.checkStatus()) return
-                if (this.postLaunchTask) await executeTask(this.postLaunchTask)
+                if (this.postDebugTask) await executeTask(this.postDebugTask)
                 this.status = RUNNER_STATUS.ready
                 break
         }
@@ -86,8 +86,8 @@ export class Runner extends EventEmitter {
             await terminateTask(this.preLaunchTask, taskConfigs?.get(this.preLaunchTask)?.dependsOn)
         } else if (this.status === RUNNER_STATUS.running) {
             this.child?.kill()
-        } else if (this.status === RUNNER_STATUS.postDebugTask && this.postLaunchTask) {
-            await terminateTask(this.postLaunchTask, taskConfigs?.get(this.postLaunchTask)?.dependsOn)
+        } else if (this.status === RUNNER_STATUS.postDebugTask && this.postDebugTask) {
+            await terminateTask(this.postDebugTask, taskConfigs?.get(this.postDebugTask)?.dependsOn)
         }
         this.status = RUNNER_STATUS.ready
     }
