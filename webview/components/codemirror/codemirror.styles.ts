@@ -32,7 +32,8 @@ import {
    editorFontFamily,
    editorLineHighlightBorder,
    editorLineNumberActiveForeground,
-   editorLineNumberForeground
+   editorLineNumberForeground,
+   selectionHighlightBackground
 } from '../../designTokens/editor'
 import { css } from '@microsoft/fast-element'
 export const styles = css`
@@ -118,7 +119,11 @@ export const styles = css`
    .cm-editor .cm-focused .cm-selectionBackground,
    .cm-selectionBackground,
    .cm-content ::selection { 
+      border-radius: 3px;
       background-color: ${listActiveSelectionBackground} !important;
+   }
+   .cm-selectionMatch {
+      background-color: ${selectionHighlightBackground} !important;
    }
    .cm-panel {
       user-select: none;

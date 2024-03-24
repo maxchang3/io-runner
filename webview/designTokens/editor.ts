@@ -21,3 +21,8 @@ export const editorLineNumberActiveForeground = createDesignToken(
     'editorLineNumber-activeForeground',
     '--vscode-editorLineNumber-activeForeground'
 ).withDefault('#cccccc')
+
+export const selectionHighlightBackground = createDesignToken(
+    'selectionHighlight-background',
+    '--vscode-editor-selectionHighlightBackground'
+).withDefault('rgba(173, 214, 255, 0.15)')
