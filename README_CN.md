@@ -57,6 +57,14 @@
 
 可以设置的值及其说明可以在设置(UI)中直接选择。你也可以查看 [TextDecoder: encoding property](https://developer.mozilla.org/en-US/docs/Web/API/TextDecoder/encoding) 或 [package.json](https://github.com/maxchang3/io-runner/blob/main/package.json#L36) 获得更详细的内容。
 
+### `io-runner.timeout`
+
+程序运行的最大时间。如果程序在指定的时间内没有完成，它将被强制终止。
+
+单位：毫秒
+
+默认值： `10000` （10 秒）
+
 ### 实例
 
 为了更好的使用体验，最好在 `tasks.json` 的对应任务中，将 `presentation` 中的 `reveal` 设置为 `slient` 。
