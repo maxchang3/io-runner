@@ -1,9 +1,9 @@
-import { IORunneronfig } from "./config"
+import { IORunnerConfig } from "./config"
 
 
 export namespace Owner {
     export type CommandData = {
-        init: IORunneronfig,
+        init: IORunnerConfig,
         changeDoc: {
             filename: string
             ext: string
@@ -14,7 +14,8 @@ export namespace Owner {
         endRun: {
             stdout: ArrayBuffer[]
             exitCode: number,
-            time: number
+            time: number,
+            isTimeout: boolean
         },
         stdout: ArrayBuffer
     }

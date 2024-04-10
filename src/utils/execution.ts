@@ -39,12 +39,15 @@ interface ChildProcess extends ChildProcessWithoutNullStreams {
     stderr: IReadable
 }
 
-export const executeProgram = (filename: string, stdin: string, args?: readonly string[], cwd?: string) => {
-    const child: ChildProcess = spawn(filename, args, { cwd })
+export const executeProgram = (filename: string, stdin: string, args?: readonly string[], cwd?: string, timeout?: number) => {
+    let signal: AbortSignal | undefined
+    if (timeout) signal = AbortSignal.timeout(timeout)
+    const child: ChildProcess = spawn(filename, args, { cwd, signal })
     return [child, new Promise<{
         stdout: ArrayBuffer[],
         stderr: ArrayBuffer[],
-        exitCode: number
+        exitCode: number,
+        isTimeout: boolean
     }>(resolve => {
         const stdout: ArrayBuffer[] = []
         const stderr: ArrayBuffer[] = []
@@ -57,11 +60,12 @@ export const executeProgram = (filename: string, stdin: string, args?: readonly 
             stderr.push(data.buffer)
         })
 
-        child.on('close', (code) => {
+        child.on('close', (code, signal) => {
             resolve({
                 stdout,
                 stderr,
-                exitCode: code || 0
+                exitCode: code || 0,
+                isTimeout: !!(signal && signal === "SIGTERM")
             })
         })
 

@@ -6,7 +6,7 @@ import { FoundationElement, FoundationElementDefinition } from "@microsoft/fast-
 import type { CommandSender } from "../utils/message"
 import type { WebviewApi } from "vscode-webview"
 import type { TaskSelector, CodeMirror } from "../components"
-import type { Owner, IORunneronfig } from "../types"
+import type { Owner, IORunnerConfig } from "../types"
 
 const DEFAULT_STATE = { selectedTaskIndex: 0, input: "", output: "" }
 
@@ -21,7 +21,7 @@ export class App extends FoundationElement {
     taskSelectorEl!: TaskSelector
     inputEl!: CodeMirror
     outputEl!: CodeMirror
-    launchMap?: IORunneronfig["launchMap"]
+    launchMap?: IORunnerConfig["launchMap"]
     docState: Map<string, {
         selectedTaskIndex: number,
         input: string,
@@ -86,10 +86,11 @@ export class App extends FoundationElement {
                 this.status = RUNNER_STATUS.ready
                 this.commandSender.stop()
             },
-            endRun: ({ stdout, exitCode, time }) => {
+            endRun: ({ stdout, exitCode, time, isTimeout }) => {
                 this.status = RUNNER_STATUS.ready
                 this.outputEl.value = stdout.map(buffer => this.decoder.decode(buffer)).join('')
                 this.outputEl.insert(`\n--------\nexit with code ${exitCode} in ${((time) / 1000).toFixed(3)}s`)
+                if (isTimeout) this.outputEl.insert(`\nexit with timeout`)
             },
             stdout: (data) => {
                 if (this.status === RUNNER_STATUS.ready) return

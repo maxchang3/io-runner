@@ -55,12 +55,12 @@ const handleWebviewCommand = (
                 commandSender.stopView()
                 return
             }
-            runner = new Runner(targetLaunch, stdin)
+            runner = new Runner(targetLaunch, stdin, config.extensionConfigs.timeout)
             runner.run()
             runner.on("stdout", (data) => {
                 commandSender.stdout(data.buffer)
             })
-            runner.on("end", ({ stdout, stderr, exitCode }) => {
+            runner.on("end", ({ stdout, stderr, exitCode, isTimeout }) => {
                 if (stderr.length !== 0) {
                     logger.showError(`STDERR: ${stderr.map(buffer => decoder.decode(buffer)).join("")}`)
                     ViewContext.setRunning(false)
@@ -71,7 +71,8 @@ const handleWebviewCommand = (
                 commandSender.endRun({
                     stdout,
                     exitCode,
-                    time: timeEnd - timeStart
+                    time: timeEnd - timeStart,
+                    isTimeout
                 })
                 ViewContext.setRunning(false)
             })

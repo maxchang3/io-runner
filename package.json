@@ -109,6 +109,11 @@
             ],
             "default": "utf-8"
           },
+          "io-runner.timeout": {
+            "description": "Timeout in milliseconds",
+            "type": "number",
+            "default": 10000
+          },
           "io-runner.launchInterpreter": {
             "description": "Mapping launch type to interpreter",
             "type": "object",

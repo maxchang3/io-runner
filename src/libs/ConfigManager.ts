@@ -1,11 +1,11 @@
 import * as vscode from 'vscode'
 import { replaceVariables } from '@c4312/vscode-variables'
-import type { ComputedLaunchConfiguration, IORunneronfig, LaunchConfiguration } from '@/types/config'
+import type { ComputedLaunchConfiguration, IORunnerConfig, LaunchConfiguration } from '@/types/config'
 
 class ConfigManager {
     private static instance: ConfigManager | null = null
     private folder?: vscode.WorkspaceFolder
-    public extensionConfigs: IORunneronfig
+    public extensionConfigs: IORunnerConfig
     public launchConfigs: Map<string, ComputedLaunchConfiguration>
     public taskConfigs: Map<string, vscode.TaskDefinition>
     private constructor(folder?: vscode.WorkspaceFolder) {
@@ -60,7 +60,7 @@ class ConfigManager {
     }
 
     private resolveExtensionConfigs() {
-        return vscode.workspace.getConfiguration().get<IORunneronfig>('io-runner')!
+        return vscode.workspace.getConfiguration().get<IORunnerConfig>('io-runner')!
     }
 
     private resolveTaskConfigs() {

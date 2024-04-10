@@ -15,7 +15,8 @@ type EventDataType = {
     end: {
         stdout: ArrayBuffer[]
         stderr: ArrayBuffer[]
-        exitCode: number
+        exitCode: number,
+        isTimeout: boolean
     }
     stdout: Buffer
 }
@@ -29,12 +30,14 @@ export class Runner extends EventEmitter {
     private launchConfig: ComputedLaunchConfiguration
     private preLaunchTask?: string
     private postDebugTask?: string
-    constructor(launchConfig: ComputedLaunchConfiguration, stdin: string) {
+    private timeout?: number
+    constructor(launchConfig: ComputedLaunchConfiguration, stdin: string, timeout?: number) {
         super()
         this.launchConfig = launchConfig
         this.preLaunchTask = launchConfig.preLaunchTask
         this.postDebugTask = launchConfig.postDebugTask
         this.stdin = stdin
+        this.timeout = timeout
     }
     public on<E extends keyof EventDataType>(eventName: E, listener: EventListener<E>) {
         return super.on(eventName, listener)
@@ -55,14 +58,14 @@ export class Runner extends EventEmitter {
                 if (this.checkStatus()) return
                 const { program, cwd, args } = this.launchConfig.computeVariables()
                 if (this.checkStatus()) return
-                const [child, programExecution] = executeProgram(program, this.stdin, args, cwd)
+                const [child, programExecution] = executeProgram(program, this.stdin, args, cwd, this.timeout)
                 child.stdout.on("data", (data) => this.emit("stdout", data))
                 if (this.checkStatus()) return
                 this.child = child
                 if (this.checkStatus()) return
-                const { stdout, stderr, exitCode } = await programExecution
+                const { stdout, stderr, exitCode, isTimeout } = await programExecution
                 if (this.checkStatus()) return
-                this.emit("end", { stdout, stderr, exitCode })
+                this.emit("end", { stdout, stderr, exitCode, isTimeout })
                 if (this.checkStatus()) return
                 this.status = RUNNER_STATUS.postDebugTask
                 break

@@ -1,9 +1,10 @@
 import type { DebugConfiguration } from 'vscode'
 
-export interface IORunneronfig {
+export interface IORunnerConfig {
     launchMap: Record<string, string[] | undefined>
     launchInterpreter: Record<string, string | undefined>
     defaultEncoding: string
+    timeout: number
 }
 
 export interface LaunchConfiguration extends DebugConfiguration {
