@@ -222,7 +222,7 @@
     "@types/vscode-webview": "^1.57.2",
     "@vscode/vsce": "^2.19.0",
     "bumpp": "^9.1.0",
-    "pnpm": "^8.6.8",
+    "pnpm": "^9.0.0",
     "tsup": "^8.0.0",
     "typescript": "^5.1.3"
   },
