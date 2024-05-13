@@ -44,7 +44,7 @@ importers:
         version: 9.4.1
       pnpm:
         specifier: ^9.0.0
-        version: 9.1.0
+        version: 9.1.1
       tsup:
         specifier: ^8.0.0
         version: 8.0.2(typescript@5.4.5)
@@ -1128,8 +1128,8 @@ packages:
   pkg-types@1.1.0:
     resolution: {integrity: sha512-/RpmvKdxKf8uILTtoOhAgf30wYbP2Qw+L9p3Rvshx1JZVX+XQNZQFjlbmGHEGIm4CkVPlSn+NXmIM8+9oWQaSA==}
 
-  pnpm@9.1.0:
-    resolution: {integrity: sha512-Z/WHmRapKT5c8FnCOFPVcb6vT3U8cH9AyyK+1fsVeMaq07bEEHzLO6CzW+AD62IaFkcayDbIe+tT+dVLtGEnJA==}
+  pnpm@9.1.1:
+    resolution: {integrity: sha512-FOkVdZwR936sB/q6TQGcGT7IY3Ip5i7Jnu+3zzw7dcZER4grfEhRQkUe46a0CAWc37e3+gNBuXXxLQ92KccRlQ==}
     engines: {node: '>=18.12'}
     hasBin: true
 
@@ -2569,7 +2569,7 @@ snapshots:
       mlly: 1.6.1
       pathe: 1.1.2
 
-  pnpm@9.1.0: {}
+  pnpm@9.1.1: {}
 
   postcss-load-config@4.0.2:
     dependencies:
