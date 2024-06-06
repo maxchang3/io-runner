@@ -32,7 +32,7 @@ importers:
         version: 20.11.22
       '@types/vscode':
         specifier: ^1.78.1
-        version: 1.89.0
+        version: 1.90.0
       '@types/vscode-webview':
         specifier: ^1.57.2
         version: 1.57.5
@@ -423,8 +423,8 @@ packages:
   '@types/vscode-webview@1.57.5':
     resolution: {integrity: sha512-iBAUYNYkz+uk1kdsq05fEcoh8gJmwT3lqqFPN7MGyjQ3HVloViMdo7ZJ8DFIP8WOK74PjOEilosqAyxV2iUFUw==}
 
-  '@types/vscode@1.89.0':
-    resolution: {integrity: sha512-TMfGKLSVxfGfoO8JfIE/neZqv7QLwS4nwPwL/NwMvxtAY2230H2I4Z5xx6836pmJvMAzqooRQ4pmLm7RUicP3A==}
+  '@types/vscode@1.90.0':
+    resolution: {integrity: sha512-oT+ZJL7qHS9Z8bs0+WKf/kQ27qWYR3trsXpq46YDjFqBsMLG4ygGGjPaJ2tyrH0wJzjOEmDyg9PDJBBhWg9pkQ==}
 
   '@uiw/codemirror-extensions-basic-setup@4.22.1':
     resolution: {integrity: sha512-Iz8eFaZBNrwjaAADszOxOv2byDMn4rqob/luuSPAzJjTrSn5KawRXcoNLoWGPGNO6Mils6bIly/g2LaU34otNw==}
@@ -1962,7 +1962,7 @@ snapshots:
 
   '@types/vscode-webview@1.57.5': {}
 
-  '@types/vscode@1.89.0': {}
+  '@types/vscode@1.90.0': {}
 
   '@uiw/codemirror-extensions-basic-setup@4.22.1(@codemirror/autocomplete@6.16.0(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.27.0)(@lezer/common@1.2.1))(@codemirror/commands@6.6.0)(@codemirror/language@6.10.2)(@codemirror/lint@6.5.0)(@codemirror/search@6.5.6)(@codemirror/state@6.4.1)(@codemirror/view@6.27.0)':
     dependencies:
