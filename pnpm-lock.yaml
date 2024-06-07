@@ -22,7 +22,7 @@ importers:
         version: 6.27.0
       '@uiw/codemirror-extensions-basic-setup':
         specifier: ^4.21.21
-        version: 4.22.1(@codemirror/autocomplete@6.16.0(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.27.0)(@lezer/common@1.2.1))(@codemirror/commands@6.6.0)(@codemirror/language@6.10.2)(@codemirror/lint@6.5.0)(@codemirror/search@6.5.6)(@codemirror/state@6.4.1)(@codemirror/view@6.27.0)
+        version: 4.22.2(@codemirror/autocomplete@6.16.0(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.27.0)(@lezer/common@1.2.1))(@codemirror/commands@6.6.0)(@codemirror/language@6.10.2)(@codemirror/lint@6.5.0)(@codemirror/search@6.5.6)(@codemirror/state@6.4.1)(@codemirror/view@6.27.0)
       '@vscode/webview-ui-toolkit':
         specifier: ^1.4.0
         version: 1.4.0(react@18.2.0)
@@ -426,8 +426,8 @@ packages:
   '@types/vscode@1.89.0':
     resolution: {integrity: sha512-TMfGKLSVxfGfoO8JfIE/neZqv7QLwS4nwPwL/NwMvxtAY2230H2I4Z5xx6836pmJvMAzqooRQ4pmLm7RUicP3A==}
 
-  '@uiw/codemirror-extensions-basic-setup@4.22.1':
-    resolution: {integrity: sha512-Iz8eFaZBNrwjaAADszOxOv2byDMn4rqob/luuSPAzJjTrSn5KawRXcoNLoWGPGNO6Mils6bIly/g2LaU34otNw==}
+  '@uiw/codemirror-extensions-basic-setup@4.22.2':
+    resolution: {integrity: sha512-zcHGkldLFN3cGoI5XdOGAkeW24yaAgrDEYoyPyWHODmPiNwybQQoZGnH3qUdzZwUaXtAcLWoAeOPzfNRW2yGww==}
     peerDependencies:
       '@codemirror/autocomplete': '>=6.0.0'
       '@codemirror/commands': '>=6.0.0'
@@ -1964,7 +1964,7 @@ snapshots:
 
   '@types/vscode@1.89.0': {}
 
-  '@uiw/codemirror-extensions-basic-setup@4.22.1(@codemirror/autocomplete@6.16.0(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.27.0)(@lezer/common@1.2.1))(@codemirror/commands@6.6.0)(@codemirror/language@6.10.2)(@codemirror/lint@6.5.0)(@codemirror/search@6.5.6)(@codemirror/state@6.4.1)(@codemirror/view@6.27.0)':
+  '@uiw/codemirror-extensions-basic-setup@4.22.2(@codemirror/autocomplete@6.16.0(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.27.0)(@lezer/common@1.2.1))(@codemirror/commands@6.6.0)(@codemirror/language@6.10.2)(@codemirror/lint@6.5.0)(@codemirror/search@6.5.6)(@codemirror/state@6.4.1)(@codemirror/view@6.27.0)':
     dependencies:
       '@codemirror/autocomplete': 6.16.0(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.27.0)(@lezer/common@1.2.1)
       '@codemirror/commands': 6.6.0
