@@ -220,7 +220,7 @@
     "@types/node": "^20.0.0",
     "@types/vscode": "^1.78.1",
     "@types/vscode-webview": "^1.57.2",
-    "@vscode/vsce": "^2.19.0",
+    "@vscode/vsce": "^3.0.0",
     "bumpp": "^9.1.0",
     "pnpm": "^9.0.0",
     "tsup": "^8.0.0",
