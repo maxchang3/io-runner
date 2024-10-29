@@ -217,7 +217,7 @@
     "release": "pnpm install && bumpp && pnpm run publish"
   },
   "devDependencies": {
-    "@types/node": "^20.0.0",
+    "@types/node": "^22.0.0",
     "@types/vscode": "^1.78.1",
     "@types/vscode-webview": "^1.57.2",
     "@vscode/vsce": "^3.0.0",
