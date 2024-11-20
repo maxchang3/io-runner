@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> 此插件不能开箱即用，且目前不处于积极维护状态。配置可能会有所变化，详见 [v2计划](https://github.com/maxchang3/io-runner/issues/74)。
+
 # IO Runner <sub>**WIP⚠️**</sub>
 
 <a href="https://marketplace.visualstudio.com/items?itemName=maxchang.io-runner" target="__blank"><img src="https://img.shields.io/visual-studio-marketplace/v/maxchang.io-runner.svg?color=eee&amp;label=VS%20Code%20Marketplace&logo=visual-studio-code" alt="Visual Studio Marketplace Version" /></a> 

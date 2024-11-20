@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> This extension is not ready to use out of the box and is currently not actively maintained. Configurations may change, see [v2 plan](https://github.com/maxchang3/io-runner/issues/74) for details.
+
 # IO Runner <sub>**WIP⚠️**</sub>
 
 [简体中文](./README_CN.md)
